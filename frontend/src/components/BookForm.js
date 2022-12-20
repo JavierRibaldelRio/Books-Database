@@ -37,7 +37,7 @@ class BookForm extends Component {
 
         return (
 
-            <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action="https://mesafd.com" method='get'>
+            <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action="/api/add-book" method='post'>
                 <Row className="mb-3">
 
                     <TextField name='titulo' label='Título' required='true' value={x.titulo} />

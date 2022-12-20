@@ -15,10 +15,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-server": " cd ../backend && flask run",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://127.0.0.1:5000",
   "eslintConfig": {
     "extends": [
       "react-app",
