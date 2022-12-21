@@ -8,6 +8,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from models.models import Libros, db
+from scripts.recibirformlibro import recibir_form_libro
 
 app = Flask(__name__)
 
@@ -19,7 +20,11 @@ db.init_app(app)
 @app.route('/api/add-book', methods=['GET','POST'])
 def add_book():
 
-    libros = Libros(titulo='Ender',idioma='CAste',fecha_inicio="23",fecha_finalizacion='24',autor_id=12)
+    #Obtiene las variables de el cliente
+    print(request.form.get())
+    libro = recibir_form_libro(request)
+
+    # libros = Libros(titulo='Ender',idioma='CAste',fecha_inicio="23",fecha_finalizacion='24',autor_id=12)
 
     libros.save()
     
