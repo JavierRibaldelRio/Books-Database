@@ -4,7 +4,13 @@ from models.models import Libros
 
 def recibir_form_libro(req):
 
-    form = req.recibir_form_libro
+    form = req.form
+
+    def buscar(a):
+         
+        b=req.form.get(a)
+        print(b )
+        return b
 
     titulo = buscar('titulo')
     idioma = buscar('idioma')
@@ -14,7 +20,3 @@ def recibir_form_libro(req):
     fecha_finalizacion= buscar('fecha_finalizacion')
 
     return Libros(titulo=titulo, idioma=idioma, libro_id = libro_id, autor_id= autor_id, fecha_finalizacion=fecha_finalizacion, fecha_inicio= fecha_inicio)
-
-
-    def buscar(a):
-        return req.form.get(a)
