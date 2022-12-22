@@ -27,3 +27,17 @@ class Libros(db.Model):
         db.session.commit()
     pass
 
+# Define el objeto autor
+class Autores(db.Model):
+
+    autor_id = db.Column(db.Integer, primary_key=True)
+    nombre= db.Column(db.Text)
+
+    def __init__(self,  nombre):
+        self.nombre = nombre
+
+    def save(self):
+        if not self.autor_id:
+            db.session.add(self)
+        db.session.commit()
+    pass
