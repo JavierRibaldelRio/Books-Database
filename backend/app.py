@@ -27,8 +27,8 @@ def add_book():
 
 
     #Obtiene las variables de el cliente
-    libro = recibir_form_libro(request);
-print(Autores.query.filter_by(autor_id=autor_id).first())
+    libro = recibir_form_libro(request)
+    print(Autores.query.filter_by(autor_id=12).first())
 
     libro.save()
 
