@@ -12,7 +12,7 @@ class BookForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { validate: false }
+        this.state = { validate: false, }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -29,6 +29,11 @@ class BookForm extends Component {
 
         this.setState({ validate: true })
 
+    }
+
+    componentDidMount() {
+
+        fetch('/api/fetch_autores').then((res) => res.json()).then((data) => { this.setState({ autores: data }) }).catch((err) => console.err('ERROR: ' + err));
     }
 
     render() {

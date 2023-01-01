@@ -2,7 +2,9 @@
 import os
 #Importa la librerias de flask
 
-from flask import Flask, request;
+import json
+
+from flask import Flask, request, jsonify;
 
 #Importa las librerias de sqlAclchemy
 from flask_sqlalchemy import SQLAlchemy
@@ -28,10 +30,29 @@ def add_book():
 
     #Obtiene las variables de el cliente
     libro = recibir_form_libro(request)
-    print(Autores.query.filter_by(autor_id=12).first())
+    resultado = Autores.query.filter_by(autor_id=3).first()
+
 
     libro.save()
 
     
-
     return "Hi World" 
+
+
+#Obtiene una lista de las id's y de los nombres de los autores
+
+@app.route('/api/fetch_autores')
+def fetch_autores():
+    lista = []
+    for u in Autores.query.all():
+        lista.append(u.__dict__.get('nombre'))
+    return lista
+
+@app.route('/api/fetch_lenguas')
+def fetch_lenguas():
+    lista=[]
+
+    for u in Libros.query.all.distinct():
+        print(u.__dict__)
+
+    return "Hola como te encuentasdfjal la kla dl"

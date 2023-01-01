@@ -9,7 +9,6 @@ def recibir_form_libro(req):
     def buscar(a):
          
         b=req.form.get(a)
-        print(b )
         return b
 
     titulo = buscar('titulo')
