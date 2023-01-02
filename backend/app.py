@@ -64,3 +64,19 @@ def fetch_autores():
     res['autores'].sort()
 
     return res
+
+# Deuvleve todos los libros en formato json
+@app.route('/api/fetch_books')
+def fetch_books():
+
+    res = list()
+
+    for u in Libros.query.all():
+
+        dic =  u.__dict__
+
+        del dic['_sa_instance_state']
+
+        res.append(dic); 
+
+    return res
