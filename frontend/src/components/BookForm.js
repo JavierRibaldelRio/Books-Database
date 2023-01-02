@@ -5,6 +5,10 @@ import Row from 'react-bootstrap/Row';
 import DateField from './formcomponents/DateField'
 import TextField from './formcomponents/TextField'
 
+import pasarAMayusPalabra from '../scripts/pasarAMayus'
+
+import { pasarAMayusFrase } from '../scripts/pasarAMayus';
+
 import React, { Component } from 'react';
 
 
@@ -12,7 +16,7 @@ class BookForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { validate: false }
+        this.state = { validate: false, }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -31,6 +35,11 @@ class BookForm extends Component {
 
     }
 
+    componentDidMount() {
+
+        fetch('/api/fetch_autores_idiomas').then((res) => res.json()).then((data) => { this.setState({ autores: data.autores.map(pasarAMayusFrase), idiomas: data.idiomas.map(pasarAMayusPalabra) }) }).catch((err) => console.log('ERROR: ' + err));
+    }
+
     render() {
 
         const x = this.props.libro;
@@ -42,9 +51,9 @@ class BookForm extends Component {
 
                     <TextField name='titulo' label='Título' required='true' value={x.titulo} />
 
-                    <TextField name='idioma' label='Idioma' list={['Checo', 'Gallego']} value={x.idioma} />
+                    <TextField name='idioma' label='Idioma' list={this.state.idiomas || undefined} value={x.idioma} />
 
-                    <TextField name='autor' label="Autor" list={['Laura Gallego', 'C.S. Lewis']} required="true" value={x.autor} />
+                    <TextField name='autor' label="Autor" list={this.state.autores || undefined} required="true" value={x.autor} />
                 </Row>
                 <Row className="mb-3">
 
