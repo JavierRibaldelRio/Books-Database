@@ -30,29 +30,37 @@ def add_book():
 
     #Obtiene las variables de el cliente
     libro = recibir_form_libro(request)
-    resultado = Autores.query.filter_by(autor_id=3).first()
 
-
+    #Guarda el libro
     libro.save()
 
     
     return "Hi World" 
 
 
-#Obtiene una lista de las id's y de los nombres de los autores
+#Obtiene una lista de los idiomas y de los autores
 
-@app.route('/api/fetch_autores')
+@app.route('/api/fetch_autores_idiomas')
 def fetch_autores():
-    lista = []
-    for u in Autores.query.all():
-        lista.append(u.__dict__.get('nombre'))
-    return lista
 
-@app.route('/api/fetch_lenguas')
-def fetch_lenguas():
-    lista=[]
+    # Crea una respuesta en forma de diccionario
+    res = dict()
 
-    for u in Libros.query.all.distinct():
-        print(u.__dict__)
+    #Añade listas a los formularios
+    res['idiomas'] =[]
+    res['autores'] = []
 
-    return "Hola como te encuentasdfjal la kla dl"
+    # Obtiene los datos de la base
+    for u in Libros.query.all():
+        res.get('autores').append(u.__dict__.get('autor'))
+        res.get('idiomas').append(u.__dict__.get('idioma'))
+
+    # Elimina duplicados de las listas
+    res['idiomas'] =list(set(res['idiomas']))
+    res['autores'] =list(set(res['autores']))
+
+    #Ordena las listas
+    res['idiomas'].sort()
+    res['autores'].sort()
+
+    return res
