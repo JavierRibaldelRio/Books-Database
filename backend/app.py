@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify;
 #Importa las librerias de sqlAclchemy
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
-from models.models import Libros, db, Autores
+from models.models import Libros, db
 
 
 from scripts.recibirformlibro import recibir_form_libro

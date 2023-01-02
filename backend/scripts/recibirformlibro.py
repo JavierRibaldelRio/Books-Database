@@ -18,4 +18,8 @@ def recibir_form_libro(req):
     fecha_inicio = buscar('fecha_inicio')
     fecha_finalizacion= buscar('fecha_finalizacion')
 
-    return Libros(titulo=titulo, idioma=idioma, libro_id = libro_id, autor_id= autor_id, fecha_finalizacion=fecha_finalizacion, fecha_inicio= fecha_inicio)
+    return Libros(titulo=titulo.strip().lower(),
+     idioma=idioma.strip().lower(), 
+     libro_id = libro_id,
+      autor= autor.strip().lower(),
+       fecha_finalizacion=fecha_finalizacion, fecha_inicio=fecha_inicio)
