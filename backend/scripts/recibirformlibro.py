@@ -14,9 +14,9 @@ def recibir_form_libro(req):
     titulo = buscar('titulo')
     idioma = buscar('idioma')
     libro_id = buscar('libro_id')
-    autor_id = buscar('autor_id')
-    fecha_inicio = buscar('fecha_inicio')
-    fecha_finalizacion= buscar('fecha_finalizacion')
+    autor = buscar('autor')
+    fecha_inicio = buscar('fechaI')
+    fecha_finalizacion= buscar('fechaF')
 
     return Libros(titulo=titulo.strip().lower(),
      idioma=idioma.strip().lower(), 
