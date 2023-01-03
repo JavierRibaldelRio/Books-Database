@@ -7,15 +7,18 @@ class MostrarLibros extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { data: [] };
+        //En reverse se almacena si en el siguiente filtro hay que invertir el búcle
+        this.state = { data: [], reverse: { libro_id: true, titulo: false, idioma: false, fecha_finalizacion: false, fecha_inicio: false } };
 
         this.ordenarID = this.ordenarID.bind(this);
+        this.ordenarTitulo = this.ordenarTitulo.bind(this);
     }
 
     componentDidMount() {
 
         if (this.props.query === null) {
 
+            //Obtiene los libros
             fetch('/api/fetch_books').then((res) => res.json())
                 .then((data) => this.setState({
                     data: data.map((x) => {
@@ -35,6 +38,25 @@ class MostrarLibros extends Component {
         }
     }
 
+    //Ordena por la id
+    ordenarID() {
+
+        this.setState({ data: this.state.data.sort((a, b) => a.libro_id - b.libro_id) });
+
+        const invertir = this.state.reverse.libro_id;
+
+        this.setState({ reverse: { libro_id: !this.state.reverse.libro_id }, data: (invertir) ? this.state.data.reverse() : this.state.data });
+    }
+
+    ordenarTitulo() {
+        this.setState({ data: this.state.data.sort((a, b) => a.titulo - b.titulo) });
+
+        const invertir = this.state.reverse.titulo;
+
+        console.log('"titulo" :>> ', "titulo");
+        this.setState({ reverse: { titulo: !this.state.reverse.titulo }, data: (invertir) ? this.state.data.reverse() : this.state.data });
+    }
+
 
     render() {
 
@@ -44,7 +66,7 @@ class MostrarLibros extends Component {
             <Table striped responsive>
                 <thead>
                     <th onClick={this.ordenarID}>ID</th>
-                    <th >TÍTULO</th>
+                    <th onClick={this.ordenarTitulo}>TÍTULO</th>
                     <th >AUTOR</th>
                     <th >IDIOMA</th>
                     <th >FECHA INCIO</th>
