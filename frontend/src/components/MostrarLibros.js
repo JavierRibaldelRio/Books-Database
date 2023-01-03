@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Table from 'react-bootstrap/Table';
+import ordenarArrayObjeto from '../scripts/ordenarArrayObjeto';
 import FilaLibros from './FilaLibros';
 
 class MostrarLibros extends Component {
@@ -11,7 +12,11 @@ class MostrarLibros extends Component {
         this.state = { data: [], reverse: { libro_id: true, titulo: false, idioma: false, fecha_finalizacion: false, fecha_inicio: false } };
 
         this.ordenarID = this.ordenarID.bind(this);
+        this.ordenarAutor = this.ordenarAutor.bind(this);
         this.ordenarTitulo = this.ordenarTitulo.bind(this);
+        this.ordenarIdioma = this.ordenarIdioma.bind(this);
+        this.ordenarFechaInicio = this.ordenarFechaInicio.bind(this);
+        this.ordenarFechaFinalizacion = this.ordenarFechaFinalizacion.bind(this);
     }
 
     componentDidMount() {
@@ -22,10 +27,19 @@ class MostrarLibros extends Component {
             fetch('/api/fetch_books').then((res) => res.json())
                 .then((data) => this.setState({
                     data: data.map((x) => {
-                        var y = x;
-                        y.fecha_inicio_date = new Date(x.fecha_inicio);
-                        y.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
 
+                        var mirarSiHayFecha = (s, fe) => typeof s[fe] === 'string' && s[fe] !== '';
+
+                        var y = x;
+
+                        if (mirarSiHayFecha(y, 'fecha_finalizacion')) {
+                            y.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
+                        }
+
+                        if (mirarSiHayFecha(y, 'fecha_inicio')) {
+
+                            y.fecha_inicio_date = new Date(x.fecha_inicio);
+                        }
                         return y;
                     })
                 }))
@@ -38,24 +52,41 @@ class MostrarLibros extends Component {
         }
     }
 
-    //Ordena por la id
-    ordenarID() {
+    //Ordena segun el criterio especificado
 
-        this.setState({ data: this.state.data.sort((a, b) => a.libro_id - b.libro_id) });
+    ordenar(criterio, fecha = false) {
 
-        const invertir = this.state.reverse.libro_id;
+        const invertir = this.state.reverse[criterio];
 
-        this.setState({ reverse: { libro_id: !this.state.reverse.libro_id }, data: (invertir) ? this.state.data.reverse() : this.state.data });
+        var data = this.state.data;
+
+        if (fecha === false) {
+            ordenarArrayObjeto(data, criterio);
+        }
+
+        else {
+            data.sort((a, b) => new Date(a) - new Date(b));
+        }
+
+        if (invertir === true) {
+            data.reverse();
+        }
+
+        this.setState({ reverse: { [criterio]: !invertir }, data: data });
     }
 
-    ordenarTitulo() {
-        this.setState({ data: this.state.data.sort((a, b) => a.titulo - b.titulo) });
 
-        const invertir = this.state.reverse.titulo;
+    // Aplica la función ordenar a acada uno de los criterios
+    ordenarID() { this.ordenar('libro_id'); }
+    ordenarTitulo() { this.ordenar('titulo'); }
+    ordenarAutor() { this.ordenar('autor'); }
+    ordenarIdioma() { this.ordenar('idioma'); }
+    ordenarFechaInicio() { this.ordenar('fecha_inicio', true); }
+    ordenarFechaFinalizacion() { this.ordenar('fecha_finalizacion', true); }
 
-        console.log('"titulo" :>> ', "titulo");
-        this.setState({ reverse: { titulo: !this.state.reverse.titulo }, data: (invertir) ? this.state.data.reverse() : this.state.data });
-    }
+
+
+
 
 
     render() {
@@ -67,10 +98,10 @@ class MostrarLibros extends Component {
                 <thead>
                     <th onClick={this.ordenarID}>ID</th>
                     <th onClick={this.ordenarTitulo}>TÍTULO</th>
-                    <th >AUTOR</th>
-                    <th >IDIOMA</th>
-                    <th >FECHA INCIO</th>
-                    <th >FECHA FINALIZACIÓN</th>
+                    <th onClick={this.ordenarAutor} >AUTOR</th>
+                    <th onClick={this.ordenarIdioma}>IDIOMA</th>
+                    <th onClick={this.ordenarFechaInicio}>FECHA INCIO</th>
+                    <th onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN</th>
                 </thead>
 
                 <tbody>
