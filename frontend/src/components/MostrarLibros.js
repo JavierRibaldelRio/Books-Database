@@ -4,6 +4,10 @@ import Table from 'react-bootstrap/Table';
 import ordenarArrayObjeto from '../scripts/ordenarArrayObjeto';
 import FilaLibros from './FilaLibros';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faCoffee, faSort } from '@fortawesome/free-solid-svg-icons'
+
 
 
 class MostrarLibros extends Component {
@@ -103,11 +107,6 @@ class MostrarLibros extends Component {
     ordenarFechaInicio() { this.ordenar('fecha_inicio_date', true); }
     ordenarFechaFinalizacion() { this.ordenar('fecha_finalizacion_date', true); }
 
-
-
-
-
-
     render() {
 
         const filas = this.state.data.map((x) => <FilaLibros libro={x} key={x.libro_id} />);
@@ -115,22 +114,20 @@ class MostrarLibros extends Component {
         return <>
             <Table striped responsive>
                 <thead>
-                    <th onClick={this.ordenarID}>ID</th>
-                    <th onClick={this.ordenarTitulo}>TÍTULO</th>
-                    <th onClick={this.ordenarAutor} >AUTOR</th>
-                    <th onClick={this.ordenarIdioma}>IDIOMA</th>
-                    <th onClick={this.ordenarFechaInicio}>FECHA INCIO</th>
-                    <th onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN</th>
+                    <tr>
+                        <th onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
+                        <th onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
+                        <th onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
+                        <th onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
+                        <th onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
+                        <th onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
+                    </tr>
                 </thead>
 
                 <tbody>
                     {filas}
                 </tbody>
-
             </Table>
-
-
-
         </>;
     }
 }
