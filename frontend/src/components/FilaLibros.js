@@ -1,4 +1,6 @@
 
+import { pasarAMayusFrase } from "../scripts/pasarAMayus";
+
 function FilaLibros(props) {
 
     const { libro_id, autor, fecha_inicio, fecha_finalizacion, idioma, titulo } = props.libro;
@@ -9,9 +11,9 @@ function FilaLibros(props) {
 
     return <tr>
         <td>{libro_id}</td>
-        <td>{titulo}</td>
-        <td>{autor}</td>
-        <td>{idioma}</td>
+        <td>{pasarAMayusFrase(titulo)}</td>
+        <td>{pasarAMayusFrase(autor)}</td>
+        <td>{pasarAMayusFrase(idioma)}</td>
         <td>{fi}</td>
         <td>{ff}</td>
 

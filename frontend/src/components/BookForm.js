@@ -5,10 +5,6 @@ import Row from 'react-bootstrap/Row';
 import DateField from './formcomponents/DateField'
 import TextField from './formcomponents/TextField'
 
-import pasarAMayusPalabra from '../scripts/pasarAMayus'
-
-import { pasarAMayusFrase } from '../scripts/pasarAMayus';
-
 import React, { Component } from 'react';
 
 
@@ -37,7 +33,7 @@ class BookForm extends Component {
 
     componentDidMount() {
 
-        fetch('/api/fetch_autores_idiomas').then((res) => res.json()).then((data) => { this.setState({ autores: data.autores.map(pasarAMayusFrase), idiomas: data.idiomas.map(pasarAMayusPalabra) }) }).catch((err) => console.log('ERROR: ' + err));
+        fetch('/api/fetch_autores_idiomas').then((res) => res.json()).then((data) => { this.setState({ autores: data.autores, idiomas: data.idiomas }) }).catch((err) => console.log('ERROR: ' + err));
     }
 
     render() {
