@@ -60,7 +60,6 @@ class BookForm extends Component {
                     <DateField name='fechaI' label="Fecha de Inicio" value={x.fechaI} />
                     <DateField name='fechaF' label="Fecha de Finalización" value={x.fechaF} />
                 </Row>
-
                 <Button type="submit">Submit form</Button>
             </Form>
 
