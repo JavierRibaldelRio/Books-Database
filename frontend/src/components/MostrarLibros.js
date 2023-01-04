@@ -4,6 +4,8 @@ import Table from 'react-bootstrap/Table';
 import ordenarArrayObjeto from '../scripts/ordenarArrayObjeto';
 import FilaLibros from './FilaLibros';
 
+
+
 class MostrarLibros extends Component {
     constructor(props) {
         super(props);
@@ -34,11 +36,18 @@ class MostrarLibros extends Component {
 
                         if (mirarSiHayFecha(y, 'fecha_finalizacion')) {
                             y.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
+                        } else {
+                            y.fecha_finalizacion = null;
                         }
 
                         if (mirarSiHayFecha(y, 'fecha_inicio')) {
 
                             y.fecha_inicio_date = new Date(x.fecha_inicio);
+                        }
+
+                        else {
+
+                            y.fecha_inicio = null;
                         }
                         return y;
                     })
@@ -65,7 +74,17 @@ class MostrarLibros extends Component {
         }
 
         else {
-            data.sort((a, b) => new Date(a) - new Date(b));
+            data.sort((a, b) => {
+                if (a[criterio] === undefined) {
+                    return -1;
+                }
+
+                if (b[criterio] === undefined) {
+                    return 1;
+                }
+                console.log('a :>> ', a);
+                return a[criterio].getTime() - b[criterio].getTime()
+            });
         }
 
         if (invertir === true) {
@@ -81,8 +100,8 @@ class MostrarLibros extends Component {
     ordenarTitulo() { this.ordenar('titulo'); }
     ordenarAutor() { this.ordenar('autor'); }
     ordenarIdioma() { this.ordenar('idioma'); }
-    ordenarFechaInicio() { this.ordenar('fecha_inicio', true); }
-    ordenarFechaFinalizacion() { this.ordenar('fecha_finalizacion', true); }
+    ordenarFechaInicio() { this.ordenar('fecha_inicio_date', true); }
+    ordenarFechaFinalizacion() { this.ordenar('fecha_finalizacion_date', true); }
 
 
 
@@ -109,6 +128,9 @@ class MostrarLibros extends Component {
                 </tbody>
 
             </Table>
+
+
+
         </>;
     }
 }
