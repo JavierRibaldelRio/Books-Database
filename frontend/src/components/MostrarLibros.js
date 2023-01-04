@@ -6,7 +6,7 @@ import FilaLibros from './FilaLibros';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { faCoffee, faSort } from '@fortawesome/free-solid-svg-icons'
+import { faSort } from '@fortawesome/free-solid-svg-icons'
 
 
 
