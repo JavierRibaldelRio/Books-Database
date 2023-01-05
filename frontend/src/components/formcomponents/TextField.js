@@ -20,7 +20,7 @@ function TextField(props) {
     //Gener las opciones de la lista
     if (list !== undefined) {
 
-        opciones = list.map((x) => <option class={name} key={x}>{x}</option>)
+        opciones = list.map((x) => <option key={x}>{x}</option>)
 
     }
 
