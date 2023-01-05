@@ -25,7 +25,7 @@ export default FilaLibros;
 
 function transformarFecha(str) {
 
-    if (typeof str === 'string' && str != '') {
+    if (typeof str === 'string' && str !== '') {
         return str.split('-').reverse().join('-') || '';
     }
     return '-';
