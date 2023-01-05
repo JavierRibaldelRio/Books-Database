@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import './index.css';
 import Main from './pages/Main';
 import AddBook from './pages/Add-Book';
 
