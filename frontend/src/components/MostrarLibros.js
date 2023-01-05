@@ -31,34 +31,36 @@ class MostrarLibros extends Component {
 
         if (this.props.query === null) {
 
-            this.setState({ data: json })
+            this.setState({
+                data: json.map
 
             //Obtiene los libros
             // fetch('').then((res) => res.json())
             //     .then((data) => this.setState({
-            //         data: data.map((x) => {
+            /*         data: data.map*/((x) => {
 
-            //             var mirarSiHayFecha = (s, fe) => typeof s[fe] === 'string' && s[fe] !== '';
+                    var mirarSiHayFecha = (s, fe) => typeof s[fe] === 'string' && s[fe] !== '';
 
-            //             var y = x;
+                    var y = x;
 
-            //             if (mirarSiHayFecha(y, 'fecha_finalizacion')) {
-            //                 y.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
-            //             } else {
-            //                 y.fecha_finalizacion = null;
-            //             }
+                    if (mirarSiHayFecha(y, 'fecha_finalizacion')) {
+                        y.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
+                    } else {
+                        y.fecha_finalizacion = null;
+                    }
 
-            //             if (mirarSiHayFecha(y, 'fecha_inicio')) {
+                    if (mirarSiHayFecha(y, 'fecha_inicio')) {
 
-            //                 y.fecha_inicio_date = new Date(x.fecha_inicio);
-            //             }
+                        y.fecha_inicio_date = new Date(x.fecha_inicio);
+                    }
 
-            //             else {
+                    else {
 
-            //                 y.fecha_inicio = null;
-            //             }
-            //             return y;
-            //         })
+                        y.fecha_inicio = null;
+                    }
+                    return y;
+                })
+            });
             //     }))
             //     .catch((err) => console.log('err :>> ', err));
 
