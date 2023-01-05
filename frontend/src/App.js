@@ -1,15 +1,20 @@
 import './App.css';
-import BookForm from './components/BookForm';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import MostrarLibros from './components/MostrarLibros';
+import Main from './pages/Main';
+import AddBook from './pages/Add-Book';
 function App() {
   return (
-    <div>
+    <BrowserRouter>
+      <Routes>
 
-      <MostrarLibros></MostrarLibros>
+        <Route path='/' element={<Main />} >
+          <Route path='/add-book' element={<AddBook />} />
 
-      <BookForm />
-    </div>
+        </Route >
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
