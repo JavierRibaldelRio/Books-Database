@@ -80,3 +80,12 @@ def fetch_books():
         res.append(dic); 
 
     return res
+
+# Obtiene los datos de un libro
+@app.route('/api/fetch-book/<id>')
+def fetch_book(id):
+
+    libro = Libros.query.get(id).__dict__
+    del libro['_sa_instance_state']
+
+    return libro
