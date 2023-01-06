@@ -52,8 +52,8 @@ class BookForm extends Component {
                     <TextField name='autor' label="Autor" list={this.state.autores || undefined} required="true" value={x.autor} />
                 </Row>
                 <Row className="mb-3">
-
                     <DateField name='fechaI' label="Fecha de Inicio" value={x.fechaI} />
+
                     <DateField name='fechaF' label="Fecha de Finalización" value={x.fechaF} />
                 </Row>
                 <Button type="submit">Submit form</Button>
