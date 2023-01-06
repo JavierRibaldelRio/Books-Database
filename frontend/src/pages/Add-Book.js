@@ -7,7 +7,7 @@ function AddBook() {
 
     return <>
 
-        <h2>Añadir Libro</h2>
+        <h2>AÑADIR LIBRO</h2>
 
         <hr />
         <br />
