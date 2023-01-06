@@ -2,3 +2,7 @@ body {
 
   margin: 3vmax !important;
 }
+
+.puntero {
+  cursor: pointer;
+}
