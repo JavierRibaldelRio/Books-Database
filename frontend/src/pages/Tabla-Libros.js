@@ -1,11 +1,10 @@
 import MostrarLibros from '../components/MostrarLibros';
+import Titulo from '../components/Titulo';
 
 function TablaLibros() {
 
     return <>
-        <h2>TABLA LIBROS</h2>
-        <hr></hr>
-        <br />
+        <Titulo text="TABLA LIBROS"></Titulo>
 
         <MostrarLibros />
     </>
