@@ -1,6 +1,8 @@
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 
+import { pasarAMayusFrase } from '../../scripts/pasarAMayus'
+
 //Crea un campo de texto que contiene lista
 function TextField(props) {
 
@@ -20,7 +22,7 @@ function TextField(props) {
     //Gener las opciones de la lista
     if (list !== undefined) {
 
-        opciones = list.map((x) => <option key={x}>{x}</option>)
+        opciones = list.map((x) => <option key={x}>{pasarAMayusFrase(x)}</option>)
 
     }
 
