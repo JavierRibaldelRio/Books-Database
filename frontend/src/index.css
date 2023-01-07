@@ -6,3 +6,8 @@ body {
 .puntero {
   cursor: pointer;
 }
+
+.link a {
+
+  color: black;
+}
