@@ -1,6 +1,8 @@
 
 import { pasarAMayusFrase } from "../scripts/pasarAMayus";
 
+import transformarFecha from "../scripts/transformarFecha";
+
 function FilaLibros(props) {
 
     const { libro_id, autor, fecha_inicio, fecha_finalizacion, idioma, titulo } = props.libro;
@@ -24,10 +26,3 @@ function FilaLibros(props) {
 export default FilaLibros;
 
 
-function transformarFecha(str) {
-
-    if (typeof str === 'string' && str !== '') {
-        return str.split('-').reverse().join('-') || '';
-    }
-    return '-';
-}
