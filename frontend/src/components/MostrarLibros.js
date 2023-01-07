@@ -7,6 +7,7 @@ import FilaLibros from './FilaLibros';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { faSort } from '@fortawesome/free-solid-svg-icons'
+import esFecha from '../scripts/esFecha'
 
 
 
@@ -34,26 +35,25 @@ class MostrarLibros extends Component {
                 .then((data) => this.setState({
                     data: data.map((x) => {
 
-                        var mirarSiHayFecha = (s, fe) => typeof s[fe] === 'string' && s[fe] !== '';
 
-                        var y = x;
 
-                        if (mirarSiHayFecha(y, 'fecha_finalizacion')) {
-                            y.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
+
+                        if (esFecha(x.fecha_finalizacion)) {
+                            x.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
                         } else {
-                            y.fecha_finalizacion = null;
+                            x.fecha_finalizacion = null;
                         }
 
-                        if (mirarSiHayFecha(y, 'fecha_inicio')) {
+                        if (esFecha(x['fecha_inicio'])) {
 
-                            y.fecha_inicio_date = new Date(x.fecha_inicio);
+                            x.fecha_inicio_date = new Date(x.fecha_inicio);
                         }
 
                         else {
 
-                            y.fecha_inicio = null;
+                            x.fecha_inicio = null;
                         }
-                        return y;
+                        return x;
                     })
                 }))
                 .catch((err) => console.log('err :>> ', err));

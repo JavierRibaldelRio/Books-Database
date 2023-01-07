@@ -7,6 +7,7 @@ function FilaLibros(props) {
 
     var fi = transformarFecha(fecha_inicio);
 
+
     var ff = transformarFecha(fecha_finalizacion);
 
     return <tr>
@@ -26,7 +27,7 @@ export default FilaLibros;
 function transformarFecha(str) {
 
     if (typeof str === 'string' && str !== '') {
-        return str.split('-').join('-') || '';
+        return str.split('-').reverse().join('-') || '';
     }
     return '-';
 }
