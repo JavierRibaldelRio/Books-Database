@@ -7,6 +7,8 @@ import esFecha from '../scripts/esFecha';
 import pasarAMayusPalabra, { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import Titulo from './Titulo';
 
+import transformarFecha from '../scripts/transformarFecha';
+
 class Mostrar extends Component {
     constructor(props) {
         super(props);
@@ -33,11 +35,21 @@ class Mostrar extends Component {
             idioma = pasarAMayusPalabra(idioma);
             autor = pasarAMayusFrase(autor);
 
+
+
             let dias = undefined;
 
             if (esFecha(fecha_inicio) && esFecha(fecha_finalizacion)) {
 
+                let resta = (new Date(fecha_finalizacion).getTime() - new Date(fecha_inicio).getTime()) / 1000 / 60 / 60 / 24;
 
+                console.log('resta :>> ', resta);
+
+                dias = <tr>
+                    <th>Días de Lectura:</th>
+
+                    <td>{resta}</td>
+                </tr>
 
             }
 
@@ -47,32 +59,33 @@ class Mostrar extends Component {
 
                 <table>
                     <tbody>
-                        <tr> <th>ID:</th>
+                        <tr>
+                            <th>ID:</th>
 
                             <td>{this.props.id}</td>
                         </tr>
-
-                        <tr> <th>Autor:</th>
+                        <tr>
+                            <th>Autor:</th>
 
                             <td>{autor}</td>
                         </tr>
-                        <tr> <th>Idioma:</th>
+                        <tr>
+                            <th>Idioma:</th>
 
                             <td>{idioma}</td>
                         </tr>
+                        {dias}
+                        <tr>
+                            <th>Fecha Inicio:</th>
 
-                        <tr> <th>Fecha Inicio:</th>
-
-                            <td>{fecha_inicio || "No especificada"}</td>
+                            <td>{transformarFecha(fecha_inicio)}</td>
                         </tr>
-                        <tr> <th>Fecha Finalización: </th>
+                        <tr>
+                            <th>Fecha Finalización:</th>
 
-                            <td>{fecha_finalizacion || "No especificada"}</td>
+                            <td>{transformarFecha(fecha_finalizacion)}</td>
                         </tr>
-                        <tr> <th>Días de Lectura:</th>
 
-                            <td>{autor}</td>
-                        </tr>
                     </tbody>
                 </table>
             </>
