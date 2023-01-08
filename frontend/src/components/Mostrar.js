@@ -3,21 +3,49 @@
 import React, { Component } from 'react';
 
 import Alert from 'react-bootstrap/Alert';
-import esFecha from '../scripts/esFecha';
-import pasarAMayusPalabra, { pasarAMayusFrase } from '../scripts/pasarAMayus';
-import Titulo from './Titulo';
 
-import transformarFecha from '../scripts/transformarFecha';
+// Componentes 
+import Titulo from './Titulo';
+import MostrarDBData from './mostrar/DBData';
+import MostrarGoogleData from './mostrar/GoogleData';
+
+// Funciones
+import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 
 class Mostrar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { data: null }
+        this.state = { data: null, gdata: null }
     }
     componentDidMount() {
 
-        fetch(`/api/fetch-book/${this.props.id}`).then(res => res.json()).then(data => this.setState({ data: data })).catch((err) => console.log('err :>> ', err));
+        fetch(`/api/fetch-book/${this.props.id}`)
+            .then(res => res.json())
+            .then((data) => {
+
+                fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${data.titulo}"+inauthor:"${data.autor}"&maxResults=30&printType=books&orderBy=newest`)
+                    .then(res => res.json())
+                    .then((gdata) => {
+
+                        try {
+                            this.setState({ gdata: gdata.items.reverse() });
+
+                        } catch (err) {
+
+                            this.setState({ gdata: null })
+                        }
+                    })
+                    .catch((err) => console.log('err :>> ', err));
+
+
+                this.setState({ data: data });
+
+
+            })
+            .catch((err) => console.log('err :>> ', err));
+
+
     }
     render() {
 
@@ -29,65 +57,39 @@ class Mostrar extends Component {
 
         } else {
 
-            let { autor, titulo, idioma, libro_id, fecha_finalizacion, fecha_inicio } = this.state.data;
+            let portada, gdata;
 
-            titulo = pasarAMayusFrase(titulo);
-            idioma = pasarAMayusPalabra(idioma);
-            autor = pasarAMayusFrase(autor);
+            if (this.state.gdata === null) {
 
+                gdata = <Alert key="warning" variant='warning'>No se ha podido encontrar en google books</Alert>
 
+            } else {
+                for (let i = 0; i < 10; i++) {
 
-            let dias = undefined;
+                    try {
+                        portada = this.state.gdata[i].volumeInfo.imageLinks.thumbnail;
+                        i = 20;
 
-            if (esFecha(fecha_inicio) && esFecha(fecha_finalizacion)) {
+                    } finally {
+                        gdata = <MostrarGoogleData data={this.state.gdata[i]} />
+                    }
+                }
 
-                let resta = (new Date(fecha_finalizacion).getTime() - new Date(fecha_inicio).getTime()) / 1000 / 60 / 60 / 24;
-
-                console.log('resta :>> ', resta);
-
-                dias = <tr>
-                    <th>Días de Lectura:</th>
-
-                    <td>{resta}</td>
-                </tr>
 
             }
 
 
 
-            return <><Titulo text={titulo} />
+            return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} />
+                <div class="modal-body row">
+                    <div class="col-md-6">
+                        <MostrarDBData data={this.state.data} />
+                    </div>
+                    <div class="col-md-5">
+                        {gdata}
 
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>ID:</th>
-
-                            <td>{this.props.id}</td>
-                        </tr>
-                        <tr>
-                            <th>Autor:</th>
-
-                            <td>{autor}</td>
-                        </tr>
-                        <tr>
-                            <th>Idioma:</th>
-
-                            <td>{idioma}</td>
-                        </tr>
-                        {dias}
-                        <tr>
-                            <th>Fecha Inicio:</th>
-
-                            <td>{transformarFecha(fecha_inicio)}</td>
-                        </tr>
-                        <tr>
-                            <th>Fecha Finalización:</th>
-
-                            <td>{transformarFecha(fecha_finalizacion)}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </>
         }
     }
