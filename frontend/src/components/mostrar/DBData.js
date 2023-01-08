@@ -33,7 +33,7 @@ function MostrarDBData(props) {
 
     }
 
-    // Muestra la tabla
+    // Muestra los datos
     return <table className='tabla-data table-data-database'>
         <tbody>
             <tr>
