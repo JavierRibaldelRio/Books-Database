@@ -5,6 +5,11 @@ import Alert from 'react-bootstrap/Alert';
 import pasarAMayusPalabra from "../../scripts/pasarAMayus";
 
 
+import { Rating } from '@smastrom/react-rating'
+
+import '@smastrom/react-rating/style.css'
+
+
 function MostrarGoogleData(props) {
 
     var atr = [new car('title', 'titulo'), new car('imageLinks', 'foto'), new car('description', 'sinopsis'), new car('averageRating', 'valoracion')];
@@ -13,6 +18,9 @@ function MostrarGoogleData(props) {
 
 
         let valor = props.data.volumeInfo[x.ruta];
+
+        x.valor = valor;
+
 
         if ('foto' === x.nombre) {
             try {
@@ -23,6 +31,15 @@ function MostrarGoogleData(props) {
             catch {
 
                 return <></>
+            }
+        } else if ('valoracion' == x.nombre && valor !== undefined) {
+
+            try {
+                return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td><Rating readOnly style={{ maxWidth: 150 }} value={valor} /></td></tr>;
+            }
+            catch {
+
+                return <></>;
             }
         }
         else if (valor !== undefined) {

@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 
 import Alert from 'react-bootstrap/Alert';
 
-// Componentes 
 import Titulo from './Titulo';
 import MostrarDBData from './mostrar/DBData';
 import MostrarGoogleData from './mostrar/GoogleData';
@@ -72,6 +71,8 @@ class Mostrar extends Component {
 
             return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} />
                 <div class="modal-body row">
+
+
                     <div class="col-md-4">
                         <MostrarDBData data={this.state.data} />
                     </div>
