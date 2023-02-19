@@ -24,7 +24,7 @@ function MostrarGoogleData(props) {
 
         if ('foto' === x.nombre) {
             try {
-                return <tr>
+                return <tr key={x.nombre + x.valor}>
                     <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail} alt={"Foto de la portada del libro"}></img></td>
                 </tr>
             }
@@ -32,7 +32,8 @@ function MostrarGoogleData(props) {
 
                 return <></>
             }
-        } else if ('valoracion' === x.nombre && valor !== undefined) {
+        }
+        else if ('valoracion' === x.nombre && valor !== undefined) {
 
             try {
                 return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td><Rating readOnly style={{ maxWidth: 150 }} value={valor} /></td></tr>;
@@ -46,7 +47,7 @@ function MostrarGoogleData(props) {
 
             x.valor = valor;
 
-            return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td>{valor}</td></tr>;
+            return <tr id={x.nombre} key={x.nombre + x.valor}><th>{pasarAMayusPalabra(x.nombre)}</th><td>{valor}</td></tr>;
 
         }
 
@@ -59,9 +60,7 @@ function MostrarGoogleData(props) {
 
     }
 
-    atr.forEach(anyadirFila);
 
-    console.log('atr :>> ', atr);
 
     return <>
         <Alert key="success" variant="success">
