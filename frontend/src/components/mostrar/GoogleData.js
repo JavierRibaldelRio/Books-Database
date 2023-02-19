@@ -65,8 +65,7 @@ function MostrarGoogleData(props) {
 
     return <>
         <Alert key="success" variant="success">
-
-            Se ha encontrado en Google books
+            Información de <i>Google Books</i>
         </Alert>
 
 
@@ -92,7 +91,3 @@ class car {
 }
 
 export default MostrarGoogleData;
-
-
-
-
