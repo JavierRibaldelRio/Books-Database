@@ -1,0 +1,17 @@
+#portada {
+
+
+    text-align: center;
+
+    max-height: 50%;
+    padding: 4vmin !important;
+    width: auto;
+}
+
+.table-data-database td,
+.table-data-database th {
+
+    vertical-align: top;
+
+    padding: 3vmin;
+}

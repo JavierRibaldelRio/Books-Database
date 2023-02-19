@@ -24,7 +24,7 @@ class Mostrar extends Component {
             .then(res => res.json())
             .then((data) => {
 
-                fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${data.titulo}"+inauthor:"${data.autor}"&maxResults=30&printType=books&orderBy=newest`)
+                fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:"${data.titulo}"+inauthor:"${data.autor}"&maxResults=1&printType=books`)
                     .then(res => res.json())
                     .then((gdata) => {
 
@@ -57,35 +57,25 @@ class Mostrar extends Component {
 
         } else {
 
-            let portada, gdata;
+            let gdata;
 
             if (this.state.gdata === null) {
 
                 gdata = <Alert key="warning" variant='warning'>No se ha podido encontrar en google books</Alert>
 
             } else {
-                for (let i = 0; i < 10; i++) {
 
-                    try {
-                        portada = this.state.gdata[i].volumeInfo.imageLinks.thumbnail;
-                        i = 20;
-
-                    } finally {
-                        gdata = <MostrarGoogleData data={this.state.gdata[i]} />
-                    }
-                }
-
+                gdata = <MostrarGoogleData data={this.state.gdata[0]} />
 
             }
 
 
-
             return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} />
                 <div class="modal-body row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <MostrarDBData data={this.state.data} />
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         {gdata}
 
                     </div>
@@ -94,5 +84,6 @@ class Mostrar extends Component {
         }
     }
 }
+
 
 export default Mostrar;
