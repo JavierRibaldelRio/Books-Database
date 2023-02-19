@@ -25,14 +25,14 @@ function MostrarGoogleData(props) {
         if ('foto' === x.nombre) {
             try {
                 return <tr>
-                    <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail}></img></td>
+                    <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail} alt={"Foto de la portada del libro"}></img></td>
                 </tr>
             }
             catch {
 
                 return <></>
             }
-        } else if ('valoracion' == x.nombre && valor !== undefined) {
+        } else if ('valoracion' === x.nombre && valor !== undefined) {
 
             try {
                 return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td><Rating readOnly style={{ maxWidth: 150 }} value={valor} /></td></tr>;
@@ -65,8 +65,7 @@ function MostrarGoogleData(props) {
 
     return <>
         <Alert key="success" variant="success">
-
-            Se ha encontrado en Google books
+            Información de <i>Google Books</i>
         </Alert>
 
 
@@ -92,7 +91,3 @@ class car {
 }
 
 export default MostrarGoogleData;
-
-
-
-

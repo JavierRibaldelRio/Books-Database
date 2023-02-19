@@ -89,3 +89,14 @@ def fetch_book(id):
     del libro['_sa_instance_state']
 
     return libro
+
+# Elimina los libros del servidor
+
+@app.route('/api/remove-book/<id>',methods=['DELETE'])
+def remove_book(id):
+
+    Libros.query.filter(Libros.libro_id==id).delete()
+
+    db.session.commit()
+
+    return 'Eliminado Correctamente'

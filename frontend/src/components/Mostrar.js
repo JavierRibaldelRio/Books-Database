@@ -1,12 +1,13 @@
 // Hace una llamada a la API  y mustra los resultados
 
 import React, { Component } from 'react';
-
 import Alert from 'react-bootstrap/Alert';
-
 import Titulo from './Titulo';
 import MostrarDBData from './mostrar/DBData';
 import MostrarGoogleData from './mostrar/GoogleData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 // Funciones
 import { pasarAMayusFrase } from '../scripts/pasarAMayus';
@@ -16,7 +17,23 @@ class Mostrar extends Component {
         super(props);
 
         this.state = { data: null, gdata: null }
+
+        this.eliminar = this.eliminar.bind(this);
     }
+
+
+    eliminar() {
+
+
+        if (window.confirm("¿Seguro qué desea eliminar este libro?")) {
+
+            fetch('/api/remove-book/' + this.state.data.libro_id, { method: 'DELETE' });
+
+        }
+
+
+    }
+
     componentDidMount() {
 
         fetch(`/api/fetch-book/${this.props.id}`)
@@ -60,7 +77,7 @@ class Mostrar extends Component {
 
             if (this.state.gdata === null) {
 
-                gdata = <Alert key="warning" variant='warning'>No se ha podido encontrar en google books</Alert>
+                gdata = <Alert key="warning" variant='warning'>Sin información en <i>Google Books</i></Alert>
 
             } else {
 
@@ -75,6 +92,13 @@ class Mostrar extends Component {
 
                     <div class="col-md-4">
                         <MostrarDBData data={this.state.data} />
+
+                        <div id='botones-mostrar'>
+
+                            <button type="button" class="btn btn-primary">Editar &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></button>
+
+                            <button type="button" onClick={this.eliminar} class="btn btn-danger">Eliminar &nbsp; <FontAwesomeIcon icon={faTrash} /> </button>
+                        </div>
                     </div>
                     <div class="col-md-7">
                         {gdata}
