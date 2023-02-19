@@ -21,12 +21,14 @@ class Mostrar extends Component {
         this.eliminar = this.eliminar.bind(this);
     }
 
+
     eliminar() {
 
 
         if (window.confirm("¿Seguro qué desea eliminar este libro?")) {
 
-            //
+            fetch('/api/remove-book/' + this.state.data.libro_id, { method: 'DELETE' });
+
         }
 
 
