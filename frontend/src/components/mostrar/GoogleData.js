@@ -25,7 +25,7 @@ function MostrarGoogleData(props) {
         if ('foto' === x.nombre) {
             try {
                 return <tr>
-                    <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail}></img></td>
+                    <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail} alt={"Foto de la portada del libro"}></img></td>
                 </tr>
             }
             catch {
