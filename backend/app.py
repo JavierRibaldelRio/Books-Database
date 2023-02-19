@@ -100,3 +100,9 @@ def remove_book(id):
     db.session.commit()
 
     return 'Eliminado Correctamente'
+
+#Modifica los libros
+@app.route('/api/edit-book')
+def edit_book():
+    #POR HACER
+
