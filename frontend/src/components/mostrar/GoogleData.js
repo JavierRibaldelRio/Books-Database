@@ -32,7 +32,7 @@ function MostrarGoogleData(props) {
 
                 return <></>
             }
-        } else if ('valoracion' == x.nombre && valor !== undefined) {
+        } else if ('valoracion' === x.nombre && valor !== undefined) {
 
             try {
                 return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td><Rating readOnly style={{ maxWidth: 150 }} value={valor} /></td></tr>;
