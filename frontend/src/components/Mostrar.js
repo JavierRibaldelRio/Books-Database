@@ -19,6 +19,8 @@ class Mostrar extends Component {
         this.state = { data: null, gdata: null }
 
         this.eliminar = this.eliminar.bind(this);
+
+        this.editar = this.editar.bind(this);
     }
 
 
@@ -31,6 +33,13 @@ class Mostrar extends Component {
 
         }
 
+    }
+
+    editar() {
+
+        const { navigate } = this.props;
+
+        navigate('/editar', { state: { data: this.state.data } });
 
     }
 
@@ -87,20 +96,20 @@ class Mostrar extends Component {
 
 
             return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} />
-                <div class="modal-body row">
+                <div className="modal-body row">
 
 
-                    <div class="col-md-4">
+                    <div className="col-md-4">
                         <MostrarDBData data={this.state.data} />
 
                         <div id='botones-mostrar'>
 
-                            <button type="button" class="btn btn-primary">Editar &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></button>
+                            <button type="button" onClick={this.editar} className="btn btn-primary">Editar &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></button>
 
-                            <button type="button" onClick={this.eliminar} class="btn btn-danger">Eliminar &nbsp; <FontAwesomeIcon icon={faTrash} /> </button>
+                            <button type="button" onClick={this.eliminar} className="btn btn-danger">Eliminar &nbsp; <FontAwesomeIcon icon={faTrash} /> </button>
                         </div>
                     </div>
-                    <div class="col-md-7">
+                    <div className="col-md-7">
                         {gdata}
 
                     </div>
