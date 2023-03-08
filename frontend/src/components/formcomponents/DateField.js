@@ -12,7 +12,7 @@ function DateField(props) {
     const value = props.value;
 
     return <>
-        <Form.Group as={Col} md="2" controlId={name}>
+        <Form.Group as={Col} md="3" controlId={name}>
             <Form.Label>{label}</Form.Label>
             <Form.Control type="date" name={name} defaultValue={value} />
             <Form.Control.Feedback type="invalid">
