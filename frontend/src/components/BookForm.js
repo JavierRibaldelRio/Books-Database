@@ -42,6 +42,8 @@ class BookForm extends Component {
 
         const x = this.props.libro;
 
+        const inputID = (typeof x.libro_id === 'number') ? <input hidden name='libro_id' value={x.libro_id} /> : <></>;
+
         return (
 
             <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action={this.props.ruta} method='post'>
@@ -60,7 +62,7 @@ class BookForm extends Component {
                 </Row>
                 <Button type="submit">{this.props.text} &nbsp;<FontAwesomeIcon icon={this.props.ico} /></Button>
 
-                <input hidden name='libro_id' value={x.libro_id} />
+                {inputID}
             </Form>
 
         );
