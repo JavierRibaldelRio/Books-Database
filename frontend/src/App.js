@@ -5,6 +5,7 @@ import AddBook from './pages/Add-Book';
 import TablaLibros from './pages/Tabla-Libros'
 import MostrarLibro from './pages/MostrarLibro';
 import Editar from './pages/Editar';
+import Buscar from './pages/Buscar'
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path='/tabla-libros' element={<TablaLibros />} />
         <Route path='/editar' element={<Editar />} />
         <Route path='/:id' element={<MostrarLibro />} />
+        <Route path='/buscar' element={<Buscar />} />
+
       </Routes>
 
       <a href='/tabla-libros'>TABLA</a>
