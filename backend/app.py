@@ -106,15 +106,15 @@ def remove_book(id):
 @app.route('/api/edit-book', methods=['POST'])
 def edit_book():
 
+    # Obtiene el nuevo libro y lo pasa a diccionario
     nuevo =recibir_form_libro(request).__dict__
-
+    # Elimina una propiedad
     del nuevo['_sa_instance_state']
 
-
-    libro = Libros.query.filter(Libros.libro_id==request.form.get('libro_id')).
+    # Busca el libro por la id  y lo actualiza
+    libro = Libros.query.filter(Libros.libro_id==request.form.get('libro_id')).update(nuevo)
     
-    update(nuevo)
-
+    # Guarda los cambios
     db.session.commit()
 
 
