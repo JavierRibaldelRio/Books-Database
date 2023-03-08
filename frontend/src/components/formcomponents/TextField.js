@@ -12,6 +12,8 @@ function TextField(props) {
     const list = props.list;
     const value = props.value;
 
+    //Handel cambio
+
     const required = (undefined === props.required) ? false : true;
 
 
@@ -30,6 +32,7 @@ function TextField(props) {
         <Form.Group as={Col} md="4" controlId={name}>
             <Form.Label>{label}</Form.Label>
             <Form.Control
+                onChange={props.onChange}
                 name={name}
                 required={required}
                 defaultValue={value}
@@ -44,6 +47,10 @@ function TextField(props) {
         </Form.Group>
 
     </>
+}
+
+TextField.defaultProps = {
+    onChange() { }
 }
 
 export default TextField
