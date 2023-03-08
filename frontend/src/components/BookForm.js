@@ -54,11 +54,13 @@ class BookForm extends Component {
                     <TextField name='autor' label="Autor" list={this.state.autores || undefined} required="true" value={pasarAMayusFrase(x.autor)} />
                 </Row>
                 <Row className="mb-3">
-                    <DateField name='fechaI' label="Fecha de Inicio" value={x.fecha_inicio} />
+                    <DateField name='fecha_inicio' label="Fecha de Inicio" value={x.fecha_inicio} />
 
-                    <DateField name='fechaF' label="Fecha de Finalización" value={x.fecha_finalizacion} />
+                    <DateField name='fecha_finalizacion' label="Fecha de Finalización" value={x.fecha_finalizacion} />
                 </Row>
                 <Button type="submit">{this.props.text} &nbsp;<FontAwesomeIcon icon={this.props.ico} /></Button>
+
+                <input hidden name='libro_id' value={x.libro_id} />
             </Form>
 
         );

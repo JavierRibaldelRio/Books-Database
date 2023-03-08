@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from models.models import Libros, db
 
+columnas = ['titulo', 'idioma', 'autor','fecha_inicio','fecha_finalizacion']
 
 from scripts.recibirformlibro import recibir_form_libro
 
@@ -102,7 +103,21 @@ def remove_book(id):
     return 'Eliminado Correctamente'
 
 #Modifica los libros
-@app.route('/api/edit-book')
+@app.route('/api/edit-book', methods=['POST'])
 def edit_book():
-    #POR HACER
 
+    nuevo =recibir_form_libro(request).__dict__
+
+    del nuevo['_sa_instance_state']
+
+
+    libro = Libros.query.filter(Libros.libro_id==request.form.get('libro_id')).
+    
+    update(nuevo)
+
+    db.session.commit()
+
+
+
+    return "Libro Editado"
+   

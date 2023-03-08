@@ -16,6 +16,8 @@ function App() {
         <Route path='/editar' element={<Editar />} />
         <Route path='/:id' element={<MostrarLibro />} />
       </Routes>
+
+      <a href='/tabla-libros'>TABLA</a>
     </BrowserRouter>
   );
 }

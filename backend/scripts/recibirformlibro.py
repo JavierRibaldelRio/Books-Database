@@ -9,14 +9,15 @@ def recibir_form_libro(req):
     def buscar(a):
          
         b=req.form.get(a)
+        print(b)
         return b
 
     titulo = buscar('titulo')
     idioma = buscar('idioma')
     libro_id = buscar('libro_id')
     autor = buscar('autor')
-    fecha_inicio = buscar('fechaI')
-    fecha_finalizacion= buscar('fechaF')
+    fecha_inicio = buscar('fecha_inicio')
+    fecha_finalizacion= buscar('fecha_finalizacion')
 
     return Libros(titulo=titulo.strip().lower(),
      idioma=idioma.strip().lower(), 
