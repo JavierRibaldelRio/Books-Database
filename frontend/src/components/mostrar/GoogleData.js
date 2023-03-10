@@ -24,30 +24,32 @@ function MostrarGoogleData(props) {
 
         if ('foto' === x.nombre) {
             try {
-                return <tr key={x.nombre + x.valor}>
+                return <tr key={x.nombre}>
                     <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail} alt={"Foto de la portada del libro"}></img></td>
                 </tr>
             }
             catch {
 
-                return <></>
+                return;
             }
         }
         else if ('valoracion' === x.nombre && valor !== undefined) {
 
             try {
-                return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td><Rating readOnly style={{ maxWidth: 150 }} value={valor} /></td></tr>;
+                return <tr id={x.nombre} key={x.nombre}>
+                    <th>{pasarAMayusPalabra(x.nombre)}</th>
+                    <td><Rating readOnly style={{ maxWidth: 150 }} key={x.nombre} value={valor} /></td></tr>;
             }
             catch {
 
-                return <></>;
+                return;
             }
         }
         else if (valor !== undefined) {
 
             x.valor = valor;
 
-            return <tr id={x.nombre} key={x.nombre + x.valor}><th>{pasarAMayusPalabra(x.nombre)}</th><td>{valor}</td></tr>;
+            return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td>{valor}</td></tr>;
 
         }
 
@@ -55,7 +57,7 @@ function MostrarGoogleData(props) {
 
             valor = null
 
-            return <></>;
+            return;
         }
 
     }
