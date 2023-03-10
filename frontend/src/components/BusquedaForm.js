@@ -10,23 +10,24 @@ class BusquedaForm extends Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
+
+        this.state = { query: {} }
     }
 
     handleChange(e) {
-        console.log('e :>> ', e);
-
-        /**
-         * 
-         * 
-         * 
-         * 
-         * CONTINUAR POR AQUÍ
-         * 
-         * 
-         * 
-         *          */
 
 
+        // Obtiene el estado actual
+        let query = this.state.query;
+
+        // Edita el estado con la nueva propiedad
+        query[e.target.name] = e.target.value;
+
+        //Lo manda para hacer una query
+        this.props.setQuery(query);
+
+        //Modific ael estado local
+        this.setState({ query: query })
 
 
     }
