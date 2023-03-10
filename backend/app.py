@@ -117,7 +117,11 @@ def edit_book():
     # Guarda los cambios
     db.session.commit()
 
-
-
     return "Libro Editado"
+
+# Query
+
+@app.route('/api/query' ,methods=['POST'])
+def query():
+    # Segir por quí
    
