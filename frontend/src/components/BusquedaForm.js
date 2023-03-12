@@ -11,7 +11,7 @@ class BusquedaForm extends Component {
 
         this.handleChange = this.handleChange.bind(this);
 
-        this.state = { query: {} }
+        this.state = { query: { idioma: "", autor: "", titulo: "" } }
     }
 
     handleChange(e) {
