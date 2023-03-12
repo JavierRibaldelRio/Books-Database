@@ -6,6 +6,8 @@ import FilaLibros from './FilaLibros';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import crearData from '../scripts/CrearDatosTabla';
+
 import { faSort } from '@fortawesome/free-solid-svg-icons'
 import esFecha from '../scripts/esFecha'
 
@@ -33,37 +35,36 @@ class MostrarLibros extends Component {
             //Obtiene los libros
             fetch('/api/fetch_books').then((res) => res.json())
                 .then((data) => this.setState({
-                    data: data.map((x) => {
-
-
-
-
-                        if (esFecha(x.fecha_finalizacion)) {
-                            x.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
-                        } else {
-                            x.fecha_finalizacion = null;
-                        }
-
-                        if (esFecha(x['fecha_inicio'])) {
-
-                            x.fecha_inicio_date = new Date(x.fecha_inicio);
-                        }
-
-                        else {
-
-                            x.fecha_inicio = null;
-                        }
-                        return x;
-                    })
+                    data: data.map(crearData)
                 }))
                 .catch((err) => console.log('err :>> ', err));
 
         }
-        else {
-            //Por hacer
 
+    }
+
+    componentDidUpdate() {
+        if (this.props.query !== null) {
+
+            this.setState({ data: this.props.query.map(crearData) });
         }
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+
+
+        if (JSON.stringify(nextProps) === JSON.stringify(this.props) && JSON.stringify(nextState) === JSON.stringify(this.state)) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    // Formatea las fechas
+
+
 
     //Ordena segun el criterio especificado
 

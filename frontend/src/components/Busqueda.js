@@ -42,6 +42,8 @@ class Busqueda extends Component {
         return (<>
             <BusquedaForm setQuery={this.query} />
 
+            <MostrarLibros query={this.state.data} />
+
         </>);
     }
 }
