@@ -19,11 +19,11 @@ class Busqueda extends Component {
 
 
         // Elimina los strings que solo sontexto en blanco
-        for (let s in query) {
-            if (query[s] === '') {
-                delete query[s];
-            }
-        }
+        // for (let s in query) {
+        //     if (query[s] === '') {
+        //         delete query[s];
+        //     }
+        // }
 
         console.log('query :>> ', query);
 

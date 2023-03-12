@@ -133,16 +133,19 @@ def query():
     # JSON
     json = request.json
 
-    autor = json.get('autor')
     titulo = json.get('titulo')
     idioma = json.get('idioma')
+    autor = json.get('autor')
 
 
     print(autor)
 
-    search ="%{}%".format(autor)
+    s_titulo ="%{}%".format(titulo)
+    s_idioma ="%{}%".format(idioma)
+    s_autor ="%{}%".format(autor)
 
-    for u in Libros.query.filter(Libros.autor == autor, Libros.idioma == idioma).all():
+
+    for u in Libros.query.filter(Libros.titulo.like(s_titulo),Libros.idioma.like(s_idioma),Libros.autor.like(s_autor)).all():
 
         dic =  u.__dict__
 
