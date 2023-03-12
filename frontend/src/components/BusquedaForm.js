@@ -70,7 +70,7 @@ class BusquedaForm extends Component {
                 <Form.Group as={Col} md="4">
                     <Form.Label>Autor:</Form.Label>
 
-                    <Form.Select onChange={this.handleChange} name="Autor" aria-label="Default select example">
+                    <Form.Select onChange={this.handleChange} name="autor" aria-label="Default select example">
                         {opcion}
                         {autores}
                     </Form.Select>
