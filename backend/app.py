@@ -123,5 +123,35 @@ def edit_book():
 
 @app.route('/api/query' ,methods=['POST'])
 def query():
-    # Segir por quí
+
+    # Variable que almacena la respuesta
+
+    res = list()
+    
+    # Obtiene los datos del JSON
+    
+    # JSON
+    json = request.json
+
+    autor = json.get('autor')
+    titulo = json.get('titulo')
+    idioma = json.get('idioma')
+
+
+    print(autor)
+
+    search ="%{}%".format(autor)
+
+    for u in Libros.query.filter(Libros.autor == autor, Libros.idioma == idioma).all():
+
+        dic =  u.__dict__
+
+        del dic['_sa_instance_state']
+
+        res.append(dic)
+
+    print(res)
+    return res
+
+
    

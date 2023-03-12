@@ -12,21 +12,11 @@ class Busqueda extends Component {
         this.query = this.query.bind(this);
 
 
-        this.state = { query: null, data: null };
+        this.state = { data: null };
     }
 
     query(query) {
 
-        this.setState({ query: query });
-
-    }
-
-
-    //Hace el fetch después de cada cambio de estado
-    componentDidUpdate() {
-
-        // Obitiene los criterios
-        let query = this.state.query;
 
         // Elimina los strings que solo sontexto en blanco
         for (let s in query) {
@@ -35,14 +25,15 @@ class Busqueda extends Component {
             }
         }
 
+        console.log('query :>> ', query);
 
-        // fetch('/query', 						//La url del sevidor
-        //     {
-        //         method: 'POST',							//Utiliza el metodo post
-        //         body: JSON.stringify(query),		//Elige que información mandar
-        //         headers: { 'Content-Type': 'application/json' }		//Informa de que la información es un json
-        //     }).then(response => response.json())
-        //     .then(data => this.setState({ data: data }));		//Muestra los datos
+        fetch('/api/query', 						//La url del sevidor
+            {
+                method: 'POST',							//Utiliza el metodo post
+                body: JSON.stringify(query),		//Elige que información mandar
+                headers: { 'Content-Type': 'application/json' }		//Informa de que la información es un json
+            }).then(response => response.json())
+            .then(data => this.setState({ data: data }));		//Muestra los datos
     }
 
 
