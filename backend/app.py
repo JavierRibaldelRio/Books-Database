@@ -5,7 +5,7 @@ import os
 
 import json
 
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, Response, send_file
 
 # Importa las librerias de sqlAclchemy
 
@@ -169,5 +169,10 @@ def download():
     return send_file(path, as_attachment=True)
 
 
-# @app.route('/download_json')
-# def download_JSON()
+@app.route("/download-json")
+def download_JSON():
+    return Response(
+        json.dumps(get_all()),
+        mimetype="application/json",
+        headers={"Content-disposition": "attachment; filename=database.json"},
+    )
