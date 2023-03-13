@@ -1,3 +1,4 @@
 flaskenv
 __pycache__
 Books-Database.code_workspace
+.vscode/
