@@ -152,7 +152,6 @@ def query():
 
         res.append(dic)
 
-    print(res)
     return res
 
 
