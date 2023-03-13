@@ -4,7 +4,7 @@ import os
 
 import json
 
-from flask import Flask, request, jsonify;
+from flask import Flask, request, jsonify, send_file;
 
 #Importa las librerias de sqlAclchemy
 from flask_sqlalchemy import SQLAlchemy
@@ -154,5 +154,8 @@ def query():
 
     return res
 
+@app.route('/download_db')
+def download():
+    path='database.db'
 
-   
+    return send_file(path, as_attachment=True)
