@@ -133,13 +133,12 @@ def query():
     # JSON
     json = request.json
 
+    #obtiene los datos
     titulo = json.get('titulo')
     idioma = json.get('idioma')
     autor = json.get('autor')
 
-
-    print(autor)
-
+    # formatea los datos
     s_titulo ="%{}%".format(titulo)
     s_idioma ="%{}%".format(idioma)
     s_autor ="%{}%".format(autor)
