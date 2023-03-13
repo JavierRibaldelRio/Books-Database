@@ -162,7 +162,7 @@ def query():
     return res
 
 
-@app.route("/download_db")
+@app.route("/download-db")
 def download():
     path = "database.db"
 
