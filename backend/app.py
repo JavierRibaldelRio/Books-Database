@@ -162,6 +162,7 @@ def query():
     return res
 
 
+# Descarga la base de datos
 @app.route("/download-db")
 def download():
     path = "database.db"
@@ -169,6 +170,7 @@ def download():
     return send_file(path, as_attachment=True)
 
 
+# Genera un Json con todo el contenido de la base de datosy lo descarga
 @app.route("/download-json")
 def download_JSON():
     return Response(
