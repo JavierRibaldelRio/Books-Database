@@ -6,7 +6,10 @@ import FilaLibros from './FilaLibros';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import crearData from '../scripts/CrearDatosTabla';
+
 import { faSort } from '@fortawesome/free-solid-svg-icons'
+import esFecha from '../scripts/esFecha'
 
 
 
@@ -32,38 +35,36 @@ class MostrarLibros extends Component {
             //Obtiene los libros
             fetch('/api/fetch_books').then((res) => res.json())
                 .then((data) => this.setState({
-                    data: data.map((x) => {
-
-                        var mirarSiHayFecha = (s, fe) => typeof s[fe] === 'string' && s[fe] !== '';
-
-                        var y = x;
-
-                        if (mirarSiHayFecha(y, 'fecha_finalizacion')) {
-                            y.fecha_finalizacion_date = new Date(x.fecha_finalizacion);
-                        } else {
-                            y.fecha_finalizacion = null;
-                        }
-
-                        if (mirarSiHayFecha(y, 'fecha_inicio')) {
-
-                            y.fecha_inicio_date = new Date(x.fecha_inicio);
-                        }
-
-                        else {
-
-                            y.fecha_inicio = null;
-                        }
-                        return y;
-                    })
+                    data: data.map(crearData)
                 }))
                 .catch((err) => console.log('err :>> ', err));
 
         }
-        else {
-            //Por hacer
 
+    }
+
+    componentDidUpdate() {
+        if (this.props.query !== null) {
+
+            this.setState({ data: this.props.query.map(crearData) });
         }
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+
+
+        if (JSON.stringify(nextProps) === JSON.stringify(this.props) && JSON.stringify(nextState) === JSON.stringify(this.state)) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+
+    // Formatea las fechas
+
+
 
     //Ordena segun el criterio especificado
 
@@ -115,12 +116,12 @@ class MostrarLibros extends Component {
             <Table striped responsive>
                 <thead>
                     <tr>
-                        <th onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
-                        <th onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
-                        <th onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
-                        <th onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
-                        <th onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
-                        <th onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
+                        <th className='puntero' onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
+                        <th className='puntero' onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
+                        <th className='puntero' onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
+                        <th className='puntero' onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
+                        <th className='puntero' onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
+                        <th className='puntero' onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
                     </tr>
                 </thead>
 

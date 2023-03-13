@@ -1,7 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import DateField from './formcomponents/DateField'
 import TextField from './formcomponents/TextField'
 
@@ -40,23 +42,27 @@ class BookForm extends Component {
 
         const x = this.props.libro;
 
+        const inputID = (typeof x.libro_id === 'number') ? <input hidden name='libro_id' value={x.libro_id} /> : <></>;
+
         return (
 
-            <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action="/api/add-book" method='post'>
+            <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action={this.props.ruta} method='post'>
                 <Row className="mb-3">
 
-                    <TextField name='titulo' label='Título' required='true' value={x.titulo} />
+                    <TextField name='titulo' label='Título' required='true' value={pasarAMayusFrase(x.titulo)} />
 
-                    <TextField name='idioma' label='Idioma' list={this.state.idiomas || undefined} value={x.idioma} />
+                    <TextField name='idioma' label='Idioma' list={this.state.idiomas || undefined} value={pasarAMayusFrase(x.idioma)} />
 
-                    <TextField name='autor' label="Autor" list={this.state.autores || undefined} required="true" value={x.autor} />
+                    <TextField name='autor' label="Autor" list={this.state.autores || undefined} required="true" value={pasarAMayusFrase(x.autor)} />
                 </Row>
                 <Row className="mb-3">
+                    <DateField name='fecha_inicio' label="Fecha de Inicio" value={x.fecha_inicio} />
 
-                    <DateField name='fechaI' label="Fecha de Inicio" value={x.fechaI} />
-                    <DateField name='fechaF' label="Fecha de Finalización" value={x.fechaF} />
+                    <DateField name='fecha_finalizacion' label="Fecha de Finalización" value={x.fecha_finalizacion} />
                 </Row>
-                <Button type="submit">Submit form</Button>
+                <Button type="submit">{this.props.text} &nbsp;<FontAwesomeIcon icon={this.props.ico} /></Button>
+
+                {inputID}
             </Form>
 
         );

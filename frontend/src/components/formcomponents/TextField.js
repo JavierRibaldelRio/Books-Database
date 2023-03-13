@@ -1,6 +1,8 @@
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 
+import { pasarAMayusFrase } from '../../scripts/pasarAMayus'
+
 //Crea un campo de texto que contiene lista
 function TextField(props) {
 
@@ -9,6 +11,8 @@ function TextField(props) {
     const label = props.label
     const list = props.list;
     const value = props.value;
+
+    //Handel cambio
 
     const required = (undefined === props.required) ? false : true;
 
@@ -20,7 +24,7 @@ function TextField(props) {
     //Gener las opciones de la lista
     if (list !== undefined) {
 
-        opciones = list.map((x) => <option key={x}>{x}</option>)
+        opciones = list.map((x) => <option key={x}>{pasarAMayusFrase(x)}</option>)
 
     }
 
@@ -28,6 +32,7 @@ function TextField(props) {
         <Form.Group as={Col} md="4" controlId={name}>
             <Form.Label>{label}</Form.Label>
             <Form.Control
+                onChange={props.onChange}
                 name={name}
                 required={required}
                 defaultValue={value}
@@ -42,6 +47,10 @@ function TextField(props) {
         </Form.Group>
 
     </>
+}
+
+TextField.defaultProps = {
+    onChange() { }
 }
 
 export default TextField

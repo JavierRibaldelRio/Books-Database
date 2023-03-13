@@ -25,7 +25,7 @@ class Libros(db.Model):
         if not self.libro_id:
             db.session.add(self)
         db.session.commit()
-
+  
     # Función que transforma a el usuario en un
     pass
 
