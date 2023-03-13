@@ -15,32 +15,27 @@ class Busqueda extends Component {
         this.state = { data: null };
     }
 
+    // Busca que libros cumplen las nuevas condiciones introducidas en el formulario
     query(query) {
 
 
-        // Elimina los strings que solo sontexto en blanco
-        // for (let s in query) {
-        //     if (query[s] === '') {
-        //         delete query[s];
-        //     }
-        // }
-
-        console.log('query :>> ', query);
-
-        fetch('/api/query', 						//La url del sevidor
+        fetch('/api/query',
             {
-                method: 'POST',							//Utiliza el metodo post
-                body: JSON.stringify(query),		//Elige que información mandar
-                headers: { 'Content-Type': 'application/json' }		//Informa de que la información es un json
+                method: 'POST',
+                body: JSON.stringify(query),
+                headers: { 'Content-Type': 'application/json' }
             }).then(response => response.json())
-            .then(data => this.setState({ data: data }));		//Muestra los datos
+            .then(data => this.setState({ data: data }));
     }
 
 
 
     render() {
         return (<>
+            {/* Formulario que obtiene los parámetros de búsqueda */}
             <BusquedaForm setQuery={this.query} />
+
+            {/* Muestra los resultados del fetch, si no hay ningún parámetro mostrará todos los libros */}
 
             <MostrarLibros query={this.state.data} />
 
