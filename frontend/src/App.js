@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './index.css';
 
 //Sub páginas
 import Main from './pages/Main';
