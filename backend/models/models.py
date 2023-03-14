@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-#Define la clase libro
+# Define la clase libro
+
 
 class Libros(db.Model):
     libro_id = db.Column(db.Integer, primary_key=True)
@@ -9,10 +10,11 @@ class Libros(db.Model):
     idioma = db.Column(db.String)
     fecha_inicio = db.Column(db.String)
     fecha_finalizacion = db.Column(db.String)
-    autor= db.Column(db.String)
+    autor = db.Column(db.String)
 
-    def __init__(self, titulo, idioma, fecha_inicio, fecha_finalizacion, autor,libro_id):
-
+    def __init__(
+        self, titulo, idioma, fecha_inicio, fecha_finalizacion, autor, libro_id
+    ):
         self.libro_id = libro_id
         self.titulo = titulo
         self.idioma = idioma
@@ -25,7 +27,26 @@ class Libros(db.Model):
         if not self.libro_id:
             db.session.add(self)
         db.session.commit()
-  
+
     # Función que transforma a el usuario en un
     pass
 
+
+class Etiquetas(db.Model):
+    etiqueta_id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String)
+    color = db.Column(db.String)
+
+    def __init__(self, etiqueta_id, nombre, color):
+        self.etiqueta_id = etiqueta_id
+        self.color = color
+        self.nombre = nombre
+
+    # Función que guarda el objeto
+    def save(self):
+        if not self.etiqueta_id:
+            db.session.add(self)
+        db.session.commit()
+
+    # Función que transforma a el usuario en un
+    pass
