@@ -14,7 +14,7 @@ class BookForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { validate: false, }
+        this.state = { validate: false }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
