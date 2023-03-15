@@ -9,7 +9,7 @@ from flask import Flask, request, Response, send_file
 
 # Importa las librerias de sqlAclchemy
 
-from models.models import Libros, db
+from models.models import Libros, db, Etiquetas
 
 columnas = ["titulo", "idioma", "autor", "fecha_inicio", "fecha_finalizacion"]
 
@@ -178,3 +178,18 @@ def download_JSON():
         mimetype="application/json",
         headers={"Content-disposition": "attachment; filename=database.json"},
     )
+
+
+# Etiquetas
+
+
+@app.route("/tags/create-tag", methods=["POST"])
+def create_tag():
+    et = Etiquetas(
+        etiqueta_id=None,
+        nombre=request.form.get("nombre"),
+        color=request.form.get("color"),
+    )
+
+    et.save()
+    return "etiqueta creada"
