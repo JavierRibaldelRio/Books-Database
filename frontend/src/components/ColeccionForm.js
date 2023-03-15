@@ -10,10 +10,10 @@ import randomHex from '../scripts/randomHex'
 
 //Importa el css del formulario
 
-import '../style/etiqueta_form.css';
+import '../style/coleccion_form.css';
 
-// Crea el formulario de la etiqueta
-class EtiquetaForm extends Component {
+// Crea el formulario de la coleccion
+class ColeccionForm extends Component {
     constructor(props) {
         super(props);
 
@@ -55,13 +55,13 @@ class EtiquetaForm extends Component {
 
     render() {
 
-        const et = this.props.etiqueta;
+        const et = this.props.coleccion;
 
         const col = this.state.hex;
 
 
         return (<Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action={this.props.ruta} method='post'>
-            <div id='etiqueta-form'>
+            <div id='coleccion-form'>
                 <TextField name='nombre' md={"3"} label='Nombre' required='true' value={pasarAMayusFrase(et.nombre)} />
                 <label id="color-picker" htmlFor="color">
                     Color:
@@ -82,9 +82,9 @@ class EtiquetaForm extends Component {
     }
 }
 
-export default EtiquetaForm;
+export default ColeccionForm;
 
-EtiquetaForm.defaultProps = {
+ColeccionForm.defaultProps = {
 
-    etiqueta: {}
+    coleccion: {}
 }

@@ -32,19 +32,19 @@ class Libros(db.Model):
     pass
 
 
-class Etiquetas(db.Model):
-    etiqueta_id = db.Column(db.Integer, primary_key=True)
+class Colecciones(db.Model):
+    coleccion_id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String)
     color = db.Column(db.String)
 
-    def __init__(self, etiqueta_id, nombre, color):
-        self.etiqueta_id = etiqueta_id
+    def __init__(self, coleccion_id, nombre, color):
+        self.coleccion_id = coleccion_id
         self.color = color
         self.nombre = nombre
 
     # Función que guarda el objeto
     def save(self):
-        if not self.etiqueta_id:
+        if not self.coleccion_id:
             db.session.add(self)
         db.session.commit()
 

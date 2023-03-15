@@ -8,7 +8,7 @@ import MostrarLibro from './pages/MostrarLibro';
 import Editar from './pages/Editar';
 import Buscar from './pages/Buscar'
 import Descargar from './pages/Descargar';
-import CrearEtiqueta from './pages/Crear-Etiqueta';
+import CrearColeccion from './pages/Crear-Coleccion';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Route path='/:id' element={<MostrarLibro />} />
         <Route path='/buscar' element={<Buscar />} />
         <Route path='/descargar' element={<Descargar />} />
-        <Route path='/crear-etiqueta' element={<CrearEtiqueta />} />
+        <Route path='/crear-coleccion' element={<CrearColeccion />} />
 
       </Routes>
 
