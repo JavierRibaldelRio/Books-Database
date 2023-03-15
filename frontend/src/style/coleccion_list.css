@@ -3,13 +3,15 @@
     list-style-type: none;
 
     overflow: auto;
-
+    padding: 1px;
     height: 25vh;
 
     overflow-x: hidden;
+    border-radius: .375rem;
 
-    border: black
+    border: #ced4da 1px solid;
 }
+
 
 #lista-colecciones li {
     margin: .5vmin;
@@ -17,10 +19,20 @@
 
     border-radius: .375rem;
 
-    border: solid 5px;
+    border: solid 1.2px;
+
+
+
+
 }
 
 #lista-colecciones label {
 
     width: 100%;
+    backdrop-filter: brightness(150%);
+
+    padding: 2px;
+
+    cursor: pointer;
+
 }
