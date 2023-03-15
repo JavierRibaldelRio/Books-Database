@@ -1,0 +1,26 @@
+#lista-colecciones {
+
+    list-style-type: none;
+
+    overflow: auto;
+
+    height: 25vh;
+
+    overflow-x: hidden;
+
+    border: black
+}
+
+#lista-colecciones li {
+    margin: .5vmin;
+    padding: .5vmin;
+
+    border-radius: .375rem;
+
+    border: solid 5px;
+}
+
+#lista-colecciones label {
+
+    width: 100%;
+}
