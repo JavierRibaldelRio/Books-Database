@@ -26,10 +26,23 @@ db.init_app(app)
 
 
 # Obtiene todo el contenido de ka base de datos y lo mete en un dict
-def get_all():
+def get_all_books():
     res = list()
 
     for u in Libros.query.all():
+        dic = u.__dict__
+
+        del dic["_sa_instance_state"]
+
+        res.append(dic)
+    return res
+
+
+# Obtiene todas las coleciones
+def get_all_collections():
+    res = list()
+
+    for u in Colecciones.query.all():
         dic = u.__dict__
 
         del dic["_sa_instance_state"]
@@ -81,7 +94,7 @@ def fetch_autores():
 # Deuvleve todos los libros en formato json
 @app.route("/api/fetch_books")
 def fetch_books():
-    return get_all()
+    return get_all_books()
 
 
 # Obtiene los datos de un libro
@@ -174,7 +187,7 @@ def download():
 @app.route("/download-json")
 def download_JSON():
     return Response(
-        json.dumps(get_all()),
+        json.dumps(get_all_books()),
         mimetype="application/json",
         headers={"Content-disposition": "attachment; filename=database.json"},
     )
@@ -193,3 +206,8 @@ def create_tag():
 
     col.save()
     return "Colección  creada"
+
+
+@app.route("/api/collection/fetch-colecciones")
+def fetch_colecciones():
+    return get_all_collections()
