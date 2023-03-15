@@ -1,5 +1,5 @@
 // Genera un color random
-function RandomHex() {
+function randomHex() {
 
     //Dodos los posibles valorea que puede tener el color
     const ch = "0123456789ABCDEF";
@@ -14,3 +14,5 @@ function RandomHex() {
 
     return col;
 }
+
+export default randomHex;
