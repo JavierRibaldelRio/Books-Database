@@ -36,6 +36,7 @@ class Colecciones(db.Model):
     coleccion_id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String)
     color = db.Column(db.String)
+    items = db.Column(db.Integer, default=0)
 
     def __init__(self, coleccion_id, nombre, color):
         self.coleccion_id = coleccion_id
