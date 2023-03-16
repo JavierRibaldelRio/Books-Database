@@ -5,8 +5,10 @@ import { pasarAMayusFrase } from "../../scripts/pasarAMayus"
 import '../../style/coleccion_list.css';
 function ColecionesList(props) {
 
-
+    // Si hay colecciones
     if (props.colecciones) {
+
+        // Genera todos los liss de las colecciones
         var colecciones = props.colecciones.map((x) =>
             <li key={x.coleccion_id} style={{ borderColor: x.color, backgroundColor: x.color, color: elegirColorLetra(x.color) }}>
                 <label className="item-lista-coleccion" htmlFor={x.nombre}>
@@ -17,12 +19,13 @@ function ColecionesList(props) {
         )
 
 
-
+        //Devuelve todas las colecciones
         return <div className="col-md-2"> Colección:<ul id="lista-colecciones" >
             {colecciones}
         </ul></div>
     }
 
+    // Si no hay colecciones definidas
     else
         return <></>
 
