@@ -1,4 +1,5 @@
 //Crea una lista que contiene todas las etiquetas
+import elegirColorLetra from "../../scripts/elegirColorLetra";
 import { pasarAMayusFrase } from "../../scripts/pasarAMayus"
 
 import '../../style/coleccion_list.css';
@@ -7,7 +8,7 @@ function ColecionesList(props) {
 
     if (props.colecciones) {
         var colecciones = props.colecciones.map((x) =>
-            <li key={x.coleccion_id} style={{ borderColor: x.color, backgroundColor: x.color }}>
+            <li key={x.coleccion_id} style={{ borderColor: x.color, backgroundColor: x.color, color: elegirColorLetra(x.color) }}>
                 <label className="item-lista-coleccion" htmlFor={x.nombre}>
                     <input id={x.nombre} type="checkbox" name="coleciones" value={x.coleccion_id} /> {pasarAMayusFrase(x.nombre)}
                 </label>
@@ -17,9 +18,9 @@ function ColecionesList(props) {
 
 
 
-        return <ul id="lista-colecciones" className="col-md-2">
+        return <div className="col-md-2"> Colección:<ul id="lista-colecciones" >
             {colecciones}
-        </ul>
+        </ul></div>
     }
 
     else

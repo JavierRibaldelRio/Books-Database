@@ -3,7 +3,7 @@
     list-style-type: none;
 
     overflow: auto;
-    padding: 1px;
+    padding: 3px;
     height: 25vh;
 
     overflow-x: hidden;
@@ -34,5 +34,10 @@
     padding: 2px;
 
     cursor: pointer;
+
+}
+
+#lista-colecciones li:hover {
+    outline: black solid 2px;
 
 }

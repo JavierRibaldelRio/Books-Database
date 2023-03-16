@@ -200,7 +200,7 @@ def download_JSON():
 def create_tag():
     col = Colecciones(
         coleccion_id=None,
-        nombre=request.form.get("nombre"),
+        nombre=request.form.get("nombre").strip().lower(),
         color=request.form.get("color"),
     )
 
@@ -208,6 +208,14 @@ def create_tag():
     return "Colección  creada"
 
 
+def ord(e):
+    return e["nombre"]
+
+
 @app.route("/api/collection/fetch-colecciones")
 def fetch_colecciones():
-    return get_all_collections()
+    li = get_all_collections()
+
+    li.sort(key=ord)
+
+    return li
