@@ -25,6 +25,11 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 
+# Ordena por nombre
+def ord(e):
+    return e["nombre"]
+
+
 # Obtiene todo el contenido de ka base de datos y lo mete en un dict
 def get_all_books():
     res = list()
@@ -35,6 +40,9 @@ def get_all_books():
         del dic["_sa_instance_state"]
 
         res.append(dic)
+
+    res.sort(key=ord)
+
     return res
 
 
@@ -42,12 +50,17 @@ def get_all_books():
 def get_all_collections():
     res = list()
 
+    # Obtiene las colecciones y elimina el dato
     for u in Colecciones.query.all():
         dic = u.__dict__
 
         del dic["_sa_instance_state"]
 
         res.append(dic)
+
+    # Ordena las colecciones por orden alfabético
+    res.sort(key=ord)
+
     return res
 
 
@@ -80,7 +93,7 @@ def add_book():
 # Obtiene una lista de los idiomas y de los autores
 
 
-@app.route("/api/fetch_autores_idiomas")
+@app.route("/api/fetch-autores-idiomas-colecciones")
 def fetch_autores():
     # Crea una respuesta en forma de diccionario
     res = dict()
@@ -88,19 +101,24 @@ def fetch_autores():
     # Añade listas a los formularios
     res["idiomas"] = []
     res["autores"] = []
+    res["colecciones"] = []
 
-    # Obtiene los datos de la base
+    # Obtiene los datos de la base de los libros
     for u in Libros.query.all():
         res.get("autores").append(u.__dict__.get("autor"))
         res.get("idiomas").append(u.__dict__.get("idioma"))
 
-    # Elimina duplicados de las listas
+    # Elimina duplicados de las listas de libros
     res["idiomas"] = list(set(res["idiomas"]))
     res["autores"] = list(set(res["autores"]))
 
     # Ordena las listas
     res["idiomas"].sort()
     res["autores"].sort()
+
+    # Obtiene las colecciones
+
+    res["colecciones"] = get_all_collections()
 
     return res
 
@@ -121,8 +139,6 @@ def fetch_book(id):
 
 
 # Elimina los libros del servidor
-
-
 @app.route("/api/remove-book/<id>", methods=["DELETE"])
 def remove_book(id):
     Libros.query.filter(Libros.libro_id == id).delete()
@@ -152,8 +168,6 @@ def edit_book():
 
 
 # Query
-
-
 @app.route("/api/query", methods=["POST"])
 def query():
     # Variable que almacena la respuesta
@@ -226,14 +240,6 @@ def create_tag():
     return "Colección  creada"
 
 
-def ord(e):
-    return e["nombre"]
-
-
 @app.route("/api/collection/fetch-colecciones")
 def fetch_colecciones():
-    li = get_all_collections()
-
-    li.sort(key=ord)
-
-    return li
+    return get_all_collections()
