@@ -1,0 +1,36 @@
+#botones-mostrar {
+
+    display: flex;
+
+    width: 100%;
+
+    justify-content: space-around;
+
+
+}
+
+.li-coleccion {
+
+    list-style-type: none;
+
+    display: inline-block;
+}
+
+.link-coleccion {
+
+    text-emphasis: none;
+    color: unset;
+}
+
+.link-coleccion:hover {
+
+    text-emphasis: none;
+
+    color: unset;
+}
+
+.li-coleccion span {
+
+    padding: 2vmin;
+
+}
