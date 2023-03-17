@@ -132,8 +132,19 @@ def fetch_books():
 # Obtiene los datos de un libro
 @app.route("/api/fetch-book/<id>")
 def fetch_book(id):
+    # Obtiene el libro y lo pasa a dict
     libro = Libros.query.get(id).__dict__
+
+    # Elimina la propiedad interna
     del libro["_sa_instance_state"]
+
+    # Obtiene el nombre, color e id de las colecciónes del libro
+    colecciones = db.engine.execute(
+        "SELECT color, nombre, colecciones.coleccion_id FROM  joincolecciones JOIN colecciones ON (joincolecciones.coleccion_id = colecciones.coleccion_id) WHERE (libro_id=?)",
+        id,
+    )
+
+    libro["colecciones"] = [r._asdict() for r in colecciones]
 
     return libro
 
