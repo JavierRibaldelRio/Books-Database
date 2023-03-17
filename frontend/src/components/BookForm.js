@@ -36,9 +36,8 @@ class BookForm extends Component {
 
     componentDidMount() {
 
-        fetch('/api/fetch_autores_idiomas').then((res) => res.json()).then((data) => { this.setState({ autores: data.autores, idiomas: data.idiomas }) }).catch((err) => console.log('ERROR: ' + err));
+        fetch('/api/fetch-autores-idiomas-colecciones').then((res) => res.json()).then((data) => { this.setState({ autores: data.autores, idiomas: data.idiomas, colecciones: data.colecciones }) }).catch((err) => console.log('ERROR: ' + err));
 
-        fetch('/api/collection/fetch-colecciones').then((res) => res.json()).then(data => this.setState({ colecciones: data })).catch((err) => console.log('ERROR: ' + err));
     }
 
     render() {
