@@ -11,9 +11,13 @@ from flask import Flask, request, Response, send_file
 
 from models.models import Libros, db, Colecciones
 
+from scripts.elimina_de_colecciones import eliminar_de_colecciones
+
 columnas = ["titulo", "idioma", "autor", "fecha_inicio", "fecha_finalizacion"]
 
 from scripts.recibirformlibro import recibir_form_libro
+
+from scripts.anyadir_libro_a_colecciones import anyadir_libro_a_colecciones
 
 # Configura la app
 app = Flask(__name__)
@@ -78,12 +82,7 @@ def add_book():
     libro_id = libro.libro_id
 
     # Añade a la tabla JOIN las relaciones
-    for id in col:
-        db.engine.execute(
-            "INSERT INTO joincolecciones (libro_id,coleccion_id) VALUES (?,?)",
-            libro_id,
-            id,
-        )
+    anyadir_libro_a_colecciones(db, libro_id, col)
 
     return "Hi World"
 
@@ -142,7 +141,11 @@ def fetch_book(id):
         id,
     )
 
+    # Lo pasa a lista de diccionarios
     libro["colecciones"] = [r._asdict() for r in colecciones]
+
+    # Ordena
+    libro["colecciones"].sort(ord)
 
     return libro
 
@@ -172,6 +175,13 @@ def edit_book():
 
     # Guarda los cambios
     db.session.commit()
+
+    lid = nuevo.get("libro_id")
+    eliminar_de_colecciones(db, lid)
+
+    col = request.form.getlist("colecciones")
+
+    anyadir_libro_a_colecciones(db, lid, col)
 
     return "Libro Editado"
 
