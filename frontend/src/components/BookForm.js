@@ -44,7 +44,7 @@ class BookForm extends Component {
 
         const x = this.props.libro;
 
-        const inputID = (typeof x.libro_id === 'number') ? <input hidden name='libro_id' value={x.libro_id} /> : <></>;
+        const inputID = (typeof x.libro_id === 'number') ? <input hidden name='libro_id' readOnly value={x.libro_id} /> : <></>;
 
         return (
 
