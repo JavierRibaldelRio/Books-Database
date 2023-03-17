@@ -20,7 +20,7 @@ function ColecionesList(props) {
 
 
         //Devuelve todas las colecciones
-        return <div className="col-md-2"> Colección:<ul id="lista-colecciones" >
+        return <div className="col-md-3"> Colección:<ul id="lista-colecciones" >
             {colecciones}
         </ul></div>
     }
