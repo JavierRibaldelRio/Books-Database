@@ -211,14 +211,17 @@ def download_JSON():
 # colecciones
 
 
+# Crea coleccion
 @app.route("/api/collection/create-collection", methods=["POST"])
 def create_tag():
+    # Obtiene los datos
     col = Colecciones(
         coleccion_id=None,
         nombre=request.form.get("nombre").strip().lower(),
         color=request.form.get("color"),
     )
 
+    # Guarda los datos
     col.save()
     return "Colección  creada"
 
