@@ -175,6 +175,7 @@ def query():
     s_idioma = "%{}%".format(idioma)
     s_autor = "%{}%".format(autor)
 
+    # Ejecuta la Query
     for u in Libros.query.filter(
         Libros.titulo.like(s_titulo),
         Libros.idioma.like(s_idioma),
