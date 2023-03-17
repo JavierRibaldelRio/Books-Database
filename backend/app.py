@@ -9,7 +9,7 @@ from flask import Flask, request, Response, send_file
 
 # Importa las librerias de sqlAclchemy
 
-from models.models import Libros, db, Colecciones, Joincolecciones
+from models.models import Libros, db, Colecciones
 
 columnas = ["titulo", "idioma", "autor", "fecha_inicio", "fecha_finalizacion"]
 
@@ -57,17 +57,24 @@ def add_book():
     # Obtiene las variables de el cliente
     libro = recibir_form_libro(request)
 
-    # Obtiene la lista de coleciones
-    col = request.form.getlist("colecciones")
-
-    jo = Joincolecciones(2, 5)
-    print(jo)
-    jo.save()
-
-    print(col)
+    print(libro)
 
     # Guarda el libro
     libro.save()
+
+    # Obtiene la lista de coleciones
+    col = request.form.getlist("colecciones")
+
+    libro_id = libro.libro_id
+
+    for id in col:
+        db.engine.execute(
+            "INSERT INTO joincolecciones (libro_id,coleccion_id) VALUES (?,?)",
+            libro_id,
+            id,
+        )
+
+    print(db.engine.execute("SELECT * FROM libros"))
 
     return "Hi World"
 
