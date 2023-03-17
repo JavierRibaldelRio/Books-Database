@@ -99,7 +99,7 @@ class Mostrar extends Component {
                 <div className="modal-body row">
 
 
-                    <div className="col-md-4">
+                    <div className="col-md-5">
                         <MostrarDBData data={this.state.data} />
 
                         <div id='botones-mostrar'>
