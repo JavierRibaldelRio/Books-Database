@@ -54,27 +54,25 @@ def get_all_collections():
 # Recibe desde un formulario para crear un nuevo libro
 @app.route("/api/add-book", methods=["POST"])
 def add_book():
-    # Obtiene las variables de el cliente
+    # Obtiene las variables de el cliente y crea el libro
     libro = recibir_form_libro(request)
-
-    print(libro)
 
     # Guarda el libro
     libro.save()
 
-    # Obtiene la lista de coleciones
+    # Obtiene la lista de coleciones a las que hay que agregar el libro
     col = request.form.getlist("colecciones")
 
+    # Obtiene la id del Libro
     libro_id = libro.libro_id
 
+    # Añade a la tabla JOIN las relaciones
     for id in col:
         db.engine.execute(
             "INSERT INTO joincolecciones (libro_id,coleccion_id) VALUES (?,?)",
             libro_id,
             id,
         )
-
-    print(db.engine.execute("SELECT * FROM libros"))
 
     return "Hi World"
 
