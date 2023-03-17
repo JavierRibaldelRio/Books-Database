@@ -1,5 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+//Cs
+
+import './style/colecciones.css'
+
 //Sub páginas
 import Main from './pages/Main';
 import AddBook from './pages/Add-Book';

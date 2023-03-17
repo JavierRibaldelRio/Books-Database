@@ -13,31 +13,13 @@
 }
 
 
-#lista-colecciones li {
-    margin: .5vmin;
-    padding: .5vmin;
-
-    border-radius: .375rem;
-
-    border: solid 1.2px;
-
-
-
-
-}
-
-#lista-colecciones label {
-
-    width: 100%;
-    backdrop-filter: brightness(150%);
-
-    padding: 2px;
-
-    cursor: pointer;
-
-}
 
 #lista-colecciones li:hover {
     outline: black solid 2px;
 
+}
+
+#lista-colecciones input {
+
+    margin: 0 2vmin;
 }
