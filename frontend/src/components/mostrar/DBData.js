@@ -1,4 +1,5 @@
 import React from 'react';
+import EstiloColeccion from '../../classes/EstiloEtiquetaColeccion';
 import elegirColorLetra from '../../scripts/elegirColorLetra';
 import esFecha from '../../scripts/esFecha';
 import pasarAMayusPalabra, { pasarAMayusFrase } from '../../scripts/pasarAMayus';
@@ -47,7 +48,7 @@ function MostrarDBData(props) {
                 <ul>
                     {colecciones.map(x => <li key={x.coleccion_id}
                         className="li-coleccion"
-                        style={{ color: elegirColorLetra(x.color), backgroundColor: x.color, borderColor: x.color }}
+                        style={new EstiloColeccion(x.color)}
                     ><a className="link-coleccion"
                         href={"/colecciones/" + x.coleccion_id} ><span>{pasarAMayusFrase(x.nombre)}&nbsp;</span></a></li>)}</ul></td>
         </tr >
