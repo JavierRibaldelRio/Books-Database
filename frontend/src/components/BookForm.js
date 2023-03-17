@@ -62,7 +62,7 @@ class BookForm extends Component {
 
                     <DateField name='fecha_finalizacion' label="Fecha de Finalización" value={x.fecha_finalizacion} />
 
-                    <ColecionesList colecciones={this.state.colecciones || undefined} />
+                    <ColecionesList coleccionesSeleccionadas={x.colecciones} colecciones={this.state.colecciones || undefined} />
                 </Row>
                 <Button type="submit">{this.props.text} &nbsp;<FontAwesomeIcon icon={this.props.ico} /></Button>
 

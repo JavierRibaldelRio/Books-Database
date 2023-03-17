@@ -5,6 +5,27 @@ import { pasarAMayusFrase } from "../../scripts/pasarAMayus"
 import '../../style/coleccion_list.css';
 function ColecionesList(props) {
 
+    var coleccionesSeleccionadas = []
+
+    if (props.coleccionesSeleccionadas !== null) {
+
+        coleccionesSeleccionadas = props.coleccionesSeleccionadas.map((x) => x.coleccion_id)
+    }
+
+    const checked = (id) => {
+
+        if (props.coleccionesSeleccionadas !== null) {
+
+            return coleccionesSeleccionadas.includes(id)
+
+        }
+
+        else {
+            return false;
+        }
+
+    }
+
     // Si hay colecciones
     if (props.colecciones) {
 
@@ -12,7 +33,7 @@ function ColecionesList(props) {
         var colecciones = props.colecciones.map((x) =>
             <li key={x.coleccion_id} style={new EstiloColeccion(x.color)}>
                 <label className="item-lista-coleccion" htmlFor={x.nombre}>
-                    <input id={x.nombre} type="checkbox" name="colecciones" value={x.coleccion_id} /> {pasarAMayusFrase(x.nombre)}
+                    <input id={x.nombre} type="checkbox" name="colecciones" value={x.coleccion_id} defaultChecked={checked(x.coleccion_id)} /> {pasarAMayusFrase(x.nombre)}
                 </label>
             </li>
 
@@ -31,5 +52,10 @@ function ColecionesList(props) {
 
 }
 
+
+ColecionesList.defaultProps = {
+
+    coleccionesSeleccionadas: null
+}
 
 export default ColecionesList;
