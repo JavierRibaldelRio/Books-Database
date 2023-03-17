@@ -41,8 +41,6 @@ def get_all_books():
 
         res.append(dic)
 
-    res.sort(key=ord)
-
     return res
 
 
