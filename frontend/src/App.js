@@ -22,7 +22,7 @@ function App() {
         <Route path="/add-book" element={<AddBook />} />
         <Route path='/tabla-libros' element={<TablaLibros />} />
         <Route path='/editar' element={<Editar />} />
-        <Route path='/:id' element={<MostrarLibro />} />
+        <Route path='/libro/:id' element={<MostrarLibro />} />
         <Route path='/buscar' element={<Buscar />} />
         <Route path='/descargar' element={<Descargar />} />
         <Route path='/crear-coleccion' element={<CrearColeccion />} />
