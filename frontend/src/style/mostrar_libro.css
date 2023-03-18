@@ -15,21 +15,24 @@
     display: inline-block;
 }
 
-.blanquear-fondo {
+.blanquear-fondo,
+.blanquear-fondo a {
 
     text-emphasis: none;
     color: unset;
 }
 
-.blanquear-fondo:hover {
+.blanquear-fondo:hover,
+.blanquear-fondo a:hover {
 
     text-emphasis: none;
 
     color: unset;
 }
 
-.li-coleccion span {
+.contenedor-enlace {
 
-    padding: 2vmin;
+    padding: 1vmin;
 
+    text-align: center;
 }

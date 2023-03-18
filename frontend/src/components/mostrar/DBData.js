@@ -46,11 +46,15 @@ function MostrarDBData(props) {
             <td id='celda-colecciones'>
 
                 <ul>
-                    {colecciones.map(x => <li key={x.coleccion_id}
-                        className="li-coleccion"
-                        style={new EstiloColeccion(x.color)}
-                    ><a className="blanquear-fondo"
-                        href={"/colecciones/" + x.coleccion_id} ><span>{pasarAMayusFrase(x.nombre)}&nbsp;</span></a></li>)}</ul></td>
+                    {colecciones.map(x => <li key={x.coleccion_id} className="li-coleccion" style={new EstiloColeccion(x.color)}>
+
+                        <div className="blanquear-fondo contenedor-enlace">
+                            <a href={"/colecciones/" + x.coleccion_id}>{pasarAMayusFrase(x.nombre)}&nbsp;
+                            </a>
+                        </div>
+                    </li>)}
+                </ul>
+            </td>
         </tr >
     }
 
