@@ -6,7 +6,6 @@
 
     justify-content: space-around;
 
-
 }
 
 .li-coleccion {
@@ -16,13 +15,13 @@
     display: inline-block;
 }
 
-.link-coleccion {
+.blanquear-fondo {
 
     text-emphasis: none;
     color: unset;
 }
 
-.link-coleccion:hover {
+.blanquear-fondo:hover {
 
     text-emphasis: none;
 

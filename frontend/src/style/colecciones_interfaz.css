@@ -1,0 +1,56 @@
+/* Hoja de estilos par a/ colecciones */
+
+#panel-colecciones {
+
+    display: flex;
+
+    width: 50%;
+
+    gap: 5vw;
+
+    align-items: center;
+
+    margin: 0 4vmin
+}
+
+#mostrar-colecciones {
+
+    margin: 4vmin;
+
+    width: 95vw;
+
+
+
+    height: auto;
+
+    display: flex;
+
+
+    flex-wrap: wrap;
+
+    gap: 5vmax;
+}
+
+
+#mostrar-colecciones span {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+    height: 10vmax;
+
+    word-wrap: break-word;
+
+    text-align: center;
+
+    width: 10vmax;
+
+    margin: 1vmin;
+}
+
+.contenedor-fondo-blaqueado:hover {
+    outline: black solid 2px;
+
+}

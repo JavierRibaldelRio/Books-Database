@@ -49,7 +49,7 @@ function MostrarDBData(props) {
                     {colecciones.map(x => <li key={x.coleccion_id}
                         className="li-coleccion"
                         style={new EstiloColeccion(x.color)}
-                    ><a className="link-coleccion"
+                    ><a className="blanquear-fondo"
                         href={"/colecciones/" + x.coleccion_id} ><span>{pasarAMayusFrase(x.nombre)}&nbsp;</span></a></li>)}</ul></td>
         </tr >
     }

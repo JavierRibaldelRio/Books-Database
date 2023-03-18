@@ -4,6 +4,7 @@
 }
 
 #lista-colecciones li,
+.contenedor-fondo-blaqueado,
 .li-coleccion {
     margin: .5vmin;
     padding: .5vmin;
@@ -11,15 +12,10 @@
     border-radius: var(--curva-borde);
 
     border: solid 1.2px;
-
-
-
-
-
 }
 
 #lista-colecciones label,
-.link-coleccion {
+.blanquear-fondo {
     border-radius: var(--curva-borde);
 
     width: 100%;
