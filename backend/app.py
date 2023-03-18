@@ -145,7 +145,7 @@ def fetch_book(id):
     libro["colecciones"] = [r._asdict() for r in colecciones]
 
     # Ordena
-    libro["colecciones"].sort(ord)
+    libro["colecciones"].sort(key=ord)
 
     return libro
 
