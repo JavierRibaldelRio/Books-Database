@@ -11,3 +11,11 @@ body {
 
   color: black;
 }
+
+.elipse {
+
+  /* Hace que cuando haya un nombre muy largo muestre una ellipsis */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
