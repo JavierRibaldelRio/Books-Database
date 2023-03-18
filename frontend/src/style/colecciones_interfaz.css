@@ -32,25 +32,95 @@
 }
 
 
-#mostrar-colecciones span {
+.nombre-coleccion {
 
     display: flex;
 
     justify-content: center;
 
     align-items: center;
-    height: 10vmax;
 
     word-wrap: break-word;
 
     text-align: center;
+    height: 18vmax;
 
-    width: 10vmax;
+    width: 12vmax;
 
     margin: 1vmin;
+
+    cursor: default;
+
+    overflow: hidden;
 }
 
 .contenedor-fondo-blaqueado:hover {
     outline: black solid 2px;
 
+}
+
+.botones-coleccion {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+
+    overflow-y: auto;
+
+
+
+    gap: 3vmin;
+
+    max-height: 95%;
+    animation: aparecer-desde-abajo 1s ease forwards;
+
+
+}
+
+.titulo-coleccion {
+
+    animation: salir-por-arriba 1s ease forwards;
+
+}
+
+@keyframes salir-por-arriba {
+    100% {
+        opacity: 1;
+
+        margin-bottom: 0%;
+    }
+
+    75% {
+
+        margin-bottom: -3%;
+    }
+
+    0% {
+        margin-bottom: 200%;
+        opacity: .5;
+    }
+}
+
+
+.botones-coleccion {}
+
+@keyframes aparecer-desde-abajo {
+    100% {
+        opacity: 1;
+
+        margin-top: 0%;
+    }
+
+    75% {
+
+        margin-top: -3%;
+    }
+
+    0% {
+        margin-top: 200%;
+        opacity: .5;
+    }
 }
