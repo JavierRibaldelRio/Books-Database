@@ -13,6 +13,7 @@ import Editar from './pages/Editar';
 import Buscar from './pages/Buscar'
 import Descargar from './pages/Descargar';
 import CrearColeccion from './pages/Crear-Coleccion';
+import MostrarColecciones from './pages/Mostrar-Colecciones';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
         <Route path='/libro/:id' element={<MostrarLibro />} />
         <Route path='/buscar' element={<Buscar />} />
         <Route path='/descargar' element={<Descargar />} />
-        <Route path='/crear-coleccion' element={<CrearColeccion />} />
+        <Route path='/colecciones/crear-coleccion' element={<CrearColeccion />} />
+        <Route path='/colecciones' element={<MostrarColecciones />} />
 
       </Routes>
 
