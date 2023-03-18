@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 //Cs
 
-import './style/colecciones.css'
+import './style/colecciones_mostrar.css'
 
 //Sub páginas
 import Main from './pages/Main';
