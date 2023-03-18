@@ -5,11 +5,10 @@ import ordenarArrayObjeto from '../scripts/ordenarArrayObjeto';
 import FilaLibros from './FilaLibros';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Alert from 'react-bootstrap/Alert';
 
 import crearData from '../scripts/CrearDatosTabla';
-
 import { faSort } from '@fortawesome/free-solid-svg-icons'
-import esFecha from '../scripts/esFecha'
 
 
 
@@ -64,8 +63,6 @@ class MostrarLibros extends Component {
 
     // Formatea las fechas
 
-
-
     //Ordena segun el criterio especificado
 
     ordenar(criterio, fecha = false) {
@@ -112,24 +109,34 @@ class MostrarLibros extends Component {
 
         const filas = this.state.data.map((x) => <FilaLibros libro={x} key={x.libro_id} />);
 
-        return <>
-            <Table striped responsive>
-                <thead>
-                    <tr>
-                        <th className='puntero' onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
-                    </tr>
-                </thead>
+        // Si hay algo que mostrar
+        if (filas.length !== 0) {
+            return <>
+                <Table striped responsive>
+                    <thead>
+                        <tr>
+                            <th className='puntero' onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {filas}
-                </tbody>
-            </Table>
-        </>;
+                    <tbody>
+                        {filas}
+                    </tbody>
+                </Table>
+            </>;
+        }
+
+        //Si no hay nada que mostrar
+
+        else {
+
+            return <Alert key="danger" variant="danger"> No se ha podido establecer conexión con las Base de Datos</Alert>
+        }
     }
 }
 
