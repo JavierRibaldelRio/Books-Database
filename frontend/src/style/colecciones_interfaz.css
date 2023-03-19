@@ -67,7 +67,7 @@
     gap: 3vmin;
 
 
-    overflow-y: scroll;
+    overflow-y: auto;
 
     animation: aparecer-desde-abajo var(--duracion-animacion) ease forwards;
 
