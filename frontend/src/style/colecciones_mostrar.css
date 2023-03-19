@@ -4,6 +4,7 @@
 }
 
 #lista-colecciones li,
+#nombre-coleccion,
 .contenedor-fondo-blaqueado,
 .li-coleccion {
     margin: .5vmin;

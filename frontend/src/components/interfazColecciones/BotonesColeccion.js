@@ -43,7 +43,7 @@ function BotonesColeccion(props) {
         <span className='elipse'>{nombre}</span>
 
         {/* Botones de control de la colección */}
-        <a role={"button"} className='btn btn-primary boton-coleccion'>Ver &nbsp;
+        <a role={"button"} href={'/colecciones/' + coleccion_id} className='btn btn-primary boton-coleccion'>Ver &nbsp;
             <FontAwesomeIcon icon={faEye} />
         </a>
 
