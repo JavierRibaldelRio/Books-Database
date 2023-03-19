@@ -43,8 +43,8 @@ class MostrarLibros extends Component {
 
     }
 
-    componentDidUpdate() {
-        if (this.props.query !== null) {
+    componentDidUpdate(preProv) {
+        if (this.props.query !== null && JSON.stringify(this.props.query) !== JSON.stringify(preProv.query)) {
 
             this.setState({ data: this.props.query.map(crearData) });
         }
@@ -98,7 +98,7 @@ class MostrarLibros extends Component {
     }
 
 
-    // Aplica la función ordenar a acada uno de los criterios
+    // Aplica la función ordenar a acada uno de lodds criterios
     ordenarID() { this.ordenar('libro_id'); }
     ordenarTitulo() { this.ordenar('titulo'); }
     ordenarAutor() { this.ordenar('autor'); }
