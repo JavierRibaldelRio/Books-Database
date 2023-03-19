@@ -321,5 +321,7 @@ def fetch_coleccion(id):
             id,
         )
     ]
+    # Ordena el contenido
+    respuesta["contenido"].sort(key=lambda x: x["libro_id"])
 
     return respuesta
