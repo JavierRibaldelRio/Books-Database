@@ -20,13 +20,17 @@ class Coleccion extends Component {
         this.onMouseOver = this.onMouseOver.bind(this);
         this.onMouseOut = this.onMouseOut.bind(this);
 
+        // Obtine la función alertar del padre
+        this.alertar = this.props.alertar.bind(this);
+
+
     }
 
     // Al tener el raton encima renderiza los botones de la colección
     onMouseOver() {
 
 
-        this.setState({ contenido: <BotonesColeccion id={this.props.coleccion.coleccion_id} nombre={this.state.nombre} /> })
+        this.setState({ contenido: <BotonesColeccion id={this.props.coleccion.coleccion_id} nombre={this.state.nombre} alertar={this.alertar} /> })
     }
 
     // Al tener el ratón fuera del contenido muesta el nombre normal de la coleccion

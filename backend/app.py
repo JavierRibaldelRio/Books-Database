@@ -259,6 +259,19 @@ def create_tag():
     return "Colección  creada"
 
 
+# Obtiene todas las colecciones
 @app.route("/api/collection/fetch-colecciones")
 def fetch_colecciones():
     return get_all_collections()
+
+
+@app.route("/api/collection/remove-collection/<id>", methods=["DELETE"])
+def eliminar_coleccion(id):
+    # Elimina la coleccion de la tabald e colecciones
+    Colecciones.query.filter(Colecciones.coleccion_id == id).delete()
+    db.session.commit()
+
+    # Elimina
+    db.engine.execute("DELETE FROM joincolecciones WHERE (coleccion_id=?)", id)
+
+    return Response(status=204)

@@ -7,12 +7,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function BotonesColeccion(props) {
 
-    const id = props.id     //Obtine la id
+    const { id, nombre } = props     //Obtine la id y el nombre
+
+    // Elimina la colección
+    function elimninarColeccion() {
+
+        // Pregunta si deseas eliminar la colección
+        if (window.confirm("¿Seguro qué desea eliminar esta colección? (los libros que contine NO se eliminaran)")) {
+            // Elimna la coleccón
+            fetch('/api/collection/remove-collection/' + id, { method: 'DELETE' }).then((res) => {
+                if (res.status == 204) {
+
+                    // Alerta al usuario de que la colección ha sido eliminada correctamente
+                    props.alertar({ texto: nombre + " se a elimindado  correctamente.", tipo: "success" })
+                } else {
+
+                    // Alerta en caso de que se haya producido un error
+                    props.alertar({ texto: 'Se ha producido un error, no se ha podido eliminar la colección', tipo: "danger" })
+
+                }
+            }).catch(e => console.error(`Se ha producido un error: "`));
+
+        }
+    }
 
     return <div className='botones-coleccion' key={"BotonesColeccion" + id}>
 
         {/* Nombre de la colección */}
-        <span className='elipse'>{props.nombre}</span>
+        <span className='elipse'>{nombre}</span>
 
         {/* Botones de control de la colección */}
         <a role={"button"} className='btn btn-primary boton-coleccion'>Ver &nbsp;
@@ -23,9 +45,9 @@ function BotonesColeccion(props) {
             Editar &nbsp;<FontAwesomeIcon icon={faPenToSquare} />
         </a>
 
-        <a role={"button"} className='btn btn-danger boton-coleccion'>
+        <button className='btn btn-danger boton-coleccion' onClick={elimninarColeccion}>
             Eliminar &nbsp;<FontAwesomeIcon icon={faTrash} />
-        </a>
+        </button>
     </div>
 }
 

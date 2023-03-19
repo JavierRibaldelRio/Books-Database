@@ -16,12 +16,33 @@ class InterfazColecciones extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { data: [], numeroColecciones: 0 }
+        this.state = { data: [], numeroColecciones: 0, alerta: { oculta: true } }
+
+        // Funciones
+
+        this.modificarAlerta = this.modificarAlerta.bind(this);
+    }
+
+    // Obtiene los datos de las colecciones
+    fetchColecciones() {
+
+        fetch("/api/collection/fetch-colecciones").then(res => res.json()).then((data) => { this.setState({ data: data, numeroColecciones: data.length }) }).catch((err) => console.log('ERROR: ' + err));
     }
 
     // Obtiene todas las colecciones
     componentDidMount() {
-        fetch("/api/collection/fetch-colecciones").then(res => res.json()).then((data) => { this.setState({ data: data, numeroColecciones: data.length }) }).catch((err) => console.log('ERROR: ' + err));
+
+        this.fetchColecciones();
+    }
+
+    // Obtine el contenido y el tipo de la alerta y la muestra
+    modificarAlerta(contenido_alerta) {
+
+        // Activa la visivilidad de la alerta y concatena el contenido de la alerta
+        this.setState({ alerta: { oculta: false, ...contenido_alerta } })
+
+        this.fetchColecciones();
+
     }
 
     render() {
@@ -33,7 +54,7 @@ class InterfazColecciones extends Component {
         if (this.state.numeroColecciones !== 0) {
 
             // Almacena todas las colecciones que va mostrar
-            colecciones = this.state.data.map((coleccion) => <Coleccion coleccion={coleccion} key={coleccion.coleccion_id} />)
+            colecciones = this.state.data.map((coleccion) => <Coleccion coleccion={coleccion} key={coleccion.coleccion_id} alertar={this.modificarAlerta} />)
         }
         else {
 
@@ -43,6 +64,9 @@ class InterfazColecciones extends Component {
 
         return <>
 
+            <div hidden={this.state.alerta.oculta} >
+                <AlertaCerrable texto={this.state.alerta.texto} tipo={this.state.alerta.tipo} />
+            </div>
             <div id='panel-colecciones'>
 
                 {/* Muestra el número de colecciones */}
