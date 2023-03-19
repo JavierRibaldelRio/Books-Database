@@ -163,6 +163,7 @@ def remove_book(id):
 # Modifica los libros
 @app.route("/api/edit-book", methods=["POST"])
 def edit_book():
+    # Actualización de contenido
     # Obtiene el nuevo libro y lo pasa a diccionario
     nuevo = recibir_form_libro(request).__dict__
     # Elimina una propiedad
@@ -176,12 +177,14 @@ def edit_book():
     # Guarda los cambios
     db.session.commit()
 
+    # Actualización de etiquetas
     lid = nuevo.get("libro_id")
-
+    # Elmina todas lac colecciones que tenía aderidas
     eliminar_de_colecciones(db, lid)
 
+    # Obtiene las nuevas colecciones
     col = request.form.getlist("colecciones")
-
+    # Guarda las nuevas colecciones
     anyadir_libro_a_colecciones(db, lid, col)
 
     return "Libro Editado"
@@ -281,15 +284,18 @@ def eliminar_coleccion(id):
 # Obtiene todas las colecciones
 @app.route("/api/collection/edit-collection", methods=["POST"])
 def editar_coleccion():
+    # Obtiene los nuevos datos
     id = request.form.get("coleccion_id")
     nombre = request.form.get("nombre")
     color = request.form.get("color")
 
+    # Crea el nuevo objeto y lo hace diccionario
     nueva = Colecciones(coleccion_id=id, color=color, nombre=nombre).__dict__
 
     # Elimina una propiedad
     del nueva["_sa_instance_state"]
 
+    # Guarda los cambios
     coleccion = Colecciones.query.filter(Colecciones.coleccion_id == id).update(nueva)
 
     db.session.commit()
