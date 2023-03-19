@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-// Bootstrap
-import Alert from 'react-bootstrap/Alert';
 
 // FontAwosome
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../style/colecciones_interfaz.css';
 
 import Coleccion from './interfazColecciones/Coleccion';
+import AlertaCerrable from './AlertaCerrable';
 
 // Contenido de la página que muestra todas las colecciones
 class InterfazColecciones extends Component {
@@ -39,7 +38,7 @@ class InterfazColecciones extends Component {
         else {
 
             // Si no hay colecciones avisa que necesita tener conexión o que todacía nos ha creado ninguna
-            colecciones = <Alert key={"warning"} variant="warning">Todavía no se ha creado ninguna coleccion o no se puede establecer conesxión con la Base de Datos</Alert>
+            colecciones = <AlertaCerrable tipo="warning" texto="Todavía no se ha creado ninguna coleccion o no se puede establecer conesxión con la Base de Datos" />
         }
 
         return <>

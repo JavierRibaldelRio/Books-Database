@@ -5,10 +5,11 @@ import ordenarArrayObjeto from '../scripts/ordenarArrayObjeto';
 import FilaLibros from './FilaLibros';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Alert from 'react-bootstrap/Alert';
+
 
 import crearData from '../scripts/CrearDatosTabla';
 import { faSort } from '@fortawesome/free-solid-svg-icons'
+import AlertaCerrable from './AlertaCerrable';
 
 
 
@@ -135,7 +136,7 @@ class MostrarLibros extends Component {
 
         else {
 
-            return <Alert key="danger" variant="danger"> No se ha podido establecer conexión con las Base de Datos</Alert>
+            return <AlertaCerrable tipo="danger" texto="No se ha podido establecer conexión con las Base de Datos" />
         }
     }
 }
