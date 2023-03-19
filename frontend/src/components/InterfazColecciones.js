@@ -28,7 +28,7 @@ class InterfazColecciones extends Component {
 
         if (this.state.numeroColecciones !== 0) {
 
-            colecciones = this.state.data.map((coleccion) => <Coleccion coleccion={coleccion} />)
+            colecciones = this.state.data.map((coleccion) => <Coleccion coleccion={coleccion} key={coleccion.coleccion_id} />)
         }
         else {
             colecciones = <Alert key={"warning"} variant="warning">Todavía no se ha creado ninguna coleccion o no se puede establecer conesxión con la Base de Datos</Alert>
