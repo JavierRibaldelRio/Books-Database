@@ -157,6 +157,8 @@ def remove_book(id):
 
     db.session.commit()
 
+    db.engine.execute("DELETE FROM joincolecciones WHERE(libro_id=?)", id)
+
     return "Eliminado Correctamente"
 
 
