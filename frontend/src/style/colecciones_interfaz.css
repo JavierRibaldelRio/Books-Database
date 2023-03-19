@@ -70,7 +70,7 @@
 
     overflow-y: auto;
 
-
+    color: currentColor;
 
     gap: 3vmin;
 
@@ -104,8 +104,16 @@
     }
 }
 
+.botones-coleccion .btn-warning {
 
-.botones-coleccion {}
+    color: black !important;
+}
+
+.botones-coleccion .btn-primary,
+.botones-coleccion .btn-danger {
+
+    color: white !important;
+}
 
 @keyframes aparecer-desde-abajo {
     100% {

@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { faPenToSquare, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 function BotonesColeccion(props) {
@@ -10,11 +12,11 @@ function BotonesColeccion(props) {
     return <div className='botones-coleccion' key={"BotonesColeccion" + id}>
 
         <span className='elipse'>{props.nombre}</span>
-        <button className='btn btn-primary'>Ver</button>
+        <a role={"button"} className='btn btn-primary boton-coleccion'>Ver &nbsp;<FontAwesomeIcon icon={faEye} /></a>
 
-        <button className='btn btn-warning'>Editar</button>
+        <a role={"link"} href="google.com" className='btn btn-warning boton-coleccion'>Editar &nbsp;<FontAwesomeIcon icon={faPenToSquare} /></a>
 
-        <button className='btn btn-danger'>Eliminar </button>
+        <a role={"button"} className='btn btn-danger boton-coleccion'>Eliminar &nbsp;<FontAwesomeIcon icon={faTrash} /></a>
     </div>
 }
 
