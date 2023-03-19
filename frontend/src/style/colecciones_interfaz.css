@@ -1,15 +1,19 @@
 /* Hoja de estilos par a/ colecciones */
 
+:root {
+
+
+    --duracion-animacion: 1s
+}
+
 #panel-colecciones {
 
     display: flex;
 
     width: 50%;
 
-    gap: 5vw;
-
     align-items: center;
-
+    gap: 5vw;
     margin: 0 4vmin
 }
 
@@ -18,72 +22,101 @@
     margin: 4vmin;
 
     width: 95vw;
-
-
-
     height: auto;
 
     display: flex;
-
-
     flex-wrap: wrap;
-
     gap: 5vmax;
 }
 
 
-.nombre-coleccion {
+.contenido-carpeta-coleccion {
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
 
+    /* Oculta si no puede mostrarlo todo */
+    overflow: hidden;
+    /* Intenta partir palabras */
     word-wrap: break-word;
 
-    text-align: center;
-    height: 18vmax;
-
+    /* Tamaño carpetas */
+    height: 20vmax;
     width: 12vmax;
 
+    /* Grosor de la línea de la carpeta */
     margin: 1vmin;
 
     cursor: default;
 
-    overflow: hidden;
 }
 
-.contenedor-fondo-blaqueado:hover {
+/* Pone contorno a la tarjeta */
+.contenedor-fondo-blaqueado:hover,
+.contenedor-fondo-blaqueado::before {
     outline: black solid 2px;
 
 }
 
 .botones-coleccion {
-
+    /* Muestra los botones en columna flex */
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
-
-    overflow-y: auto;
-
-    color: currentColor;
-
     gap: 3vmin;
 
-    max-height: 95%;
-    animation: aparecer-desde-abajo 1s ease forwards;
+
+    overflow-y: scroll;
+
+    animation: aparecer-desde-abajo var(--duracion-animacion) ease forwards;
 
 
 }
 
+.boton-coleccion,
+.botones-coleccion {
+
+    font-size: 2.2vmin !important;
+}
+
 .titulo-coleccion {
 
-    animation: salir-por-arriba 1s ease forwards;
+    animation: salir-por-arriba var(--duracion-animacion) ease forwards;
 
+}
+
+
+
+.botones-coleccion .btn-warning {
+
+    color: black !important;
+}
+
+.botones-coleccion .btn-primary,
+.botones-coleccion .btn-danger {
+
+    color: white !important;
+}
+
+
+/* Animaciones */
+@keyframes aparecer-desde-abajo {
+    100% {
+        opacity: 1;
+
+        margin-top: 0%;
+    }
+
+    75% {
+
+        margin-top: -3%;
+    }
+
+    0% {
+        margin-top: 200%;
+        opacity: .5;
+    }
 }
 
 @keyframes salir-por-arriba {
@@ -100,35 +133,6 @@
 
     0% {
         margin-bottom: 200%;
-        opacity: .5;
-    }
-}
-
-.botones-coleccion .btn-warning {
-
-    color: black !important;
-}
-
-.botones-coleccion .btn-primary,
-.botones-coleccion .btn-danger {
-
-    color: white !important;
-}
-
-@keyframes aparecer-desde-abajo {
-    100% {
-        opacity: 1;
-
-        margin-top: 0%;
-    }
-
-    75% {
-
-        margin-top: -3%;
-    }
-
-    0% {
-        margin-top: 200%;
         opacity: .5;
     }
 }
