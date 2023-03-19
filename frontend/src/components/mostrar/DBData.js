@@ -48,7 +48,7 @@ function MostrarDBData(props) {
                 <ul>
                     {colecciones.map(x => <li key={x.coleccion_id} className="li-coleccion" style={new EstiloColeccion(x.color)}>
 
-                        <div className="blanquear-fondo contenedor-enlace">
+                        <div className="blanquear-fondo contenedor-enlace elipse" style={{ maxWidth: "20vw" }}>
                             <a href={"/colecciones/" + x.coleccion_id}>{pasarAMayusFrase(x.nombre)}&nbsp;
                             </a>
                         </div>
