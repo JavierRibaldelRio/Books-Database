@@ -4,13 +4,15 @@ import React from 'react';
 import { faPenToSquare, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { useNavigate } from 'react-router-dom';
+
 
 function BotonesColeccion(props) {
 
     const { id, nombre } = props     //Obtine la id y el nombre
 
     // Elimina la colección
-    function elimninarColeccion() {
+    function eliminarColeccion() {
 
         // Pregunta si deseas eliminar la colección
         if (window.confirm("¿Seguro qué desea eliminar esta colección? (los libros que contine NO se eliminaran)")) {
@@ -45,7 +47,7 @@ function BotonesColeccion(props) {
             Editar &nbsp;<FontAwesomeIcon icon={faPenToSquare} />
         </a>
 
-        <button className='btn btn-danger boton-coleccion' onClick={elimninarColeccion}>
+        <button className='btn btn-danger boton-coleccion' onClick={eliminarColeccion}>
             Eliminar &nbsp;<FontAwesomeIcon icon={faTrash} />
         </button>
     </div>
