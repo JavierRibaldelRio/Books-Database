@@ -30,7 +30,7 @@ class Coleccion extends Component {
     onMouseOver() {
 
 
-        this.setState({ contenido: <BotonesColeccion id={this.props.coleccion.coleccion_id} nombre={this.state.nombre} alertar={this.alertar} /> })
+        this.setState({ contenido: <BotonesColeccion coleccion={this.props.coleccion} alertar={this.alertar} /> })
     }
 
     // Al tener el ratón fuera del contenido muesta el nombre normal de la coleccion

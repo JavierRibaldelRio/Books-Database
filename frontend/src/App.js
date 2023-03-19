@@ -14,6 +14,7 @@ import Buscar from './pages/Buscar'
 import Descargar from './pages/Descargar';
 import CrearColeccion from './pages/Crear-Coleccion';
 import MostrarColecciones from './pages/Mostrar-Colecciones';
+import EditarColeccion from './pages/Editar-Coleccion';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         <Route path='/descargar' element={<Descargar />} />
         <Route path='/colecciones/crear-coleccion' element={<CrearColeccion />} />
         <Route path='/colecciones' element={<MostrarColecciones />} />
-
+        <Route path='/colecciones/editar' element={<EditarColeccion />} />
       </Routes>
 
       <a href='/tabla-libros'>TABLA</a>

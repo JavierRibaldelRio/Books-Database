@@ -9,7 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 function BotonesColeccion(props) {
 
-    const { id, nombre } = props     //Obtine la id y el nombre
+    const { coleccion_id, nombre } = props.coleccion     //Obtine la id y el nombre
+
+    const navigate = useNavigate();
+
+
 
     // Elimina la colección
     function eliminarColeccion() {
@@ -17,7 +21,7 @@ function BotonesColeccion(props) {
         // Pregunta si deseas eliminar la colección
         if (window.confirm("¿Seguro qué desea eliminar esta colección? (los libros que contine NO se eliminaran)")) {
             // Elimna la coleccón
-            fetch('/api/collection/remove-collection/' + id, { method: 'DELETE' }).then((res) => {
+            fetch('/api/collection/remove-collection/' + coleccion_id, { method: 'DELETE' }).then((res) => {
                 if (res.status == 204) {
 
                     // Alerta al usuario de que la colección ha sido eliminada correctamente
@@ -33,7 +37,7 @@ function BotonesColeccion(props) {
         }
     }
 
-    return <div className='botones-coleccion' key={"BotonesColeccion" + id}>
+    return <div className='botones-coleccion' key={"BotonesColeccion" + coleccion_id}>
 
         {/* Nombre de la colección */}
         <span className='elipse'>{nombre}</span>
@@ -43,9 +47,9 @@ function BotonesColeccion(props) {
             <FontAwesomeIcon icon={faEye} />
         </a>
 
-        <a role={"button"} className='btn btn-warning boton-coleccion'>
+        <button className='btn btn-warning boton-coleccion' onClick={() => navigate('/colecciones/editar', { state: { data: props.coleccion } })}>
             Editar &nbsp;<FontAwesomeIcon icon={faPenToSquare} />
-        </a>
+        </button>
 
         <button className='btn btn-danger boton-coleccion' onClick={eliminarColeccion}>
             Eliminar &nbsp;<FontAwesomeIcon icon={faTrash} />

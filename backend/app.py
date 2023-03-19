@@ -177,6 +177,7 @@ def edit_book():
     db.session.commit()
 
     lid = nuevo.get("libro_id")
+
     eliminar_de_colecciones(db, lid)
 
     col = request.form.getlist("colecciones")
@@ -275,3 +276,22 @@ def eliminar_coleccion(id):
     db.engine.execute("DELETE FROM joincolecciones WHERE (coleccion_id=?)", id)
 
     return Response(status=204)
+
+
+# Obtiene todas las colecciones
+@app.route("/api/collection/edit-collection", methods=["POST"])
+def editar_coleccion():
+    id = request.form.get("coleccion_id")
+    nombre = request.form.get("nombre")
+    color = request.form.get("color")
+
+    nueva = Colecciones(coleccion_id=id, color=color, nombre=nombre).__dict__
+
+    # Elimina una propiedad
+    del nueva["_sa_instance_state"]
+
+    coleccion = Colecciones.query.filter(Colecciones.coleccion_id == id).update(nueva)
+
+    db.session.commit()
+
+    return "Editado :)"

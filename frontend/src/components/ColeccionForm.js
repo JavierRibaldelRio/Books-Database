@@ -17,7 +17,7 @@ class ColeccionForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { validate: false, hex: randomHex() }
+        this.state = { validate: false, hex: this.props.coleccion.color || randomHex() }
 
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -61,6 +61,8 @@ class ColeccionForm extends Component {
 
 
         return (<Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action={this.props.ruta} method='post'>
+
+            <input type={'number'} name="coleccion_id" value={et.coleccion_id} hidden readOnly />
             <div id='coleccion-form'>
                 <TextField name='nombre' md={"3"} label='Nombre' required='true' value={pasarAMayusFrase(et.nombre)} />
                 <label id="color-picker" htmlFor="color">
