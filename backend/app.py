@@ -303,3 +303,23 @@ def editar_coleccion():
     db.session.commit()
 
     return "Editado :)"
+
+
+@app.route("/api/collection/fetch-coleccion/<id>")
+def fetch_coleccion(id):
+    # Crea el diccionario de la respuesta
+    respuesta = dict()
+
+    respuesta["coleccion"] = Colecciones.query.get(id).__dict__
+
+    del respuesta["coleccion"]["_sa_instance_state"]
+
+    respuesta["contenido"] = [
+        r._asdict()
+        for r in db.engine.execute(
+            "SELECT libros.libro_id, titulo, idioma, autor, fecha_inicio, fecha_finalizacion FROM joincolecciones JOIN libros ON (joincolecciones.libro_id=libros.libro_id) WHERE (joincolecciones.coleccion_id=?)",
+            id,
+        )
+    ]
+
+    return respuesta
