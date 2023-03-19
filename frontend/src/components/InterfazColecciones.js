@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Alert from 'react-bootstrap/Alert';
 
 
 // FontAwosome
@@ -21,6 +22,8 @@ class InterfazColecciones extends Component {
         // Funciones
 
         this.modificarAlerta = this.modificarAlerta.bind(this);
+
+        this.ocultarAlerta = this.ocultarAlerta.bind(this);
     }
 
     // Obtiene los datos de las colecciones
@@ -45,6 +48,13 @@ class InterfazColecciones extends Component {
 
     }
 
+    // Oculta la alerta
+
+    ocultarAlerta() {
+
+        this.setState({ alerta: { oculta: true } })
+    }
+
     render() {
 
 
@@ -65,7 +75,7 @@ class InterfazColecciones extends Component {
         return <>
 
             <div hidden={this.state.alerta.oculta} >
-                <AlertaCerrable texto={this.state.alerta.texto} tipo={this.state.alerta.tipo} />
+                <Alert key={this.state.alerta.tipo} variant={this.state.alerta.tipo} dismissible onClose={this.ocultarAlerta}>{this.state.alerta.texto}</Alert>
             </div>
             <div id='panel-colecciones'>
 
