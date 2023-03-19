@@ -136,7 +136,7 @@ class MostrarLibros extends Component {
 
         else {
 
-            return <AlertaCerrable tipo="danger" texto="No se ha podido establecer conexión con las Base de Datos" />
+            return <AlertaCerrable tipo="danger" texto={this.props.mensajeError} />
         }
     }
 }

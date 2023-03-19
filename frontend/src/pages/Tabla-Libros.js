@@ -6,7 +6,7 @@ function TablaLibros() {
     return <>
         <Titulo text="TABLA LIBROS"></Titulo>
 
-        <MostrarLibros />
+        <MostrarLibros mensajeError="No se ha podido establecer conexión con las Base de Datos" />
     </>
 }
 

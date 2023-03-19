@@ -37,7 +37,7 @@ class Busqueda extends Component {
 
             {/* Muestra los resultados del fetch, si no hay ningún parámetro mostrará todos los libros */}
 
-            <MostrarLibros query={this.state.data} />
+            <MostrarLibros query={this.state.data} mensajeError="No hay ningún libro que tenga estas características" />
 
         </>);
     }
