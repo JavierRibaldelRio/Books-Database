@@ -9,7 +9,7 @@ function AlertaCerrable(props) {
     // Obtone las propiedades
     const { tipo, texto } = props;
     // Devulve la alerta
-    return <Alert key={tipo} variant={tipo} show={mostrar} dismissible onClose={() => setMostrar(false)}>
+    return <Alert className='alerta-cerrable' key={tipo} variant={tipo} show={mostrar} dismissible onClose={() => setMostrar(false)}>
 
         {texto}
     </Alert>;
