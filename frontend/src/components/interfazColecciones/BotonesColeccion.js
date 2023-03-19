@@ -14,7 +14,7 @@ function BotonesColeccion(props) {
         <span className='elipse'>{props.nombre}</span>
         <a role={"button"} className='btn btn-primary boton-coleccion'>Ver &nbsp;<FontAwesomeIcon icon={faEye} /></a>
 
-        <a role={"link"} href="google.com" className='btn btn-warning boton-coleccion'>Editar &nbsp;<FontAwesomeIcon icon={faPenToSquare} /></a>
+        <a role={"button"} href="google.com" className='btn btn-warning boton-coleccion'>Editar &nbsp;<FontAwesomeIcon icon={faPenToSquare} /></a>
 
         <a role={"button"} className='btn btn-danger boton-coleccion'>Eliminar &nbsp;<FontAwesomeIcon icon={faTrash} /></a>
     </div>
