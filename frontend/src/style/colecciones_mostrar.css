@@ -1,0 +1,30 @@
+:root {
+
+    --curva-borde: 20px;
+}
+
+#lista-colecciones li,
+#nombre-coleccion,
+.contenedor-fondo-blaqueado,
+.li-coleccion {
+    margin: .5vmin;
+    padding: .5vmin;
+
+    border-radius: var(--curva-borde);
+
+    border: solid 1.2px;
+}
+
+#lista-colecciones label,
+.blanquear-fondo {
+    border-radius: var(--curva-borde);
+
+    width: 100%;
+    backdrop-filter: brightness(150%);
+
+    padding: 2px;
+
+    cursor: pointer;
+
+
+}

@@ -1,22 +1,27 @@
 import React from 'react';
+import EstiloColeccion from '../../classes/EstiloEtiquetaColeccion';
+import elegirColorLetra from '../../scripts/elegirColorLetra';
 import esFecha from '../../scripts/esFecha';
 import pasarAMayusPalabra, { pasarAMayusFrase } from '../../scripts/pasarAMayus';
 import transformarFecha from '../../scripts/transformarFecha';
+
+
+import '../../style/mostrar_libro.css';
 
 
 // Muestra una tabla con los datos de la base de datos
 function MostrarDBData(props) {
 
     //Obtiene los datos
-    let { autor, idioma, libro_id, fecha_finalizacion, fecha_inicio } = props.data;
+    let { autor, idioma, libro_id, fecha_finalizacion, fecha_inicio, colecciones } = props.data;
 
 
     // Formatea los datos
     idioma = pasarAMayusPalabra(idioma);
     autor = pasarAMayusFrase(autor);
 
-    // Define dias
-    let dias = undefined;
+    // Define dias y las colecciones
+    let dias = undefined, colHtml = undefined;
 
     // Si hay dos fechas calcula el número de días de lectura
     if (esFecha(fecha_inicio) && esFecha(fecha_finalizacion)) {
@@ -33,6 +38,26 @@ function MostrarDBData(props) {
 
     }
 
+    if (colecciones.length !== 0) {
+
+        colHtml = <tr id='tr-colecciones'>
+            <th>Colecciones</th>
+
+            <td id='celda-colecciones'>
+
+                <ul>
+                    {colecciones.map(x => <li key={x.coleccion_id} className="li-coleccion" style={new EstiloColeccion(x.color)}>
+
+                        <div className="blanquear-fondo contenedor-enlace elipse" style={{ maxWidth: "20vw" }}>
+                            <a href={"/colecciones/" + x.coleccion_id}>{pasarAMayusFrase(x.nombre)}&nbsp;
+                            </a>
+                        </div>
+                    </li>)}
+                </ul>
+            </td>
+        </tr >
+    }
+
     // Muestra los datos
     return <table className='tabla-data table-data-database'>
         <tbody>
@@ -44,13 +69,16 @@ function MostrarDBData(props) {
             <tr>
                 <th>Autor:</th>
 
-                <td>{autor}</td>
+                <td>{autor} </td>
             </tr>
             <tr>
                 <th>Idioma:</th>
 
                 <td>{idioma}</td>
+
             </tr>
+            {colHtml}
+
             {dias}
             <tr>
                 <th>Fecha Inicio:</th>
@@ -62,6 +90,8 @@ function MostrarDBData(props) {
 
                 <td>{transformarFecha(fecha_finalizacion)}</td>
             </tr>
+
+
 
         </tbody>
     </table>;

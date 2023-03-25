@@ -1,0 +1,38 @@
+#botones-mostrar {
+
+    display: flex;
+
+    width: 100%;
+
+    justify-content: space-around;
+
+}
+
+.li-coleccion {
+
+    list-style-type: none;
+
+    display: inline-block;
+}
+
+.blanquear-fondo,
+.blanquear-fondo a {
+
+    text-emphasis: none;
+    color: unset;
+}
+
+.blanquear-fondo:hover,
+.blanquear-fondo a:hover {
+
+    text-emphasis: none;
+
+    color: unset;
+}
+
+.contenedor-enlace {
+
+    padding: 1vmin;
+
+    text-align: center;
+}

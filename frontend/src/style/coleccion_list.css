@@ -1,0 +1,32 @@
+#lista-colecciones {
+
+    list-style-type: none;
+
+    overflow: auto;
+    padding: 3px;
+    height: 25vh;
+
+    overflow-x: hidden;
+    border-radius: .375rem;
+
+    border: #ced4da 1px solid;
+}
+
+
+
+#lista-colecciones li:hover {
+    outline: black solid 2px;
+
+}
+
+#lista-colecciones input {
+
+    margin: 0 2vmin;
+}
+
+.item-lista-coleccion {
+
+    display: flex;
+
+    align-items: center;
+}

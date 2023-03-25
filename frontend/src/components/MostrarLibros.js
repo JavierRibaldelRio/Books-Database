@@ -6,10 +6,10 @@ import FilaLibros from './FilaLibros';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import crearData from '../scripts/CrearDatosTabla';
 
+import crearData from '../scripts/CrearDatosTabla';
 import { faSort } from '@fortawesome/free-solid-svg-icons'
-import esFecha from '../scripts/esFecha'
+import AlertaCerrable from './AlertaCerrable';
 
 
 
@@ -43,8 +43,8 @@ class MostrarLibros extends Component {
 
     }
 
-    componentDidUpdate() {
-        if (this.props.query !== null) {
+    componentDidUpdate(preProv) {
+        if (this.props.query !== null && JSON.stringify(this.props.query) !== JSON.stringify(preProv.query)) {
 
             this.setState({ data: this.props.query.map(crearData) });
         }
@@ -63,8 +63,6 @@ class MostrarLibros extends Component {
 
 
     // Formatea las fechas
-
-
 
     //Ordena segun el criterio especificado
 
@@ -100,7 +98,7 @@ class MostrarLibros extends Component {
     }
 
 
-    // Aplica la función ordenar a acada uno de los criterios
+    // Aplica la función ordenar a acada uno de lodds criterios
     ordenarID() { this.ordenar('libro_id'); }
     ordenarTitulo() { this.ordenar('titulo'); }
     ordenarAutor() { this.ordenar('autor'); }
@@ -112,24 +110,34 @@ class MostrarLibros extends Component {
 
         const filas = this.state.data.map((x) => <FilaLibros libro={x} key={x.libro_id} />);
 
-        return <>
-            <Table striped responsive>
-                <thead>
-                    <tr>
-                        <th className='puntero' onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
-                        <th className='puntero' onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
-                    </tr>
-                </thead>
+        // Si hay algo que mostrar
+        if (filas.length !== 0) {
+            return <>
+                <Table striped responsive>
+                    <thead>
+                        <tr>
+                            <th className='puntero' onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {filas}
-                </tbody>
-            </Table>
-        </>;
+                    <tbody>
+                        {filas}
+                    </tbody>
+                </Table>
+            </>;
+        }
+
+        //Si no hay nada que mostrar
+
+        else {
+
+            return <AlertaCerrable tipo="danger" texto={this.props.mensajeError} />
+        }
     }
 }
 

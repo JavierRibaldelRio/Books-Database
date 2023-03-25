@@ -17,7 +17,7 @@ function FilaLibros(props) {
     return <tr>
         <td>{libro_id}</td>
         <td title="+ Mas info" className="link">
-            <Link to={'../' + libro_id}>
+            <Link to={'/libro/' + libro_id}>
                 {pasarAMayusFrase(titulo)}
 
             </Link></td>

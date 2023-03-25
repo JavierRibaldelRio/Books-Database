@@ -1,0 +1,31 @@
+body {
+
+  margin: 3vmax !important;
+}
+
+.puntero {
+  cursor: pointer;
+}
+
+.link a {
+
+  color: black;
+}
+
+.elipse {
+
+  /* Hace que cuando haya un nombre muy largo muestre una ellipsis */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.center {
+
+  text-align: center;
+}
+
+.alerta-cerrable {
+
+  margin: 2vmin;
+}

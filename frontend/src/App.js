@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './index.css';
+
+//Cs
+
+import './style/colecciones_mostrar.css'
 
 //Sub páginas
 import Main from './pages/Main';
@@ -9,6 +12,10 @@ import MostrarLibro from './pages/MostrarLibro';
 import Editar from './pages/Editar';
 import Buscar from './pages/Buscar'
 import Descargar from './pages/Descargar';
+import CrearColeccion from './pages/Crear-Coleccion';
+import MostrarColecciones from './pages/Mostrar-Colecciones';
+import EditarColeccion from './pages/Editar-Coleccion';
+import VerColeccion from './pages/Ver-Coleccion';
 
 function App() {
   return (
@@ -18,9 +25,14 @@ function App() {
         <Route path="/add-book" element={<AddBook />} />
         <Route path='/tabla-libros' element={<TablaLibros />} />
         <Route path='/editar' element={<Editar />} />
-        <Route path='/:id' element={<MostrarLibro />} />
+        <Route path='/libro/:id' element={<MostrarLibro />} />
         <Route path='/buscar' element={<Buscar />} />
         <Route path='/descargar' element={<Descargar />} />
+        {/* Colecciones */}
+        <Route path='/colecciones' element={<MostrarColecciones />} />
+        <Route path='/colecciones/crear-coleccion' element={<CrearColeccion />} />
+        <Route path='/colecciones/editar' element={<EditarColeccion />} />
+        <Route path='/colecciones/:id' element={<VerColeccion />} />
       </Routes>
 
       <a href='/tabla-libros'>TABLA</a>

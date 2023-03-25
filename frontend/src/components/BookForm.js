@@ -8,13 +8,14 @@ import DateField from './formcomponents/DateField'
 import TextField from './formcomponents/TextField'
 
 import React, { Component } from 'react';
+import ColecionesList from './formcomponents/ColeccionesList';
 
 
 class BookForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { validate: false, }
+        this.state = { validate: false }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -35,14 +36,15 @@ class BookForm extends Component {
 
     componentDidMount() {
 
-        fetch('/api/fetch_autores_idiomas').then((res) => res.json()).then((data) => { this.setState({ autores: data.autores, idiomas: data.idiomas }) }).catch((err) => console.log('ERROR: ' + err));
+        fetch('/api/fetch-autores-idiomas-colecciones').then((res) => res.json()).then((data) => { this.setState({ autores: data.autores, idiomas: data.idiomas, colecciones: data.colecciones }) }).catch((err) => console.log('ERROR: ' + err));
+
     }
 
     render() {
 
         const x = this.props.libro;
 
-        const inputID = (typeof x.libro_id === 'number') ? <input hidden name='libro_id' value={x.libro_id} /> : <></>;
+        const inputID = (typeof x.libro_id === 'number') ? <input hidden name='libro_id' readOnly value={x.libro_id} /> : <></>;
 
         return (
 
@@ -59,6 +61,8 @@ class BookForm extends Component {
                     <DateField name='fecha_inicio' label="Fecha de Inicio" value={x.fecha_inicio} />
 
                     <DateField name='fecha_finalizacion' label="Fecha de Finalización" value={x.fecha_finalizacion} />
+
+                    <ColecionesList coleccionesSeleccionadas={x.colecciones} colecciones={this.state.colecciones || undefined} />
                 </Row>
                 <Button type="submit">{this.props.text} &nbsp;<FontAwesomeIcon icon={this.props.ico} /></Button>
 

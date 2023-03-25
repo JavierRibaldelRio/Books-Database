@@ -29,7 +29,7 @@ function TextField(props) {
     }
 
     return <>
-        <Form.Group as={Col} md="4" controlId={name}>
+        <Form.Group as={Col} md={props.md} controlId={name}>
             <Form.Label>{label}</Form.Label>
             <Form.Control
                 onChange={props.onChange}
@@ -50,7 +50,8 @@ function TextField(props) {
 }
 
 TextField.defaultProps = {
-    onChange() { }
+    onChange() { },
+    md: 4
 }
 
 export default TextField

@@ -1,0 +1,46 @@
+#coleccion-form {
+
+
+    display: flex;
+
+
+    gap: 5vw;
+
+
+    margin-bottom: 2ch;
+
+    width: 100%;
+
+}
+
+
+#color-picker {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1vmin;
+}
+
+#control-color-picker {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    width: 20vw;
+
+    align-self: flex-end;
+
+
+}
+
+#color {
+
+    height: 100% !important;
+
+    align-self: flex-end;
+}

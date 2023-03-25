@@ -1,0 +1,138 @@
+/* Hoja de estilos par a/ colecciones */
+
+:root {
+
+
+    --duracion-animacion: 1s
+}
+
+#panel-colecciones {
+
+    display: flex;
+
+    width: 50%;
+
+    align-items: center;
+    gap: 5vw;
+    margin: 0 4vmin
+}
+
+#mostrar-colecciones {
+
+    margin: 4vmin;
+
+    width: 95vw;
+    height: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5vmax;
+}
+
+
+.contenido-carpeta-coleccion {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Oculta si no puede mostrarlo todo */
+    overflow: hidden;
+    /* Intenta partir palabras */
+    word-wrap: break-word;
+
+    /* Tamaño carpetas */
+    height: 20vmax;
+    width: 12vmax;
+
+    /* Grosor de la línea de la carpeta */
+    margin: 1vmin;
+
+    cursor: default;
+
+}
+
+/* Pone contorno a la tarjeta */
+.contenedor-fondo-blaqueado:hover,
+.contenedor-fondo-blaqueado::before {
+    outline: black solid 2px;
+
+}
+
+.botones-coleccion {
+    /* Muestra los botones en columna flex */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3vmin;
+
+
+    overflow-y: auto;
+
+    animation: aparecer-desde-abajo var(--duracion-animacion) ease forwards;
+
+
+}
+
+.boton-coleccion,
+.botones-coleccion {
+
+    font-size: 2.2vmin !important;
+}
+
+.titulo-coleccion {
+
+    animation: salir-por-arriba var(--duracion-animacion) ease forwards;
+
+}
+
+
+
+.botones-coleccion .btn-warning {
+
+    color: black !important;
+}
+
+.botones-coleccion .btn-primary,
+.botones-coleccion .btn-danger {
+
+    color: white !important;
+}
+
+
+/* Animaciones */
+@keyframes aparecer-desde-abajo {
+    100% {
+        opacity: 1;
+
+        margin-top: 0%;
+    }
+
+    75% {
+
+        margin-top: -3%;
+    }
+
+    0% {
+        margin-top: 200%;
+        opacity: .5;
+    }
+}
+
+@keyframes salir-por-arriba {
+    100% {
+        opacity: 1;
+
+        margin-bottom: 0%;
+    }
+
+    75% {
+
+        margin-bottom: -3%;
+    }
+
+    0% {
+        margin-bottom: 200%;
+        opacity: .5;
+    }
+}

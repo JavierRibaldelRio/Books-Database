@@ -1,7 +1,6 @@
 // Hace una llamada a la API  y mustra los resultados
 
 import React, { Component } from 'react';
-import Alert from 'react-bootstrap/Alert';
 import Titulo from './Titulo';
 import MostrarDBData from './mostrar/DBData';
 import MostrarGoogleData from './mostrar/GoogleData';
@@ -11,6 +10,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 // Funciones
 import { pasarAMayusFrase } from '../scripts/pasarAMayus';
+import AlertaCerrable from './AlertaCerrable';
 
 class Mostrar extends Component {
     constructor(props) {
@@ -76,9 +76,7 @@ class Mostrar extends Component {
 
         if (this.state.data === null) {
 
-            return <Alert key='danger' variant='danger'>
-                No se ha podido establer conexión con la base de datos
-            </Alert>
+            return <AlertaCerrable tipo="danger" texto="No se ha podido establecer conexión con la base de datos" />
 
         } else {
 
@@ -86,7 +84,7 @@ class Mostrar extends Component {
 
             if (this.state.gdata === null) {
 
-                gdata = <Alert key="warning" variant='warning'>Sin información en <i>Google Books</i></Alert>
+                gdata = <AlertaCerrable tipo="warning" texto={<>Sin información en <i>Google Books</i></>} />
 
             } else {
 
@@ -99,7 +97,7 @@ class Mostrar extends Component {
                 <div className="modal-body row">
 
 
-                    <div className="col-md-4">
+                    <div className="col-md-5">
                         <MostrarDBData data={this.state.data} />
 
                         <div id='botones-mostrar'>
