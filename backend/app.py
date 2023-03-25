@@ -90,15 +90,14 @@ def add_book():
 # Obtiene una lista de los idiomas y de los autores
 
 
-@app.route("/api/fetch-autores-idiomas-colecciones")
-def fetch_autores():
+@app.route("/api/fetch-autores-idiomas")
+def fetch_autores_idiomas():
     # Crea una respuesta en forma de diccionario
     res = dict()
 
     # Añade listas a los formularios
     res["idiomas"] = []
     res["autores"] = []
-    res["colecciones"] = []
 
     # Obtiene los datos de la base de los libros
     for u in Libros.query.all():
@@ -112,6 +111,17 @@ def fetch_autores():
     # Ordena las listas
     res["idiomas"].sort()
     res["autores"].sort()
+
+    return res
+
+
+@app.route("/api/fetch-autores-idiomas-colecciones")
+def fetch_autores():
+    # Crea una respuesta en forma de diccionario
+    res = fetch_autores_idiomas()
+
+    # Crea la lista de las colecciones
+    res["colecciones"] = []
 
     # Obtiene las colecciones
 
