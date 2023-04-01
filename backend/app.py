@@ -335,3 +335,23 @@ def fetch_coleccion(id):
     respuesta["contenido"].sort(key=lambda x: x["libro_id"])
 
     return respuesta
+
+
+# Estadísticas
+
+
+@app.route("/api/data/fetch-idiomas")
+def fetch_data_idiomas():
+    x = [
+        r._asdict()
+        for r in db.engine.execute(
+            "SELECT idioma, COUNT(idioma) FROM libros GROUP BY idioma",
+        )
+    ]
+
+    s = dict()
+
+    for idioma in x:
+        s[idioma.get("idioma")] = idioma.get("COUNT(idioma)")
+
+    return s
