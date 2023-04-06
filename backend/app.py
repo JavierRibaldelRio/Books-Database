@@ -384,7 +384,7 @@ def fetch_meses_anyos():
             res["anyos"][any] = 1
 
         # Hace un recuento de meses de la base de datos
-        mes = int(s[6:7])
+        mes = int(s[5:7]) - 1
 
         print(mes)
 
