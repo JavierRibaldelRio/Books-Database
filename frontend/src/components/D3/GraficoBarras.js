@@ -4,18 +4,19 @@ import React, { Component } from 'react';
 import pasarAMayusPalabra from '../../scripts/pasarAMayus';
 import recortar3Letras from '../../scripts/recortar3Letras';
 
+// Almacena el nombre de todos los meses
+
+const NOMBRES_MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+
 class GraficoBarras extends Component {
 
     constructor(props) {
         super(props)
 
-        // Datos de prueba
+        // Color de la franja de anyos
+        this.colorAnyos = "#b3697a";
 
-        this.meses = { enero: 5, febrero: 2, marzo: 2, abril: 4, mayo: 1, junio: 1, julio: 3, agosto: 10, septiembre: 3, octubre: 2, noviembre: 3, diciembre: 4 }
-
-        this.anyos = { 2020: 19, 2021: 12, 2022: 10, 2023: 18 }
-
-
+        this.state = {}
         // Funciones
 
         this.actualizarAnyos = this.actualizarAnyos.bind(this);
@@ -25,16 +26,42 @@ class GraficoBarras extends Component {
 
     componentDidMount() {
 
-        // fetch(this.props.ruta).then(res => res.json())
-        //     .then((data) => this.crearGrafica(data))
-        //     .catch((err) => console.log('err :>> ', err));
+        fetch(this.props.ruta).then(res => res.json())
+            .then((data) => {
 
-        this.crearGrafica();
+                // Transforma los meses
+                const meses = {}
+
+                // Suma el total de libros
+                let nLibros = 0
+
+                for (let i = 0; i < 12; i++) {
+
+                    meses[NOMBRES_MESES[i]] = data.meses[i];
+
+                    nLibros = nLibros + data.meses[i];
+                }
+
+                /**
+                 * Como para que haya un mes también tiene que haber un año,
+                 * la suma de todos los libros repartidos entre todos los meses ha
+                 * de ser igual al número total de libros.
+                 */
+
+                this.libros = nLibros;
+
+                this.setState({ anyos: data.anyos, meses: meses });
+
+                // Crea la gráfica    
+                this.crearGrafica(data.anyos)
+            })
+            .catch((err) => console.log('err :>> ', err));
+
 
     }
 
-    // Crea la gráfica
-    crearGrafica() {
+    // Crea la gráfica y la actualiza para mostrar los anyos
+    crearGrafica(anyos) {
 
         // Crea el id de el div y el diagrama
         const id = this.props.name;
@@ -64,11 +91,12 @@ class GraficoBarras extends Component {
         this.ejeY = this.svg.append('g')
             .attr('className', "ejeY");
 
-        this.actualizarMeses();
+        this.actualizarGrafica(anyos, this.colorAnyos);
     }
 
     // actualiza la grafica
     actualizarGrafica(data, color) {
+
 
 
         // Actualiza el OX
@@ -99,11 +127,17 @@ class GraficoBarras extends Component {
             .attr('fill', color)
 
 
+        this.svg.selectAll("rect").append('svg:title')
+            .text((data) => `${pasarAMayusPalabra(data[0])}: ${data[1]} (${Math.round(100 / this.libros * data[1])}%)`)
+
+
+
     }
 
     // Cambia a meses o a años
-    actualizarMeses() { this.actualizarGrafica(this.meses, "#69b3a2") }
-    actualizarAnyos() { this.actualizarGrafica(this.anyos, "#b3697a") }
+    actualizarMeses() { this.actualizarGrafica(this.state.meses, "#69b3a2") }
+    actualizarAnyos() { this.actualizarGrafica(this.state.anyos, this.colorAnyos) }
+
 
     render() {
 

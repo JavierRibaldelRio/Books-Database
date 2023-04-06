@@ -355,3 +355,39 @@ def fetch_data_idiomas():
         s[idioma.get("idioma")] = idioma.get("COUNT(idioma)")
 
     return s
+
+
+@app.route("/api/data/fetch-meses-anyos")
+def fetch_meses_anyos():
+    # Obtiene los libros por anyo y por mes
+
+    res = {"anyos": {}, "meses": {}}
+
+    # LLena el diccionario
+
+    for i in range(12):
+        res["meses"][i] = 0
+
+    for u in db.engine.execute(
+        "SELECT fecha_finalizacion FROM libros WHERE fecha_finalizacion IS NOT NULL AND NOT fecha_finalizacion LIKE ''"
+    ):
+        # Obtine la fecha de la tuple
+        s = u[0]
+
+        # Hace recuento de anyos
+        any = s[0:4]
+
+        if any in res["anyos"].keys():
+            res["anyos"][any] = res["anyos"][any] + 1
+
+        else:
+            res["anyos"][any] = 1
+
+        # Hace un recuento de meses de la base de datos
+        mes = int(s[6:7])
+
+        print(mes)
+
+        res["meses"][mes] = res["meses"][mes] + 1
+
+    return res
