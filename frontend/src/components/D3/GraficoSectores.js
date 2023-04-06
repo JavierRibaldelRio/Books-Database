@@ -98,7 +98,6 @@ class GraficoSectores extends Component {
 GraficoSectores.defaultProps = {
 
 
-    data: {},
 
     name: 'id-' + Math.floor((Math.random() * 100)), //Crea un nombre random,
 
