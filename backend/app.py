@@ -19,6 +19,8 @@ from scripts.recibirformlibro import recibir_form_libro
 
 from scripts.anyadir_libro_a_colecciones import anyadir_libro_a_colecciones
 
+import datetime
+
 # Configura la app
 app = Flask(__name__)
 
@@ -27,6 +29,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+# Almacena el formato de la fecha
+FECHA_ISO = "%Y-%m-%d"
 
 
 # Ordena por nombre
@@ -386,8 +391,42 @@ def fetch_meses_anyos():
         # Hace un recuento de meses de la base de datos
         mes = int(s[5:7]) - 1
 
-        print(mes)
-
         res["meses"][mes] = res["meses"][mes] + 1
 
     return res
+
+
+@app.route("/api/data/fetch-datos-generales")
+def fetch_media_dias():
+    # Media dias por libro
+    # Crea un array con todos los datos
+    dias = []
+
+    for u in db.engine.execute(
+        "SELECT fecha_inicio, fecha_finalizacion FROM libros WHERE fecha_finalizacion IS NOT NULL AND NOT fecha_finalizacion LIKE '' AND fecha_inicio IS NOT NULL AND NOT fecha_inicio LIKE ''"
+    ):
+        # Transforma las fechas
+        fechaI = datetime.datetime.strptime(u[0], FECHA_ISO)
+        fechaF = datetime.datetime.strptime(u[1], FECHA_ISO)
+
+        dias.append((fechaF - fechaI).days)
+
+    # Suma el array
+    suma = 0
+
+    for dia in dias:
+        suma = suma + dia
+
+    # Calcula la media y la redonde a a dos decimales
+
+    media = round(suma / len(dias), 2)
+
+    # Colecciones
+
+    for u in db.engine.execute("SELECT COUNT(*) FROM colecciones"):
+        n_colecciones = u[0]
+
+    for u in db.engine.execute("SELECT COUNT(*) FROM libros"):
+        n_libros = u[0]
+
+    return {"media": media, "colecciones": n_colecciones, "libros": n_libros}
