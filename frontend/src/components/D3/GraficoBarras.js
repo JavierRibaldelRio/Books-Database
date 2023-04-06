@@ -107,9 +107,18 @@ class GraficoBarras extends Component {
 
         this.y.domain([0, d3.max(Object.values(data))]);
 
-        this.ejeY.transition()
+        // Elimina los ticks decimales
+        const ticks = this.y.ticks()
+            .filter(tick => Number.isInteger(tick));
+
+        this.ejeY
+            .transition()
             .duration(1000)
-            .call(d3.axisLeft(this.y));
+            .call(d3.axisLeft(this.y)
+                .tickValues(ticks)
+                .tickFormat(d3.format('d')))
+
+
 
 
         // Crea las barras
