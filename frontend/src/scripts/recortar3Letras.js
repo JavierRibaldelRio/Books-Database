@@ -2,7 +2,6 @@
 
 function recortar3Letras(string) {
 
-    console.log('typeof string :>> ', typeof string);
 
     if (!/^[0-9]*$/.test(string)) {
         return string.substring(0, 3);
