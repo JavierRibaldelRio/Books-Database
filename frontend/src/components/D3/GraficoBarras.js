@@ -152,7 +152,7 @@ class GraficoBarras extends Component {
 
         return <div>
 
-            <div className="botones-control-grafico">
+            <div id="botones-mostrar" className="botones-control-grafico">
 
                 <button className="btn btn-primary" onClick={this.actualizarMeses}>Libros por Meses</button>
                 <button className="btn btn-primary" onClick={this.actualizarAnyos}>Libros por Años</button>
