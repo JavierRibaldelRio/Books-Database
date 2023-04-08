@@ -13,7 +13,7 @@ function Contadores() {
 
     return <>
 
-        <ul>
+        <ul id='contadores'>
             <li><strong>Libros: </strong>{data.libros}</li>
             <li><strong>Colecciones: </strong>{data.colecciones}</li>
             <li><strong>Media de días por libro: </strong>{data.media}</li>

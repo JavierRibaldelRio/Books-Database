@@ -150,7 +150,7 @@ class GraficoBarras extends Component {
 
     render() {
 
-        return <div>
+        return <div id="grafico-barras">
 
             <div id="botones-mostrar" className="botones-control-grafico">
 
