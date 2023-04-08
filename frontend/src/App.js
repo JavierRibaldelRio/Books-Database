@@ -34,7 +34,7 @@ function App() {
         <Route path='/colecciones/editar' element={<EditarColeccion />} />
         <Route path='/colecciones/:id' element={<VerColeccion />} />
       </Routes>
-
+      <br />
       <a href='/tabla-libros'>TABLA</a>
     </BrowserRouter>
   );
