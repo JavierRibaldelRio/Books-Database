@@ -40,7 +40,7 @@ function BotonesColeccion(props) {
     return <div className='botones-coleccion' key={"BotonesColeccion" + coleccion_id}>
 
         {/* Nombre de la colección */}
-        <span className='elipse'>{nombre}</span>
+        <span className='elipse'>{pasarAMayusFrase(nombre)}</span>
 
         {/* Botones de control de la colección */}
         <a role={"button"} href={'/colecciones/' + coleccion_id} className='btn btn-primary boton-coleccion'>Ver &nbsp;
