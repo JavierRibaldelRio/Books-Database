@@ -22,7 +22,7 @@ function BotonesColeccion(props) {
         if (window.confirm("¿Seguro qué desea eliminar esta colección? (los libros que contine NO se eliminaran)")) {
             // Elimna la coleccón
             fetch('/api/collection/remove-collection/' + coleccion_id, { method: 'DELETE' }).then((res) => {
-                if (res.status == 204) {
+                if (res.status === 204) {
 
                     // Alerta al usuario de que la colección ha sido eliminada correctamente
                     props.alertar({ texto: nombre + " se a elimindado  correctamente.", tipo: "success" })

@@ -3,7 +3,6 @@ import Titulo from '../components/Titulo';
 
 import { useParams } from 'react-router-dom';
 import MostrarLibros from '../components/MostrarLibros';
-import elegirColorLetra from '../scripts/elegirColorLetra';
 import EstiloColeccion from '../classes/EstiloEtiquetaColeccion';
 
 function VerColeccion() {
@@ -19,7 +18,7 @@ function VerColeccion() {
 
 
         fetch('/api/collection/fetch-coleccion/' + id).then(res => res.json()).then(colecciones => setColecciones(colecciones)).catch(err => console.log('err :>> ', err))
-    }, []);
+    }, [id]);
 
     let nombreColeccion = "", color = "black", items = 0;
 

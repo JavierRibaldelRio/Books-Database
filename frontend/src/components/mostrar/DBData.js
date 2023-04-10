@@ -1,6 +1,5 @@
 import React from 'react';
 import EstiloColeccion from '../../classes/EstiloEtiquetaColeccion';
-import elegirColorLetra from '../../scripts/elegirColorLetra';
 import esFecha from '../../scripts/esFecha';
 import pasarAMayusPalabra, { pasarAMayusFrase } from '../../scripts/pasarAMayus';
 import transformarFecha from '../../scripts/transformarFecha';

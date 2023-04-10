@@ -4,9 +4,6 @@ import '../../style/google_data.css'
 import pasarAMayusPalabra from "../../scripts/pasarAMayus";
 
 
-import { useState } from "react";
-
-
 import { Rating } from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
@@ -15,7 +12,6 @@ import AlertaCerrable from "../AlertaCerrable";
 
 function MostrarGoogleData(props) {
 
-    const [show, setShow] = useState(true);
 
     var atr = [new car('title', 'titulo'), new car('imageLinks', 'foto'), new car('description', 'sinopsis'), new car('averageRating', 'valoracion')];
 
