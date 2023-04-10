@@ -1,1 +1,18 @@
-{}
+{
+    "anyadir-libro": "AÑADIR LIBRO",
+    "Anyadir-libro": "Añadir libro",
+    "buscar-libro": "Buscar libro",
+    "crear-nueva-coleccion": "Crear Nueva Colección",
+    "crear-coleccion": "Crear Coleción",
+    "descargar-datos": "Descargar Datos",
+    "descargar-json": "Descargar JSON",
+    "descargar-db": "Descargar DB",
+    "modificar": "modificar",
+    "guardar": "Guardar",
+    "colecciones": "Coleccines",
+    "tabla-libros": "TABLA LIBROS",
+    "no-connect-db": "No se ha podido establecer conexión con las Base de Datos",
+    "coleccion": "Coleccion",
+    "libros-en-coleccion": "Libros en la coleccion",
+    "no-libros-col": "La colección no contiene ningún libro"
+}

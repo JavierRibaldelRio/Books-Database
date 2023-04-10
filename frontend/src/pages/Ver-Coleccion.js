@@ -5,10 +5,16 @@ import { useParams } from 'react-router-dom';
 import MostrarLibros from '../components/MostrarLibros';
 import EstiloColeccion from '../classes/EstiloEtiquetaColeccion';
 
+import { useTranslation } from "react-i18next";
+
+
 function VerColeccion() {
 
     //Obtiene la id de la colección de la url
     const { id } = useParams();
+
+    // Traducciones
+    const { t } = useTranslation();
 
 
     // Inicializa el estado
@@ -36,12 +42,12 @@ function VerColeccion() {
 
     return <>
 
-        <Titulo text={<>Colección: <span id='nombre-coleccion' style={new EstiloColeccion(color)}> <span className='blanquear-fondo' style={{ margin: "2vmin", padding: "2vmin" }} >{nombreColeccion}</span></span></>
+        <Titulo text={<>{t("coleccion")}: <span id='nombre-coleccion' style={new EstiloColeccion(color)}> <span className='blanquear-fondo' style={{ margin: "2vmin", padding: "2vmin" }} >{nombreColeccion}</span></span></>
         } />
 
-        < li > Libros en la colección: <strong>{items}</strong></li >
+        <li>{t("libros-en-coleccion")} <strong>{items}</strong></li >
 
-        <MostrarLibros query={colecciones.contenido} mensajeError="La colección no contiene ningún libro" />
+        <MostrarLibros query={colecciones.contenido} mensajeError={t("no-libros-col")} />
     </>
 }
 
