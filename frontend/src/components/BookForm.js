@@ -10,6 +10,9 @@ import TextField from './formcomponents/TextField'
 import React, { Component } from 'react';
 import ColecionesList from './formcomponents/ColeccionesList';
 
+// Importa el objeto de la traducción
+import { withTranslation } from 'react-i18next';
+
 
 class BookForm extends Component {
     constructor(props) {
@@ -44,6 +47,10 @@ class BookForm extends Component {
 
         const x = this.props.libro;
 
+        //Almacena la traducción
+
+        const { t } = this.props;
+
         const inputID = (typeof x.libro_id === 'number') ? <input hidden name='libro_id' readOnly value={x.libro_id} /> : <></>;
 
         return (
@@ -51,16 +58,16 @@ class BookForm extends Component {
             <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action={this.props.ruta} method='post'>
                 <Row className="mb-3">
 
-                    <TextField name='titulo' label='Título' required='true' value={pasarAMayusFrase(x.titulo)} />
+                    <TextField name='titulo' label={t('titulo')} required='true' value={pasarAMayusFrase(x.titulo)} />
 
-                    <TextField name='idioma' label='Idioma' list={this.state.idiomas || undefined} value={pasarAMayusFrase(x.idioma)} />
+                    <TextField name='idioma' label={t('idioma')} list={this.state.idiomas || undefined} value={pasarAMayusFrase(x.idioma)} />
 
-                    <TextField name='autor' label="Autor" list={this.state.autores || undefined} required="true" value={pasarAMayusFrase(x.autor)} />
+                    <TextField name='autor' label={t("autor")} list={this.state.autores || undefined} required="true" value={pasarAMayusFrase(x.autor)} />
                 </Row>
                 <Row className="mb-3">
-                    <DateField name='fecha_inicio' label="Fecha de Inicio" value={x.fecha_inicio} />
+                    <DateField name='fecha_inicio' label={t("fecha-de-inicio")} value={x.fecha_inicio} />
 
-                    <DateField name='fecha_finalizacion' label="Fecha de Finalización" value={x.fecha_finalizacion} />
+                    <DateField name='fecha_finalizacion' label={t("fecha-de-finalizacion")} value={x.fecha_finalizacion} />
 
                     <ColecionesList coleccionesSeleccionadas={x.colecciones} colecciones={this.state.colecciones || undefined} />
                 </Row>
@@ -77,4 +84,4 @@ BookForm.defaultProps = {
     libro: {}
 }
 
-export default BookForm;
+export default withTranslation()(BookForm);

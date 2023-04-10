@@ -3,6 +3,8 @@ import MostrarLibros from "../components/MostrarLibros";
 import React, { Component } from 'react';
 import BusquedaForm from "./BusquedaForm";
 
+import { withTranslation } from "react-i18next";
+
 
 class Busqueda extends Component {
     constructor(props) {
@@ -30,16 +32,18 @@ class Busqueda extends Component {
 
 
     render() {
+
+        const { t } = this.props
         return (<>
             {/* Formulario que obtiene los parámetros de búsqueda */}
             <BusquedaForm setQuery={this.query} />
 
             {/* Muestra los resultados del fetch, si no hay ningún parámetro mostrará todos los libros */}
 
-            <MostrarLibros query={this.state.data} mensajeError="No hay ningún libro que tenga estas características" />
+            <MostrarLibros query={this.state.data} mensajeError={t("libro-no-caracteristicas")} />
 
         </>);
     }
 }
 
-export default Busqueda;
+export default withTranslation()(Busqueda);

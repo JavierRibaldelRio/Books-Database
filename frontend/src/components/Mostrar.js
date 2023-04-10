@@ -12,6 +12,8 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import AlertaCerrable from './AlertaCerrable';
 
+import { Trans, withTranslation } from "react-i18next";
+
 class Mostrar extends Component {
     constructor(props) {
         super(props);
@@ -74,9 +76,13 @@ class Mostrar extends Component {
     }
     render() {
 
+        //Traducción
+
+        const { t } = this.props
+
         if (this.state.data === null) {
 
-            return <AlertaCerrable tipo="danger" texto="No se ha podido establecer conexión con la base de datos" />
+            return <AlertaCerrable tipo="danger" texto={t("no-connect-db")} />
 
         } else {
 
@@ -84,7 +90,7 @@ class Mostrar extends Component {
 
             if (this.state.gdata === null) {
 
-                gdata = <AlertaCerrable tipo="warning" texto={<>Sin información en <i>Google Books</i></>} />
+                gdata = <AlertaCerrable tipo="warning" texto={<Trans>sin-info-google</Trans>} />
 
             } else {
 
@@ -102,9 +108,9 @@ class Mostrar extends Component {
 
                         <div id='botones-mostrar'>
 
-                            <button type="button" onClick={this.editar} className="btn btn-primary">Editar &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></button>
+                            <button type="button" onClick={this.editar} className="btn btn-primary">{t('editar')} &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></button>
 
-                            <button type="button" onClick={this.eliminar} className="btn btn-danger">Eliminar &nbsp; <FontAwesomeIcon icon={faTrash} /> </button>
+                            <button type="button" onClick={this.eliminar} className="btn btn-danger">{t("eliminar")} &nbsp; <FontAwesomeIcon icon={faTrash} /> </button>
                         </div>
                     </div>
                     <div className="col-md-7">
@@ -118,4 +124,4 @@ class Mostrar extends Component {
 }
 
 
-export default Mostrar;
+export default withTranslation()(Mostrar);

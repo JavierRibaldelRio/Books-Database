@@ -5,7 +5,13 @@ import transformarFecha from "../scripts/transformarFecha";
 
 import { Link } from 'react-router-dom';
 
+import { useTranslation } from "react-i18next";
+
 function FilaLibros(props) {
+
+    // Traducciones
+
+    const { t } = useTranslation();
 
     const { libro_id, autor, fecha_inicio, fecha_finalizacion, idioma, titulo } = props.libro;
 
@@ -16,7 +22,7 @@ function FilaLibros(props) {
 
     return <tr>
         <td>{libro_id}</td>
-        <td title="+ Mas info" className="link">
+        <td title={"+ " + t("mas-info")} className="link">
             <Link to={'/libro/' + libro_id}>
                 {pasarAMayusFrase(titulo)}
 
