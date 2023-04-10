@@ -5,10 +5,6 @@ import pasarAMayusPalabra from '../../scripts/pasarAMayus';
 
 class GraficoSectores extends Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
 
         fetch(this.props.ruta).then(res => res.json())
