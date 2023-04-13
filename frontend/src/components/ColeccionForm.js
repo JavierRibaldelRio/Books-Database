@@ -7,6 +7,8 @@ import { faShuffle } from '@fortawesome/free-solid-svg-icons';
 import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import randomHex from '../scripts/randomHex'
 
+import { withTranslation } from 'react-i18next';
+
 
 //Importa el css del formulario
 
@@ -55,8 +57,11 @@ class ColeccionForm extends Component {
 
     render() {
 
-        const et = this.props.coleccion;
+        // Traducciones
+        const { t } = this.props
 
+        // Almacena colección y colores
+        const et = this.props.coleccion;
         const col = this.state.hex;
 
 
@@ -64,15 +69,15 @@ class ColeccionForm extends Component {
 
             <input type={'number'} name="coleccion_id" value={et.coleccion_id} hidden readOnly />
             <div id='coleccion-form'>
-                <TextField name='nombre' md={"3"} label='Nombre' required='true' value={pasarAMayusFrase(et.nombre)} />
+                <TextField name='nombre' md={"3"} label={t("nombre")} required='true' value={pasarAMayusFrase(et.nombre)} />
                 <label id="color-picker" htmlFor="color">
-                    Color:
+                    {t("color")}:
 
                     <div id='control-color-picker'>
                         <input id="color" type="color" onChange={this.handleChange} name="color" value={col} />
 
                         <button onClick={this.cambiarColor} className='btn btn-dark'>
-                            Color Aleatorio &nbsp;<FontAwesomeIcon icon={faShuffle} />
+                            {t('color-aleatorio')} &nbsp;<FontAwesomeIcon icon={faShuffle} />
                         </button>
 
                     </div>
@@ -84,9 +89,10 @@ class ColeccionForm extends Component {
     }
 }
 
-export default ColeccionForm;
 
 ColeccionForm.defaultProps = {
 
     coleccion: {}
 }
+
+export default withTranslation()(ColeccionForm);

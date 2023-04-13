@@ -5,6 +5,8 @@ import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import TextField from './formcomponents/TextField';
 import Col from 'react-bootstrap/esm/Col';
 
+import { withTranslation } from 'react-i18next';
+
 class BusquedaForm extends Component {
     constructor(props) {
         super(props);
@@ -37,6 +39,10 @@ class BusquedaForm extends Component {
     }
     render() {
 
+        //Almacena las traducciones
+
+        const { t } = this.props
+
         let autores, idiomas;
 
         let opcion = <option></option>;
@@ -57,10 +63,10 @@ class BusquedaForm extends Component {
         return <>
 
             <Row className="mb-3">
-                <TextField onChange={this.handleChange} name="titulo" label="Título" />
+                <TextField onChange={this.handleChange} name="titulo" label={t("titulo")} />
 
                 <Form.Group as={Col} md="4">
-                    <Form.Label>Idioma:</Form.Label>
+                    <Form.Label>{t("idioma")}:</Form.Label>
 
                     <Form.Select onChange={this.handleChange} name="idioma" aria-label="Default select example">
                         {opcion}
@@ -68,7 +74,7 @@ class BusquedaForm extends Component {
                     </Form.Select>
                 </Form.Group>
                 <Form.Group as={Col} md="4">
-                    <Form.Label>Autor:</Form.Label>
+                    <Form.Label>{t("autor")}:</Form.Label>
 
                     <Form.Select onChange={this.handleChange} name="autor" aria-label="Default select example">
                         {opcion}
@@ -80,4 +86,4 @@ class BusquedaForm extends Component {
     }
 }
 
-export default BusquedaForm;
+export default withTranslation()(BusquedaForm);

@@ -11,6 +11,8 @@ import crearData from '../scripts/CrearDatosTabla';
 import { faSort } from '@fortawesome/free-solid-svg-icons'
 import AlertaCerrable from './AlertaCerrable';
 
+import { withTranslation } from 'react-i18next';
+
 
 
 class MostrarLibros extends Component {
@@ -108,6 +110,10 @@ class MostrarLibros extends Component {
 
     render() {
 
+        // Traduccción
+
+        const { t } = this.props
+
         const filas = this.state.data.map((x) => <FilaLibros libro={x} key={x.libro_id} />);
 
         // Si hay algo que mostrar
@@ -117,11 +123,11 @@ class MostrarLibros extends Component {
                     <thead>
                         <tr>
                             <th className='puntero' onClick={this.ordenarID}>ID <FontAwesomeIcon icon={faSort} /></th>
-                            <th className='puntero' onClick={this.ordenarTitulo}>TÍTULO <FontAwesomeIcon icon={faSort} /></th>
-                            <th className='puntero' onClick={this.ordenarAutor} >AUTOR <FontAwesomeIcon icon={faSort} /></th>
-                            <th className='puntero' onClick={this.ordenarIdioma}>IDIOMA <FontAwesomeIcon icon={faSort} /></th>
-                            <th className='puntero' onClick={this.ordenarFechaInicio}>FECHA INCIO <FontAwesomeIcon icon={faSort} /></th>
-                            <th className='puntero' onClick={this.ordenarFechaFinalizacion}>FECHA FINALIZACIÓN <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarTitulo}>{t("titulo").toUpperCase()} <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarAutor} >{t("autor").toUpperCase()} <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarIdioma}>{t("idioma").toUpperCase()} <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarFechaInicio}>{t("fecha-inicio").toUpperCase()} <FontAwesomeIcon icon={faSort} /></th>
+                            <th className='puntero' onClick={this.ordenarFechaFinalizacion}>{t("fecha-finalizacion").toUpperCase()} <FontAwesomeIcon icon={faSort} /></th>
                         </tr>
                     </thead>
 
@@ -147,4 +153,4 @@ MostrarLibros.defaultProps = {
     query: null
 }
 
-export default MostrarLibros;
+export default withTranslation()(MostrarLibros);

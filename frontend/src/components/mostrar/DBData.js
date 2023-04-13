@@ -1,6 +1,5 @@
 import React from 'react';
 import EstiloColeccion from '../../classes/EstiloEtiquetaColeccion';
-import elegirColorLetra from '../../scripts/elegirColorLetra';
 import esFecha from '../../scripts/esFecha';
 import pasarAMayusPalabra, { pasarAMayusFrase } from '../../scripts/pasarAMayus';
 import transformarFecha from '../../scripts/transformarFecha';
@@ -8,9 +7,15 @@ import transformarFecha from '../../scripts/transformarFecha';
 
 import '../../style/mostrar_libro.css';
 
+import { useTranslation } from 'react-i18next';
+
 
 // Muestra una tabla con los datos de la base de datos
 function MostrarDBData(props) {
+
+    //Traducción
+
+    const { t } = useTranslation();
 
     //Obtiene los datos
     let { autor, idioma, libro_id, fecha_finalizacion, fecha_inicio, colecciones } = props.data;
@@ -31,7 +36,7 @@ function MostrarDBData(props) {
         console.log('resta :>> ', resta);
 
         dias = <tr>
-            <th>Días de Lectura:</th>
+            <th>{t("dias-lectura")}:</th>
 
             <td>{resta}</td>
         </tr>
@@ -41,9 +46,9 @@ function MostrarDBData(props) {
     if (colecciones.length !== 0) {
 
         colHtml = <tr id='tr-colecciones'>
-            <th>Colecciones</th>
+            <th>{t("colecciones")}</th>
 
-            <td id='celda-colecciones'>
+            < td id='celda-colecciones' >
 
                 <ul>
                     {colecciones.map(x => <li key={x.coleccion_id} className="li-coleccion" style={new EstiloColeccion(x.color)}>
@@ -67,12 +72,12 @@ function MostrarDBData(props) {
                 <td>{libro_id}</td>
             </tr>
             <tr>
-                <th>Autor:</th>
+                <th>{t("autor")}:</th>
 
                 <td>{autor} </td>
             </tr>
             <tr>
-                <th>Idioma:</th>
+                <th>{t("idioma")}:</th>
 
                 <td>{idioma}</td>
 
@@ -81,12 +86,12 @@ function MostrarDBData(props) {
 
             {dias}
             <tr>
-                <th>Fecha Inicio:</th>
+                <th>{t("fecha-de-inicio")}:</th>
 
                 <td>{transformarFecha(fecha_inicio)}</td>
             </tr>
             <tr>
-                <th>Fecha Finalización:</th>
+                <th>{t("fecha-de-finalizacion")}:</th>
 
                 <td>{transformarFecha(fecha_finalizacion)}</td>
             </tr>

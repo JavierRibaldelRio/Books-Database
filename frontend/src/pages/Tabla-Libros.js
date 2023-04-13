@@ -1,12 +1,16 @@
 import MostrarLibros from '../components/MostrarLibros';
 import Titulo from '../components/Titulo';
+import { useTranslation } from "react-i18next";
 
 function TablaLibros() {
 
-    return <>
-        <Titulo text="TABLA LIBROS"></Titulo>
+    const { t } = useTranslation();
 
-        <MostrarLibros mensajeError="No se ha podido establecer conexión con las Base de Datos" />
+
+    return <>
+        <Titulo text={t('tabla-libros')}></Titulo>
+
+        <MostrarLibros mensajeError={t("no-connect-db")} />
     </>
 }
 

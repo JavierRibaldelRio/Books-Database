@@ -4,20 +4,18 @@ import '../../style/google_data.css'
 import pasarAMayusPalabra from "../../scripts/pasarAMayus";
 
 
-import { useState } from "react";
-
-
 import { Rating } from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
 import AlertaCerrable from "../AlertaCerrable";
 
+import { Trans, useTranslation } from "react-i18next";
 
 function MostrarGoogleData(props) {
 
-    const [show, setShow] = useState(true);
+    const { t } = useTranslation()
 
-    var atr = [new car('title', 'titulo'), new car('imageLinks', 'foto'), new car('description', 'sinopsis'), new car('averageRating', 'valoracion')];
+    var atr = [new car('title', t("titulo")), new car('imageLinks', 'foto'), new car('description', t("sinopsis")), new car('averageRating', t('valoracion'))];
 
     function anyadirFila(x) {
 
@@ -27,10 +25,10 @@ function MostrarGoogleData(props) {
         x.valor = valor;
 
 
-        if ('foto' === x.nombre) {
+        if ('imageLinks' === x.ruta) {
             try {
-                return <tr key={x.nombre}>
-                    <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail} alt={"Foto de la portada del libro"}></img></td>
+                return <tr key={x.ruta}>
+                    <td colSpan={2} className="img-fluid" id="portada"><img src={props.data.volumeInfo.imageLinks.thumbnail} alt={t("alt-portada")}></img></td>
                 </tr>
             }
             catch {
@@ -38,10 +36,10 @@ function MostrarGoogleData(props) {
                 return;
             }
         }
-        else if ('valoracion' === x.nombre && valor !== undefined) {
+        else if ('averageRating' === x.ruta && valor !== undefined) {
 
             try {
-                return <tr id={x.nombre} key={x.nombre}>
+                return <tr id={x.ruta} key={x.ruta}>
                     <th>{pasarAMayusPalabra(x.nombre)}</th>
                     <td><Rating readOnly style={{ maxWidth: 150 }} key={x.nombre} value={valor} /></td></tr>;
             }
@@ -54,7 +52,7 @@ function MostrarGoogleData(props) {
 
             x.valor = valor;
 
-            return <tr id={x.nombre} key={x.nombre}><th>{pasarAMayusPalabra(x.nombre)}</th><td>{valor}</td></tr>;
+            return <tr id={x.ruta} key={x.ruta}><th>{pasarAMayusPalabra(x.nombre)}</th><td>{valor}</td></tr>;
 
         }
 
@@ -70,7 +68,7 @@ function MostrarGoogleData(props) {
 
 
     return <>
-        <AlertaCerrable tipo="success" texto={<>Información de <i>Google Books</i></>} />
+        <AlertaCerrable tipo="success" texto={<Trans>info-google</Trans>} />
 
 
         <table className='tabla-data table-data-database'>

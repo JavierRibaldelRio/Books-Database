@@ -4,9 +4,10 @@ import React, { Component } from 'react';
 import pasarAMayusPalabra from '../../scripts/pasarAMayus';
 import recortar3Letras from '../../scripts/recortar3Letras';
 
+import { withTranslation } from "react-i18next";
+
 // Almacena el nombre de todos los meses
 
-const NOMBRES_MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 
 class GraficoBarras extends Component {
 
@@ -37,7 +38,9 @@ class GraficoBarras extends Component {
 
                 for (let i = 0; i < 12; i++) {
 
-                    meses[NOMBRES_MESES[i]] = data.meses[i];
+                    const { t } = this.props;
+
+                    meses[t("NOMBRES-MESES", { returnObjects: true })[i]] = data.meses[i];
 
                     nLibros = nLibros + data.meses[i];
                 }
@@ -147,20 +150,23 @@ class GraficoBarras extends Component {
     actualizarMeses() { this.actualizarGrafica(this.state.meses, "#69b3a2") }
     actualizarAnyos() { this.actualizarGrafica(this.state.anyos, this.colorAnyos) }
 
+    // Traducción
+
 
     render() {
+        const { t } = this.props;
 
         return <div id="grafico-barras">
 
             <div id="botones-mostrar" className="botones-control-grafico">
 
-                <button className="btn btn-primary" onClick={this.actualizarMeses}>Libros por Meses</button>
-                <button className="btn btn-primary" onClick={this.actualizarAnyos}>Libros por Años</button>
+                <button className="btn btn-primary" onClick={this.actualizarMeses}>{t("libros-meses")}</button>
+                <button className="btn btn-primary" onClick={this.actualizarAnyos}> {t("libros-anyos")}</button>
 
             </div>
 
             <div id={this.props.name} />
-        </div>
+        </div>;
     }
 }
 GraficoBarras.defaultProps = {
@@ -173,7 +179,7 @@ GraficoBarras.defaultProps = {
     height: 400,
     width: 400
 
-}
+};
 
 
-export default GraficoBarras;
+export default withTranslation()(GraficoBarras);

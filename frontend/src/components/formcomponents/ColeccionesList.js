@@ -32,7 +32,7 @@ function ColecionesList(props) {
         // Genera todos los liss de las colecciones
         var colecciones = props.colecciones.map((x) =>
             <li key={x.coleccion_id} style={new EstiloColeccion(x.color)}>
-                <label className="item-lista-coleccion" htmlFor={x.nombre}>
+                <label className="flex-center" htmlFor={x.nombre}>
 
                     <span className="elipse">
                         <input id={x.nombre} type="checkbox" name="colecciones" value={x.coleccion_id} defaultChecked={checked(x.coleccion_id)} /> {pasarAMayusFrase(x.nombre)}</span>

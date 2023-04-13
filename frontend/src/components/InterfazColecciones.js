@@ -12,6 +12,8 @@ import '../style/colecciones_interfaz.css';
 import Coleccion from './interfazColecciones/Coleccion';
 import AlertaCerrable from './AlertaCerrable';
 
+import { withTranslation } from 'react-i18next'
+
 // Contenido de la página que muestra todas las colecciones
 class InterfazColecciones extends Component {
     constructor(props) {
@@ -57,6 +59,8 @@ class InterfazColecciones extends Component {
 
     render() {
 
+        //Traducciones
+        const { t } = this.props;
 
         let colecciones;
 
@@ -64,12 +68,12 @@ class InterfazColecciones extends Component {
         if (this.state.numeroColecciones !== 0) {
 
             // Almacena todas las colecciones que va mostrar
-            colecciones = this.state.data.map((coleccion) => <Coleccion coleccion={coleccion} key={coleccion.coleccion_id} alertar={this.modificarAlerta} />)
+            colecciones = this.state.data.map((coleccion) => <Coleccion coleccion={coleccion} key={coleccion.coleccion_id} alertar={this.modificarAlerta} />);
         }
         else {
 
             // Si no hay colecciones avisa que necesita tener conexión o que todacía nos ha creado ninguna
-            colecciones = <AlertaCerrable tipo="warning" texto="Todavía no se ha creado ninguna coleccion o no se puede establecer conesxión con la Base de Datos" />
+            colecciones = <AlertaCerrable tipo="warning" texto="Todavía no se ha creado ninguna coleccion o no se puede establecer conexión con la Base de Datos" />;
         }
 
         return <>
@@ -80,10 +84,10 @@ class InterfazColecciones extends Component {
             <div id='panel-colecciones'>
 
                 {/* Muestra el número de colecciones */}
-                <li> Numero colecciones: <strong>{this.state.numeroColecciones}</strong> </li>
+                <li> {t("colecciones")}: <strong>{this.state.numeroColecciones}</strong> </li>
 
                 {/* Boton que te manda a crear una nueva colecicones */}
-                <a href="/colecciones/crear-coleccion" className='btn btn-primary' role={"button"}>Crear Nueva Coleccion &nbsp;<FontAwesomeIcon icon={faPlus} /></a>
+                <a href="/colecciones/crear-coleccion" className='btn btn-primary' role={"button"}>{t("crear-nueva-coleccion")} &nbsp;<FontAwesomeIcon icon={faPlus} /></a>
 
             </div>
 
@@ -93,4 +97,4 @@ class InterfazColecciones extends Component {
     }
 }
 
-export default InterfazColecciones;
+export default withTranslation()(InterfazColecciones)
