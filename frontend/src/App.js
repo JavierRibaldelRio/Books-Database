@@ -23,19 +23,16 @@ import Configuracion from './pages/Configuracion';
 
 function App() {
   return (
-
-
     <BrowserRouter>
       <Cabecera />
-
       <main>
-
         <Routes>
           {/* Libros */}
           <Route path="/" element={<Main />} />
           <Route path="/add-book" element={<AddBook />} />
           <Route path='/editar' element={<Editar />} />
           <Route path='/libro/:id' element={<MostrarLibro />} />
+
           {/* Gestión General */}
           <Route path='/buscar' element={<Buscar />} />
           <Route path='/descargar' element={<Descargar />} />
