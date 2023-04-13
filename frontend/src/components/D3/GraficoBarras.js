@@ -8,7 +8,6 @@ import { withTranslation } from "react-i18next";
 
 // Almacena el nombre de todos los meses
 
-const NOMBRES_MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
 
 class GraficoBarras extends Component {
 
@@ -39,7 +38,11 @@ class GraficoBarras extends Component {
 
                 for (let i = 0; i < 12; i++) {
 
-                    meses[NOMBRES_MESES[i]] = data.meses[i];
+                    const { t } = this.props;
+
+                    meses[t("NOMBRES-MESES", { returnObjects: true })[i]] = data.meses[i];
+
+                    console.log('meses :>> ', Object.keys(meses));
 
                     nLibros = nLibros + data.meses[i];
                 }
