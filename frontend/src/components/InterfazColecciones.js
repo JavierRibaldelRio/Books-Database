@@ -13,6 +13,7 @@ import Coleccion from './interfazColecciones/Coleccion';
 import AlertaCerrable from './AlertaCerrable';
 
 import { withTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom';
 
 // Contenido de la página que muestra todas las colecciones
 class InterfazColecciones extends Component {
@@ -87,7 +88,7 @@ class InterfazColecciones extends Component {
                 <li> {t("colecciones")}: <strong>{this.state.numeroColecciones}</strong> </li>
 
                 {/* Boton que te manda a crear una nueva colecicones */}
-                <a href="/colecciones/crear-coleccion" className='btn btn-primary' role={"button"}>{t("crear-nueva-coleccion")} &nbsp;<FontAwesomeIcon icon={faPlus} /></a>
+                <Link to="/colecciones/crear-coleccion" className='btn btn-primary' role={"button"}>{t("crear-nueva-coleccion")} &nbsp;<FontAwesomeIcon icon={faPlus} /></Link>
 
             </div>
 

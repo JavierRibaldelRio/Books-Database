@@ -4,7 +4,7 @@ import React from 'react';
 import { faPenToSquare, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
@@ -48,16 +48,16 @@ function BotonesColeccion(props) {
         <span className='elipse'>{pasarAMayusFrase(nombre)}</span>
 
         {/* Botones de control de la colección */}
-        <a role={"button"} href={'/colecciones/' + coleccion_id} className='btn btn-primary boton-coleccion'>{t('ver')} &nbsp;
+        <Link role={"button"} to={'/colecciones/' + coleccion_id} className='btn btn-primary boton-coleccion'>{t('ver')} &nbsp;
             <FontAwesomeIcon icon={faEye} />
-        </a>
+        </Link>
 
         <button className='btn btn-warning boton-coleccion' onClick={() => navigate('/colecciones/editar', { state: { data: props.coleccion } })}>
             {t('editar')} &nbsp;<FontAwesomeIcon icon={faPenToSquare} />
         </button>
 
         <button className='btn btn-danger boton-coleccion' onClick={eliminarColeccion}>
-            {t('editar')} &nbsp;<FontAwesomeIcon icon={faTrash} />
+            {t('eliminar')} &nbsp;<FontAwesomeIcon icon={faTrash} />
         </button>
     </div>
 }

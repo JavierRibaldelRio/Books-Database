@@ -8,6 +8,7 @@ import transformarFecha from '../../scripts/transformarFecha';
 import '../../style/mostrar_libro.css';
 
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 
 // Muestra una tabla con los datos de la base de datos
@@ -54,8 +55,8 @@ function MostrarDBData(props) {
                     {colecciones.map(x => <li key={x.coleccion_id} className="li-coleccion" style={new EstiloColeccion(x.color)}>
 
                         <div className="blanquear-fondo contenedor-enlace elipse" style={{ maxWidth: "20vw" }}>
-                            <a href={"/colecciones/" + x.coleccion_id}>{pasarAMayusFrase(x.nombre)}&nbsp;
-                            </a>
+                            <Link to={"/colecciones/" + x.coleccion_id}>{pasarAMayusFrase(x.nombre)}&nbsp;
+                            </Link>
                         </div>
                     </li>)}
                 </ul>
