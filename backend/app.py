@@ -89,7 +89,7 @@ def add_book():
     # Añade a la tabla JOIN las relaciones
     anyadir_libro_a_colecciones(db, libro_id, col)
 
-    return "Hi World"
+    return Response(status=200)
 
 
 # Obtiene una lista de los idiomas y de los autores
