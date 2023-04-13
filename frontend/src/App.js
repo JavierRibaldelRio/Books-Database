@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-//Cs
+//Css
 
 import './style/colecciones_mostrar.css'
 
@@ -16,18 +16,23 @@ import CrearColeccion from './pages/Crear-Coleccion';
 import MostrarColecciones from './pages/Mostrar-Colecciones';
 import EditarColeccion from './pages/Editar-Coleccion';
 import VerColeccion from './pages/Ver-Coleccion';
+import Configuracion from './pages/Configuracion';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Libros */}
         <Route path="/" element={<Main />} />
         <Route path="/add-book" element={<AddBook />} />
-        <Route path='/tabla-libros' element={<TablaLibros />} />
         <Route path='/editar' element={<Editar />} />
         <Route path='/libro/:id' element={<MostrarLibro />} />
+        {/* Gestión General */}
         <Route path='/buscar' element={<Buscar />} />
         <Route path='/descargar' element={<Descargar />} />
+        <Route path='/tabla-libros' element={<TablaLibros />} />
+        <Route path='/configuracion' element={<Configuracion />} />
+
         {/* Colecciones */}
         <Route path='/colecciones' element={<MostrarColecciones />} />
         <Route path='/colecciones/crear-coleccion' element={<CrearColeccion />} />

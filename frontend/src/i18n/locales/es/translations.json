@@ -58,5 +58,6 @@
         "noviembre",
         "diciembre"
     ],
-    "pre-libro": "¿Seguro qué desea eliminar este libro?"
+    "pre-libro": "¿Seguro qué desea eliminar este libro?",
+    "configuracion": "Configuración"
 }
