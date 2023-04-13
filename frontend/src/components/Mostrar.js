@@ -101,7 +101,7 @@ class Mostrar extends Component {
             }
 
 
-            return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} />
+            return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} mayusculas={false} />
                 <div className="modal-body row">
 
 

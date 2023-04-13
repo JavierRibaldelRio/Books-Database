@@ -1,9 +1,23 @@
 import React from 'react';
 
 
-function Titulo(prop) {
+function Titulo(props) {
 
-    return <><h2 className="titulo elipse">{prop.text}</h2> <hr /> <br /></>
+    let { text, mayusculas } = props;
+
+    if (mayusculas === true) {
+
+        text = text.toUpperCase();
+    }
+
+    return <><h2 className="titulo elipse">{text}</h2> <hr /> <br /></>
+}
+
+Titulo.defaultProps = {
+
+    text: "",
+
+    mayusculas: true
 }
 
 export default Titulo;
