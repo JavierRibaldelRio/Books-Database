@@ -42,8 +42,6 @@ class GraficoBarras extends Component {
 
                     meses[t("NOMBRES-MESES", { returnObjects: true })[i]] = data.meses[i];
 
-                    console.log('meses :>> ', Object.keys(meses));
-
                     nLibros = nLibros + data.meses[i];
                 }
 
