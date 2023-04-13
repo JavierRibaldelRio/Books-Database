@@ -12,8 +12,8 @@
     "colecciones": "Colecciones",
     "tabla-libros": "TABLA LIBROS",
     "no-connect-db": "No se ha podido establecer conexión con la Base de Datos",
-    "coleccion": "Coleccion",
-    "libros-en-coleccion": "Libros en la coleccion",
+    "coleccion": "Colección",
+    "libros-en-coleccion": "Libros en la colección",
     "no-libros-col": "La colección no contiene ningún libro",
     "titulo": "Título",
     "idioma": "Idioma",
@@ -34,7 +34,7 @@
     "fecha-finalizacion": "fecha finalización",
     "ver": "Ver",
     "col-no-eli": "Se ha producido un error, no se ha podido eliminar la colección.",
-    "col-eliminada": " se a elimindado  correctamente.",
+    "col-eliminada": " se ha elimindado  correctamente.",
     "pregunta-eliminar-col": "¿Seguro qué desea eliminar esta colección? (los libros que contine NO se eliminaran)",
     "dias-lectura": "Días de Lectura",
     "valoracion": "Valoración",
@@ -57,5 +57,6 @@
         "octubre",
         "noviembre",
         "diciembre"
-    ]
+    ],
+    "pre-libro": "¿Seguro qué desea eliminar este libro?"
 }

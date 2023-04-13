@@ -29,7 +29,9 @@ class Mostrar extends Component {
     eliminar() {
 
 
-        if (window.confirm("¿Seguro qué desea eliminar este libro?")) {
+        const { t } = this.props;
+
+        if (window.confirm(t("pre-libro"))) {
 
             fetch('/api/remove-book/' + this.state.data.libro_id, { method: 'DELETE' });
 
