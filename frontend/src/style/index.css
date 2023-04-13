@@ -29,3 +29,11 @@ body {
 
   margin: 2vmin;
 }
+
+/* Centra el contenido con flex */
+.flex-center {
+
+  display: flex;
+
+  align-items: center;
+}
