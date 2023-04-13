@@ -1,6 +1,9 @@
-body {
+main {
 
   margin: 3vmax !important;
+
+  padding-top: 60px;
+
 }
 
 .puntero {
