@@ -43,5 +43,19 @@
     "info-google": "Información de <i>Google Books</i>",
     "sin-info-google": "Sin información en <i>Google Books</i>",
     "libros-meses": "Libros por Meses",
-    "libros-anyos": "Libros por Año"
+    "libros-anyos": "Libros por Año",
+    "NOMBRES-MESES": [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre"
+    ]
 }
