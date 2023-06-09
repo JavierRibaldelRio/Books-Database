@@ -7,8 +7,9 @@ import Titulo from "../components/Titulo";
 import { useTranslation } from "react-i18next";
 
 function AddBook() {
+    //Traducción
+    const { t } = useTranslation();
 
-    const { t } = useTranslation()
     return <>
 
         <Titulo text={t("anyadir-libro")} />
