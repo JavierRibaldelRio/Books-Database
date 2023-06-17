@@ -1,3 +1,5 @@
+// Página que muestra una colección
+
 import React, { useEffect, useState } from 'react';
 import Titulo from '../components/Titulo';
 
@@ -42,8 +44,9 @@ function VerColeccion() {
 
     return <>
 
-        <Titulo text={<>{t("coleccion")}: <span id='nombre-coleccion' style={new EstiloColeccion(color)}> <span className='blanquear-fondo' style={{ margin: "2vmin", padding: "2vmin" }} >{nombreColeccion}</span></span></>
-        } />
+        <Titulo text={
+            <>{t("coleccion").toUpperCase()}: <span id='nombre-coleccion' style={new EstiloColeccion(color)}> <span className='blanquear-fondo' style={{ margin: "2vmin", padding: "2vmin" }} >{nombreColeccion}</span></span></>
+        } mayusculas="false" />
 
         <li>{t("libros-en-coleccion")} <strong>{items}</strong></li >
 
