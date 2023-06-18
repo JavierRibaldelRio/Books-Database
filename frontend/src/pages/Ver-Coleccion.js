@@ -8,6 +8,7 @@ import MostrarLibros from '../components/MostrarLibros';
 import EstiloColeccion from '../classes/EstiloEtiquetaColeccion';
 
 import { useTranslation } from "react-i18next";
+import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 
 
 function VerColeccion() {
@@ -45,7 +46,7 @@ function VerColeccion() {
     return <>
 
         <Titulo text={
-            <>{t("coleccion").toUpperCase()}: <span id='nombre-coleccion' style={new EstiloColeccion(color)}> <span className='blanquear-fondo' style={{ margin: "2vmin", padding: "2vmin" }} >{nombreColeccion}</span></span></>
+            <>{t("coleccion").toUpperCase()}: <span id='nombre-coleccion' style={new EstiloColeccion(color)}> <span className='blanquear-fondo' style={{ margin: "2vmin", padding: "2vmin" }} >{pasarAMayusFrase(nombreColeccion)}</span></span></>
         } mayusculas="false" />
 
         <li>{t("libros-en-coleccion")}: <strong>{items.toLocaleString()}</strong></li >
