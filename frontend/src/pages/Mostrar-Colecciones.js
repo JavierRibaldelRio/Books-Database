@@ -3,16 +3,22 @@ import InterfazColecciones from '../components/InterfazColecciones';
 import Titulo from '../components/Titulo'
 import { useTranslation } from "react-i18next";
 
+import { useLocation } from 'react-router-dom';
+
 
 function MostrarColecciones() {
 
     // Traducciones
     const { t } = useTranslation();
 
+    const location = useLocation();
+
+    console.log('location.state :>> ', location.state);
+
 
     return <><Titulo text={t("colecciones")} />
 
-        <InterfazColecciones />
+        <InterfazColecciones alerta={(location.state !== null) ? location.state : undefined} />
 
     </>
 }

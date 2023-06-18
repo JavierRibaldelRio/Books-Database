@@ -66,5 +66,7 @@
     "descargar": "Descargar",
     "libro-a-buscar": "Libro a buscar",
     "eliminar-coleccion": "Eliminar colección",
-    "cancelar": "Cancelar"
+    "cancelar": "Cancelar",
+    "coleccion-guardada": "se ha guardado correctamente",
+    "no-guardar-col": "se ha guardado correctamente, por favor intentelo más tarde"
 }

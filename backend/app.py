@@ -271,13 +271,13 @@ def create_tag():
     # Obtiene los datos
     col = Colecciones(
         coleccion_id=None,
-        nombre=request.form.get("nombre").strip().lower(),
-        color=request.form.get("color"),
+        nombre=request.json.get("nombre").strip().lower(),
+        color=request.json.get("color"),
     )
 
     # Guarda los datos
     col.save()
-    return "Colección  creada"
+    return Response(status=200)
 
 
 # Obtiene todas las colecciones
@@ -303,7 +303,7 @@ def eliminar_coleccion(id):
 def editar_coleccion():
     # Obtiene los nuevos datos
     id = request.form.get("coleccion_id")
-    nombre = request.form.get("nombre")
+    nombre = request.form.get("nombre").strip().lower()
     color = request.form.get("color")
 
     # Crea el nuevo objeto y lo hace diccionario

@@ -20,7 +20,7 @@ class InterfazColecciones extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { data: [], numeroColecciones: 0, alerta: { oculta: true } }
+        this.state = { data: [], numeroColecciones: 0, alerta: this.props.alerta }
 
         // Funciones
 
@@ -96,6 +96,12 @@ class InterfazColecciones extends Component {
             <div id='mostrar-colecciones'>{colecciones}</div>
         </>;
     }
+}
+
+
+InterfazColecciones.defaultProps = {
+
+    alerta: { tipo: 'primary', texto: '', oculta: true }
 }
 
 export default withTranslation()(InterfazColecciones)
