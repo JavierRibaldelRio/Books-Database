@@ -13,6 +13,9 @@ class EstiloColeccion {
         this.backgroundColor = c;
 
         this.borderColor = c
+
+        // El color de la Check Box al ser marcada          
+        this.accentColor = c;
     }
 
     // Decide si el color de fondo a de ser blanco o negro
