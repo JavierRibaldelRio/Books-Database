@@ -11,14 +11,23 @@ class Busqueda extends Component {
         super(props);
 
         this.query = this.query.bind(this);
+        this.state = {};
 
+    }
 
-        this.state = { data: null };
+    // Comprueba si hay algún libro que buscar
+    componentDidMount() {
+        if (this.props.libroABuscar !== '') {
+
+            console.log("Buscando libro");
+            this.query({ titulo: this.props.libroABuscar, idioma: "", autor: "" });
+        }
     }
 
     // Busca que libros cumplen las nuevas condiciones introducidas en el formulario
     query(query) {
 
+        console.log('Haciendo quey :>> ',);
 
         fetch('/api/query',
             {
@@ -34,16 +43,19 @@ class Busqueda extends Component {
     render() {
 
         const { t } = this.props
+
+
         return (<>
             {/* Formulario que obtiene los parámetros de búsqueda */}
-            <BusquedaForm setQuery={this.query} />
+            <BusquedaForm setQuery={this.query} tituloLibro={this.props.libroABuscar} />
 
             {/* Muestra los resultados del fetch, si no hay ningún parámetro mostrará todos los libros */}
 
-            <MostrarLibros query={this.state.data} mensajeError={t("libro-no-caracteristicas")} />
+            <MostrarLibros query={this.state.data || []} mensajeError={t("libro-no-caracteristicas")} />
 
         </>);
     }
 }
+
 
 export default withTranslation()(Busqueda);

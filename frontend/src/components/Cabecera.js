@@ -3,16 +3,20 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+
+import { useState } from 'react';
+
+
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+
 import { faPlus, faSearch, faTable, faDownload, faBuildingColumns, faBook, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
-import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import LinkCabecera from './cabecera/LinkCabecera';
+import pasarAMayusPalabra from '../scripts/pasarAMayus';
 
 
 // Crea la cabecera de la web
@@ -31,6 +35,35 @@ function Cabecera() {
 
     // Crea los links desde los objetos
     const enlacesNav = links.map(link => <LinkCabecera key={link.traduccion} link={link} />)
+
+
+    // Crea el estado de el libro a buscar
+
+    let [libro, setLibro] = useState('');
+
+    const handleChange = (e) => setLibro(e.target.value)
+
+    // Obtiene los datos de Navigate
+    const navigate = useNavigate();
+
+    const buscarLibro = (e) => {
+
+        e.preventDefault();
+
+        // Pasa a la sección de buscar
+        navigate('/buscar', { state: libro });
+
+        // Borra el contenido del input
+        setLibro('');
+    }
+
+
+    // Al estar en /buscar bloque la opción de buscar
+
+
+    const { pathname } = useLocation();
+
+    let busquedaDesactivada = pathname === '/buscar';
 
 
 
@@ -54,14 +87,17 @@ function Cabecera() {
                         {enlacesNav}
 
                     </Nav>
-                    <Form className="d-flex">
+                    <Form className="d-flex" onSubmit={buscarLibro}>
                         <Form.Control
                             type="search"
-                            placeholder="Search"
+                            placeholder={t('libro-a-buscar')}
                             className="me-2"
                             aria-label="Search"
+                            onChange={handleChange}
+                            value={libro}
+                            disabled={busquedaDesactivada}
                         />
-                        <Button variant="outline-light">Search</Button>
+                        <Button variant="outline-light" type="submit" disabled={busquedaDesactivada}>{pasarAMayusPalabra(t('buscar'))}</Button>
                     </Form>
 
                 </Offcanvas.Body>

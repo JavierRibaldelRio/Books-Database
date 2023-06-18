@@ -40,3 +40,15 @@ main {
 
   align-items: center;
 }
+
+
+
+/* desactiva los inputs de la cabacera*/
+
+
+header input:disabled,
+header button:disabled {
+
+  cursor: not-allowed !important;
+
+}

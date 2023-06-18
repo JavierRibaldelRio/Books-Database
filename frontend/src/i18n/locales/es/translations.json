@@ -63,5 +63,6 @@
     "db-libros": "Book Database",
     "buscar": "buscar",
     "tabla": "tabla",
-    "descargar": "Descargar"
+    "descargar": "Descargar",
+    "libro-a-buscar": "Libro a buscar"
 }

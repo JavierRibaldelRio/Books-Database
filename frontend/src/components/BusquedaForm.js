@@ -39,7 +39,7 @@ class BusquedaForm extends Component {
     }
     render() {
 
-        //Almacena las traducciones
+        //Almacena los idiomas
 
         const { t } = this.props
 
@@ -63,7 +63,7 @@ class BusquedaForm extends Component {
         return <>
 
             <Row className="mb-3">
-                <TextField onChange={this.handleChange} name="titulo" label={t("titulo")} />
+                <TextField onChange={this.handleChange} name="titulo" label={t("titulo")} value={this.props.tituloLibro} />
 
                 <Form.Group as={Col} md="4">
                     <Form.Label>{t("idioma")}:</Form.Label>
