@@ -1,16 +1,21 @@
 import React from 'react';
 
 // Font awosome
-import { faPenToSquare, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useNavigate, Link } from 'react-router-dom';
 
+import { useState } from 'react';
+
 import { useTranslation } from 'react-i18next';
 import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
+import BotonEliminar from '../BotonEliminarColeccion';
 
 
 function BotonesColeccion(props) {
+
+    const [mostrar, setMostrar] = useState(false)
 
     const { coleccion_id, nombre } = props.coleccion     //Obtine la id y el nombre
 
@@ -19,28 +24,6 @@ function BotonesColeccion(props) {
     // Traducción
 
     const { t } = useTranslation();
-
-    // Elimina la colección
-    function eliminarColeccion() {
-
-        // Pregunta si deseas eliminar la colección
-        if (window.confirm(t("pregunta-eliminar-col"))) {
-            // Elimna la coleccón
-            fetch('/api/collection/remove-collection/' + coleccion_id, { method: 'DELETE' }).then((res) => {
-                if (res.status === 204) {
-
-                    // Alerta al usuario de que la colección ha sido eliminada correctamente
-                    props.alertar({ texto: pasarAMayusFrase(nombre) + " " + t("col-eliminada"), tipo: "success" })
-                } else {
-
-                    // Alerta en caso de que se haya producido un error
-                    props.alertar({ texto: t('col-no-eli'), tipo: "danger" })
-
-                }
-            }).catch(e => console.error(`Se ha producido un error: "`));
-
-        }
-    }
 
     return <div className='botones-coleccion' key={"BotonesColeccion" + coleccion_id}>
 
@@ -56,9 +39,7 @@ function BotonesColeccion(props) {
             {t('editar')} &nbsp;<FontAwesomeIcon icon={faPenToSquare} />
         </button>
 
-        <button className='btn btn-danger boton-coleccion' onClick={eliminarColeccion}>
-            {t('eliminar')} &nbsp;<FontAwesomeIcon icon={faTrash} />
-        </button>
+        <BotonEliminar coleccion={nombre} id={coleccion_id} alertar={props.alertar} mostrarTitulo={props.mostrarTitulo} />
     </div>
 }
 
