@@ -34,12 +34,10 @@ function MostrarDBData(props) {
 
         let resta = (new Date(fecha_finalizacion).getTime() - new Date(fecha_inicio).getTime()) / 1000 / 60 / 60 / 24;
 
-        console.log('resta :>> ', resta);
-
         dias = <tr>
             <th>{t("dias-lectura")}:</th>
 
-            <td>{resta}</td>
+            <td>{resta.toLocaleString()}</td>
         </tr>
 
     }

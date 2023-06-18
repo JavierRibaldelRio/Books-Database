@@ -85,7 +85,7 @@ class InterfazColecciones extends Component {
             <div id='panel-colecciones'>
 
                 {/* Muestra el número de colecciones */}
-                <li> {t("colecciones")}: <strong>{this.state.numeroColecciones}</strong> </li>
+                <li> {t("colecciones")}: <strong>{this.state.numeroColecciones.toLocaleString()}</strong> </li>
 
                 {/* Boton que te manda a crear una nueva colecicones */}
                 <Link to="/colecciones/crear-coleccion" className='btn btn-primary' role={"button"}>{t("crear-nueva-coleccion")} &nbsp;<FontAwesomeIcon icon={faPlus} /></Link>

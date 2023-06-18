@@ -20,9 +20,9 @@ function Contadores() {
     return <>
 
         <ul id='contadores'>
-            <li><strong>{t("libros")}: </strong>{data.libros}</li>
-            <li><strong>{t("colecciones")}: </strong>{data.colecciones}</li>
-            <li><strong>{t("media-dias-libro")}: </strong>{data.media}</li>
+            <li><strong>{t("libros")}: </strong>{data.libros.toLocaleString()}</li>
+            <li><strong>{t("colecciones")}: </strong>{data.colecciones.toLocaleString()}</li>
+            <li><strong>{t("media-dias-libro")}: </strong>{data.media.toLocaleString()}</li>
         </ul></>
 
 }

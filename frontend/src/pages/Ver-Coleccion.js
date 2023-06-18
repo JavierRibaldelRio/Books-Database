@@ -48,7 +48,7 @@ function VerColeccion() {
             <>{t("coleccion").toUpperCase()}: <span id='nombre-coleccion' style={new EstiloColeccion(color)}> <span className='blanquear-fondo' style={{ margin: "2vmin", padding: "2vmin" }} >{nombreColeccion}</span></span></>
         } mayusculas="false" />
 
-        <li>{t("libros-en-coleccion")} <strong>{items}</strong></li >
+        <li>{t("libros-en-coleccion")}: <strong>{items.toLocaleString()}</strong></li >
 
         <MostrarLibros query={colecciones.contenido} mensajeError={t("no-libros-col")} />
     </>
