@@ -31,6 +31,9 @@ class BookForm extends Component {
             e.preventDefault();
 
             e.stopPropagation();
+        } else {
+
+            window.location.replace('/hi')
         }
 
         this.setState({ validate: true })

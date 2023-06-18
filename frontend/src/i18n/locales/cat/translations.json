@@ -58,6 +58,11 @@
         "novembre",
         "desembre"
     ],
-    "pre-libro": "Seguro què vols eliminar aquest llibre?",
-    "configuracion": "Configuració"
+    "pre-libro": "Segur què vols eliminar aquest llibre?",
+    "configuracion": "Configuració",
+    "db-libros": "Book Database",
+    "buscar": "buscar",
+    "tabla": "taula",
+    "descargar": "descaregar",
+    "libro-a-buscar": "Llibre a buscar"
 }

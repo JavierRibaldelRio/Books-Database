@@ -1,6 +1,9 @@
-body {
+main {
 
   margin: 3vmax !important;
+
+  padding-top: 60px;
+
 }
 
 .puntero {
@@ -36,4 +39,16 @@ body {
   display: flex;
 
   align-items: center;
+}
+
+
+
+/* desactiva los inputs de la cabacera*/
+
+
+header input:disabled,
+header button:disabled {
+
+  cursor: not-allowed !important;
+
 }
