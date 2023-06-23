@@ -33,29 +33,26 @@ class MostrarLibros extends Component {
 
     componentDidMount() {
 
-        if (this.props.query === null) {
 
-            console.log('this.props.data :>> ', this.props.query);
+        console.log('this.props.data des:>> ', this.props.query);
 
-            //Obtiene los libros
-            fetch('/api/fetch_books').then((res) => res.json())
-                .then((data) => this.setState({
-                    data: data.map(crearData)
-                }))
-                .catch((err) => console.log('err :>> ', err));
+        //Obtiene los libros
+        fetch('/api/fetch_books').then((res) => res.json())
+            .then((data) => this.setState({
+                data: data.map(crearData)
+            }))
+            .catch((err) => console.log('err :>> ', err));
 
-        }
 
     }
 
     componentDidUpdate(preProv) {
 
-        if (this.props.query !== []) {
-            if (this.props.query !== null && JSON.stringify(this.props.query) !== JSON.stringify(preProv.query)) {
-
-                this.setState({ data: this.props.query.map(crearData) });
-            }
+        if (this.props.query !== null) {
+            console.log('up :>> ');
+            this.setState({ data: this.props.query.map(crearData) });
         }
+
     }
 
     shouldComponentUpdate(nextProps, nextState) {
