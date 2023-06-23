@@ -52,3 +52,26 @@ header button:disabled {
   cursor: not-allowed !important;
 
 }
+
+.fecha {
+  margin-bottom: 5vh;
+
+  font-size: 2rem;
+
+  /* Borde doble redondeado */
+  border-bottom: black 5px;
+  border-bottom-style: double;
+  border-radius: 10px;
+
+  padding: 0 1vw;
+
+
+  display: inline-block;
+
+
+}
+
+.fecha::first-letter {
+
+  text-transform: uppercase;
+}
