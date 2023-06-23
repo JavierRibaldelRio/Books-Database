@@ -14,6 +14,7 @@ import AlertaCerrable from './AlertaCerrable';
 
 import { withTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom';
+import Alerta from '../classes/Alerta';
 
 // Contenido de la página que muestra todas las colecciones
 class InterfazColecciones extends Component {
@@ -74,7 +75,7 @@ class InterfazColecciones extends Component {
         else {
 
             // Si no hay colecciones avisa que necesita tener conexión o que todacía nos ha creado ninguna
-            colecciones = <AlertaCerrable tipo="warning" texto="Todavía no se ha creado ninguna coleccion o no se puede establecer conexión con la Base de Datos" />;
+            colecciones = <AlertaCerrable alerta={new Alerta(true, t('no-col-aun'), 'danger')} tipo="warning" texto="Todavía no se ha creado ninguna coleccion o no se puede establecer conexión con la Base de Datos" />;
         }
 
         return <>

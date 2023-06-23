@@ -12,6 +12,7 @@ import { faSort } from '@fortawesome/free-solid-svg-icons'
 import AlertaCerrable from './AlertaCerrable';
 
 import { withTranslation } from 'react-i18next';
+import Alerta from '../classes/Alerta';
 
 
 
@@ -147,7 +148,7 @@ class MostrarLibros extends Component {
 
         else {
 
-            return <AlertaCerrable tipo="danger" texto={this.props.mensajeError} />
+            return <AlertaCerrable alerta={new Alerta(true, this.props.mensajeError, 'danger')} />
         }
     }
 }

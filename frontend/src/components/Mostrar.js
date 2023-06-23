@@ -13,6 +13,7 @@ import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import AlertaCerrable from './AlertaCerrable';
 
 import { Trans, withTranslation } from "react-i18next";
+import Alerta from '../classes/Alerta';
 
 class Mostrar extends Component {
     constructor(props) {
@@ -84,7 +85,7 @@ class Mostrar extends Component {
 
         if (this.state.data === null) {
 
-            return <AlertaCerrable tipo="danger" texto={t("no-connect-db")} />
+            return <AlertaCerrable alerta={new Alerta(true, t("no-connect-db"), "danger")} />
 
         } else {
 
@@ -92,7 +93,7 @@ class Mostrar extends Component {
 
             if (this.state.gdata === null) {
 
-                gdata = <AlertaCerrable tipo="warning" texto={<Trans>sin-info-google</Trans>} />
+                gdata = <AlertaCerrable alerta={new Alerta(true, <Trans>sin-info-google</Trans>, "warning")} />
 
             } else {
 
