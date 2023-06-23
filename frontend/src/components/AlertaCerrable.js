@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Alerta from '../classes/Alerta';
 
-//Crea una alerta que se pude cerrar
+//Crea una alerta que se pude cerrar, su única propiedad es un objeto Alerta definido en Alerta.js
+
 function AlertaCerrable(props) {
 
     // Crea un estado
