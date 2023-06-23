@@ -267,7 +267,7 @@ def download_JSON():
 
 # Crea coleccion
 @app.route("/api/collection/create-collection", methods=["POST"])
-def create_tag():
+def crear_coleccion():
     # Obtiene los datos
     col = Colecciones(
         coleccion_id=None,
@@ -302,9 +302,9 @@ def eliminar_coleccion(id):
 @app.route("/api/collection/edit-collection", methods=["POST"])
 def editar_coleccion():
     # Obtiene los nuevos datos
-    id = request.form.get("coleccion_id")
-    nombre = request.form.get("nombre").strip().lower()
-    color = request.form.get("color")
+    id = request.json.get("coleccion_id")
+    nombre = request.json.get("nombre").strip().lower()
+    color = request.json.get("color")
 
     # Crea el nuevo objeto y lo hace diccionario
     nueva = Colecciones(coleccion_id=id, color=color, nombre=nombre).__dict__
@@ -317,7 +317,7 @@ def editar_coleccion():
 
     db.session.commit()
 
-    return "Editado :)"
+    return Response(status=200)
 
 
 @app.route("/api/collection/fetch-coleccion/<id>")
