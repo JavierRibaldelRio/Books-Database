@@ -68,5 +68,6 @@
     "eliminar-coleccion": "Eliminar colección",
     "cancelar": "Cancelar",
     "coleccion-guardada": "se ha guardado correctamente",
-    "no-guardar-col": "no se ha guardado correctamente, por favor intentelo más tarde"
+    "no-guardar-col": "no se ha guardado correctamente, por favor intentelo más tarde",
+    "no-col-aun": "Todavía no se ha creado ninguna colección o no se puede establecer conexión con la Base de Datos"
 }
