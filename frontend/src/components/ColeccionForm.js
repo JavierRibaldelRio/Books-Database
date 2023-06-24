@@ -13,6 +13,7 @@ import { withTranslation } from 'react-i18next';
 //Importa el css del formulario
 
 import '../style/coleccion_form.css';
+import Alerta from '../classes/Alerta';
 
 // Crea el formulario de la coleccion
 class ColeccionForm extends Component {
@@ -69,10 +70,10 @@ class ColeccionForm extends Component {
                     let alerta = {};
 
                     if (response.status == 200) {
-                        alerta = { texto: pasarAMayusFrase(this.state.nombre) + " " + t('coleccion-guardada'), tipo: "success" }
+                        alerta = new Alerta(true, pasarAMayusFrase(this.state.nombre) + " " + t('coleccion-guardada'), "success")
                     }
                     else {
-                        alerta = { texto: pasarAMayusFrase(this.state.nombre) + " " + t('no-guardar-col'), tipo: "danger" }
+                        alerta = new Alerta(true, pasarAMayusFrase(this.state.nombre) + " " + t('no-guardar-col'), "danger")
 
                     }
 

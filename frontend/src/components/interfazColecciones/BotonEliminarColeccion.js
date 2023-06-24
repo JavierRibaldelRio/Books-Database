@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
+import Alerta from '../../classes/Alerta';
 
 // Muestra un diálogo que pregunta al usuario si desea eliminar la colección
 function BotonEliminar(props) {
@@ -33,12 +34,16 @@ function BotonEliminar(props) {
         fetch('/api/collection/remove-collection/' + props.id, { method: 'DELETE' }).then((res) => {
             if (res.status === 204) {
 
+                const texto = pasarAMayusFrase(props.coleccion) + " " + t("col-eliminada");
+
                 // Alerta al usuario de que la colección ha sido eliminada correctamente
-                props.alertar({ texto: pasarAMayusFrase(props.coleccion) + " " + t("col-eliminada"), tipo: "success" })
+                props.alertar(new Alerta(true, texto, "success"));
+
+
             } else {
 
                 // Alerta en caso de que se haya producido un error
-                props.alertar({ texto: t('col-no-eli'), tipo: "danger" })
+                props.alertar(new Alerta(true, t('col-no-eli'), "danger"))
 
             }
         }).catch(e => console.error(`Se ha producido un error: "`));

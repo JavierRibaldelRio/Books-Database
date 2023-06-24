@@ -26,14 +26,15 @@ class InterfazColecciones extends Component {
         // Funciones
 
         this.modificarAlerta = this.modificarAlerta.bind(this);
-
-        this.ocultarAlerta = this.ocultarAlerta.bind(this);
     }
 
     // Obtiene los datos de las colecciones
     fetchColecciones() {
 
-        fetch("/api/collection/fetch-colecciones").then(res => res.json()).then((data) => { this.setState({ data: data, numeroColecciones: data.length }) }).catch((err) => console.log('ERROR: ' + err));
+        fetch("/api/collection/fetch-colecciones")
+            .then(res => res.json())
+            .then((data) => { this.setState({ data: data, numeroColecciones: data.length }) })
+            .catch((err) => console.log('ERROR: ' + err));
     }
 
     // Obtiene todas las colecciones
@@ -42,22 +43,16 @@ class InterfazColecciones extends Component {
         this.fetchColecciones();
     }
 
-    // Obtine el contenido y el tipo de la alerta y la muestra
-    modificarAlerta(contenido_alerta) {
+    // Obtine el contenido y el tipo de la alerta y la muestra el nuevo estado de las colecciones
+    modificarAlerta(alerta) {
 
         // Activa la visivilidad de la alerta y concatena el contenido de la alerta
-        this.setState({ alerta: { oculta: false, ...contenido_alerta } })
+        this.setState({ alerta: alerta })
 
         this.fetchColecciones();
 
     }
 
-    // Oculta la alerta
-
-    ocultarAlerta() {
-
-        this.setState({ alerta: { oculta: true } })
-    }
 
     render() {
 
@@ -75,14 +70,14 @@ class InterfazColecciones extends Component {
         else {
 
             // Si no hay colecciones avisa que necesita tener conexión o que todacía nos ha creado ninguna
-            colecciones = <AlertaCerrable alerta={new Alerta(true, t('no-col-aun'), 'danger')} tipo="warning" texto="Todavía no se ha creado ninguna coleccion o no se puede establecer conexión con la Base de Datos" />;
+            colecciones = <AlertaCerrable alerta={new Alerta(true, t('no-col-aun'), 'danger')} />;
         }
 
         return <>
 
-            <div hidden={this.state.alerta.oculta} >
-                <Alert key={this.state.alerta.tipo} variant={this.state.alerta.tipo} dismissible onClose={this.ocultarAlerta}>{this.state.alerta.texto}</Alert>
-            </div>
+
+            <AlertaCerrable alerta={this.state.alerta} />
+
             <div id='panel-colecciones'>
 
                 {/* Muestra el número de colecciones */}
@@ -102,7 +97,7 @@ class InterfazColecciones extends Component {
 
 InterfazColecciones.defaultProps = {
 
-    alerta: { tipo: 'primary', texto: '', oculta: true }
+    alerta: new Alerta()
 }
 
 export default withTranslation()(InterfazColecciones)
