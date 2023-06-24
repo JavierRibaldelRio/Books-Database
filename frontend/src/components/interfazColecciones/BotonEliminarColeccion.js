@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import { pasarAMayusFrase } from '../scripts/pasarAMayus';
+import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
 
 // Muestra un diálogo que pregunta al usuario si desea eliminar la colección
 function BotonEliminar(props) {
@@ -54,6 +54,8 @@ function BotonEliminar(props) {
             <button className='btn btn-danger boton-coleccion' onClick={handleMostrar}>
                 {t('eliminar')} &nbsp;<FontAwesomeIcon icon={faTrash} />
             </button>
+
+            {/* Confirma la eliminación de  la colección */}
 
             <Modal show={mostrar} onHide={handleClose}>
                 <Modal.Header closeButton>

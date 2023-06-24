@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
-import BotonEliminar from '../BotonEliminarColeccion';
+import BotonEliminar from './BotonEliminarColeccion';
 
 
 function BotonesColeccion(props) {
