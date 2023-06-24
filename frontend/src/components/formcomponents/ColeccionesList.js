@@ -7,8 +7,6 @@ function ColecionesList(props) {
 
     let coleccionesSeleccionadas = []
 
-    console.log('props :>> ', props);
-
     if (props.coleccionesSeleccionadas !== null) {
 
         coleccionesSeleccionadas = props.coleccionesSeleccionadas.map((x) => x.coleccion_id)

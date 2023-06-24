@@ -34,8 +34,6 @@ class MostrarLibros extends Component {
     componentDidMount() {
 
 
-        console.log('this.props.data des:>> ', this.props.query);
-
         //Obtiene los libros
         fetch('/api/fetch_books').then((res) => res.json())
             .then((data) => this.setState({
@@ -49,7 +47,6 @@ class MostrarLibros extends Component {
     componentDidUpdate(preProv) {
 
         if (this.props.query !== null) {
-            console.log('up :>> ');
             this.setState({ data: this.props.query.map(crearData) });
         }
 
@@ -90,7 +87,6 @@ class MostrarLibros extends Component {
                 if (b[criterio] === undefined) {
                     return 1;
                 }
-                console.log('a :>> ', a);
                 return a[criterio].getTime() - b[criterio].getTime()
             });
         }

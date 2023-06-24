@@ -95,9 +95,6 @@ class ColeccionForm extends Component {
     }
 
 
-
-
-
     render() {
 
         // Traducciones
