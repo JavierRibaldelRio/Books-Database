@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { pasarAMayusFrase } from '../scripts/pasarAMayus';
 import DateField from './formcomponents/DateField'
 import TextField from './formcomponents/TextField'
+import Alerta from '../classes/Alerta';
 
 import React, { Component } from 'react';
 import ColecionesList from './formcomponents/ColeccionesList';
@@ -18,7 +19,7 @@ class BookForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { validate: false, libro: this.props.libro }
+        this.state = { validate: false, libro: this.props.libro || { titulo: '', idioma: '', autor: '', fecha_inicio: '', fecha_finalizacion: '', colecciones: [] } }
 
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -29,14 +30,49 @@ class BookForm extends Component {
     //Se ejecuta al enviar el fórmulario
     handleSubmit(e) {
 
+        // Traducción
+        const { t } = this.props;
+
+
+
+        e.preventDefault();
+
+
         //Comprueba que todo esta bien, si esta mal detiene el formulario
         if (e.currentTarget.checkValidity() === false) {
 
-            e.preventDefault();
 
             e.stopPropagation();
         } else {
 
+
+            fetch(this.props.ruta, {
+
+                method: "POST",
+                body: JSON.stringify(this.state.libro),
+                headers: { 'Content-Type': 'application/json' }
+
+            }).then(response => {
+
+
+                this.setState({ libro: { titulo: '', idioma: '', autor: '', fecha_inicio: '', fecha_finalizacion: '', colecciones: [] } })
+
+                let alerta;
+
+                const titulo = pasarAMayusFrase(this.state.libro.titulo);
+
+                if (response.status === 200) {
+                    alerta = new Alerta(true, titulo + " " + t('coleccion-guardada'), "success")
+
+                }
+                else {
+                    alerta = new Alerta(true, titulo + " " + t('no-guardar-col'), "danger")
+
+                }
+
+                this.props.navigate('/', { state: alerta })
+            })
+                .catch(e => console.log('e :>> ', e));
         }
 
         this.setState({ validate: true })
@@ -96,7 +132,7 @@ class BookForm extends Component {
 
         return (
 
-            <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action={this.props.ruta} method='post'>
+            <Form noValidate validated={this.state.validate} onSubmit={this.handleSubmit} action={this.props.ruta} method='post' id='myForm'>
                 <Row className="mb-3">
 
                     <TextField name='titulo' label={t('titulo')} required='true' value={pasarAMayusFrase(libro.titulo)} onChange={this.handleChangeLibro} />
@@ -119,8 +155,6 @@ class BookForm extends Component {
     }
 }
 
-BookForm.defaultProps = {
-    libro: { colecciones: [] }
-}
+
 
 export default withTranslation()(BookForm);

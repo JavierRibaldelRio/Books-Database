@@ -4,10 +4,8 @@ from models.models import Libros
 
 
 def recibir_form_libro(req):
-    form = req.form
-
     def buscar(a):
-        b = req.form.get(a)
+        b = req.json.get(a)
         return b
 
     titulo = buscar("titulo")

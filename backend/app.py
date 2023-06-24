@@ -81,7 +81,7 @@ def add_book():
     libro.save()
 
     # Obtiene la lista de coleciones a las que hay que agregar el libro
-    col = request.form.getlist("colecciones")
+    col = request.json.get("colecciones")
 
     # Obtiene la id del Libro
     libro_id = libro.libro_id
@@ -187,7 +187,7 @@ def edit_book():
     del nuevo["_sa_instance_state"]
 
     # Busca el libro por la id  y lo actualiza
-    libro = Libros.query.filter(Libros.libro_id == request.form.get("libro_id")).update(
+    libro = Libros.query.filter(Libros.libro_id == request.json.get("libro_id")).update(
         nuevo
     )
 
@@ -200,7 +200,7 @@ def edit_book():
     eliminar_de_colecciones(db, lid)
 
     # Obtiene las nuevas colecciones
-    col = request.form.getlist("colecciones")
+    col = request.json.get("colecciones")
     # Guarda las nuevas colecciones
     anyadir_libro_a_colecciones(db, lid, col)
 
