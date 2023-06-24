@@ -6,16 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useNavigate, Link } from 'react-router-dom';
 
-import { useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
 import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
 import BotonEliminar from './BotonEliminarColeccion';
 
 
 function BotonesColeccion(props) {
-
-    const [mostrar, setMostrar] = useState(false)
 
     const { coleccion_id, nombre } = props.coleccion     //Obtine la id y el nombre
 
