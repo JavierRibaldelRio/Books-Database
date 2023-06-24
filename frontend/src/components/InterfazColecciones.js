@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Alert from 'react-bootstrap/Alert';
-
 
 // FontAwosome
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
