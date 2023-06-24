@@ -35,7 +35,7 @@
     "ver": "Ver",
     "col-no-eli": "Se ha producido un error, no se ha podido eliminar la colección.",
     "col-eliminada": " se ha eliminado  correctamente.",
-    "pregunta-eliminar-col": "¿Seguro qué desea eliminar esta colección? (los libros que contine NO se eliminarán)",
+    "pregunta-eliminar-col": "¿Seguro qué desea eliminar esta colección? (los libros que contiene NO se eliminarán)",
     "dias-lectura": "Días de Lectura",
     "valoracion": "Valoración",
     "sinopsis": "Sinopsis",
