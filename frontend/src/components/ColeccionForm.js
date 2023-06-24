@@ -69,7 +69,7 @@ class ColeccionForm extends Component {
 
                     let alerta = {};
 
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         alerta = new Alerta(true, pasarAMayusFrase(this.state.nombre) + " " + t('coleccion-guardada'), "success")
                     }
                     else {
