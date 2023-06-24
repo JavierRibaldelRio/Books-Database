@@ -13,10 +13,10 @@ function MostrarColecciones() {
 
     const location = useLocation();
 
-    console.log('location.state :>> ', location.state);
 
 
-    return <><Titulo text={t("colecciones")} />
+    return <>
+        <Titulo text={t("colecciones")} />
 
         <InterfazColecciones alerta={(location.state !== null) ? location.state : undefined} />
 
