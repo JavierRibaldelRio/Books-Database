@@ -5,7 +5,9 @@ import { pasarAMayusFrase } from "../../scripts/pasarAMayus"
 import '../../style/coleccion_list.css';
 function ColecionesList(props) {
 
-    var coleccionesSeleccionadas = []
+    let coleccionesSeleccionadas = []
+
+    console.log('props :>> ', props);
 
     if (props.coleccionesSeleccionadas !== null) {
 
@@ -14,7 +16,7 @@ function ColecionesList(props) {
 
     const checked = (id) => {
 
-        if (props.coleccionesSeleccionadas !== null) {
+        if (coleccionesSeleccionadas !== []) {
 
             return coleccionesSeleccionadas.includes(id)
 
@@ -30,12 +32,12 @@ function ColecionesList(props) {
     if (props.colecciones) {
 
         // Genera todos los liss de las colecciones
-        var colecciones = props.colecciones.map((x) =>
+        let colecciones = props.colecciones.map((x) =>
             <li key={x.coleccion_id} style={new EstiloColeccion(x.color)}>
                 <label className="flex-center" htmlFor={x.nombre}>
 
                     <span className="elipse">
-                        <input id={x.nombre} type="checkbox" name="colecciones" value={x.coleccion_id} defaultChecked={checked(x.coleccion_id)} /> {pasarAMayusFrase(x.nombre)}</span>
+                        <input id={x.nombre} type="checkbox" name="colecciones" value={x.coleccion_id} defaultChecked={checked(x.coleccion_id)} onChange={props.onChange} /> {pasarAMayusFrase(x.nombre)}</span>
                 </label>
             </li>
 

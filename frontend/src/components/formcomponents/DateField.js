@@ -14,7 +14,7 @@ function DateField(props) {
     return <>
         <Form.Group as={Col} md="3" controlId={name}>
             <Form.Label>{label}</Form.Label>
-            <Form.Control type="date" name={name} defaultValue={value} />
+            <Form.Control type="date" name={name} defaultValue={value} onChange={props.onChange} />
             <Form.Control.Feedback type="invalid">
                 {label}
             </Form.Control.Feedback>
