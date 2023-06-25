@@ -201,10 +201,11 @@ def edit_book():
 
     # Obtiene las nuevas colecciones
     col = request.json.get("colecciones")
+
     # Guarda las nuevas colecciones
     anyadir_libro_a_colecciones(db, lid, col)
 
-    return "Libro Editado"
+    return Response(status=200)
 
 
 # Query
