@@ -10,13 +10,20 @@ import { useTranslation } from "react-i18next";
 
 function Editar() {
 
+    // Obtiene la traducción
     const { t } = useTranslation();
 
-
+    // Obtiene la localización y el navigate
     const location = useLocation();
     const navigate = useNavigate();
 
-    const libro = location.state.data;
+    //Obtiene el objeto libro
+    let libro = location.state.data;
+
+    // Transforma la lista de objetos colecciones en lista de id de las colecciones selccionadas
+
+    libro.colecciones = libro.colecciones.map(col => col.coleccion_id);
+
     return <>
         <Titulo text={t("modificar").toUpperCase() + ": \"" + libro.titulo.toUpperCase() + '"'} />
 

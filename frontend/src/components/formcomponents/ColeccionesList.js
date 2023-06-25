@@ -5,18 +5,12 @@ import { pasarAMayusFrase } from "../../scripts/pasarAMayus"
 import '../../style/coleccion_list.css';
 function ColecionesList(props) {
 
-    let coleccionesSeleccionadas = []
-
-    if (props.coleccionesSeleccionadas !== null) {
-
-        coleccionesSeleccionadas = props.coleccionesSeleccionadas.map((x) => x.coleccion_id)
-    }
 
     const checked = (id) => {
 
-        if (coleccionesSeleccionadas !== []) {
+        if (props.coleccionesSeleccionadas !== []) {
 
-            return coleccionesSeleccionadas.includes(id)
+            return props.coleccionesSeleccionadas.includes(id)
 
         }
 
