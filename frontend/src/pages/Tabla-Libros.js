@@ -10,7 +10,7 @@ function TablaLibros() {
     return <>
         <Titulo text={t('tabla-libros')}></Titulo>
 
-        <MostrarLibros mensajeError={t("no-connect-db")} />
+        <MostrarLibros mensajeError={t("no-connect-db-no-libro")} />
     </>
 }
 
