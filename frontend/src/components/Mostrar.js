@@ -14,7 +14,7 @@ import Alerta from '../classes/Alerta';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 import { Trans, withTranslation } from "react-i18next";
 

@@ -112,7 +112,7 @@ class BookForm extends Component {
         // Si la colección esta marcada la desmarca
         if (libro.colecciones.includes(col)) {
 
-            libro.colecciones = libro.colecciones.filter(c => c != col);    //Elimina la colecciónd el array utilizando un filtro por id distinta de la actual
+            libro.colecciones = libro.colecciones.filter(c => c !== col);    //Elimina la colecciónd el array utilizando un filtro por id distinta de la actual
         }
         else {
             libro.colecciones.push(col);
