@@ -174,7 +174,7 @@ def remove_book(id):
 
     db.engine.execute("DELETE FROM joincolecciones WHERE(libro_id=?)", id)
 
-    return "Eliminado Correctamente"
+    return Response(status=204)
 
 
 # Modifica los libros

@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
-import Alerta from '../../classes/Alerta';
+
 
 // Muestra un diálogo que pregunta al usuario si desea eliminar la colección
 function BotonEliminar(props) {
@@ -17,46 +16,20 @@ function BotonEliminar(props) {
 
 
     // Activa el estado
-    const [mostrar, setMostrar] = useState(props.mostrar);
+    const [mostrar, setMostrar] = useState(false);
 
     // Muestra o escondo la pregunta del usuario
 
-    const handleClose = () => { props.mostrarTitulo(); setMostrar(false); }
+    const handleClose = () => { props.alCerrar(); setMostrar(false); }
     const handleMostrar = () => setMostrar(true);
 
-    const handleRemove = () => { eliminarColeccion(); handleClose(); }
-
-
-    // Elimina la colección
-    function eliminarColeccion() {
-
-        // Elimna la coleccón
-        fetch('/api/collection/remove-collection/' + props.id, { method: 'DELETE' }).then((res) => {
-            if (res.status === 204) {
-
-                const texto = pasarAMayusFrase(props.coleccion) + " " + t("col-eliminada");
-
-                // Alerta al usuario de que la colección ha sido eliminada correctamente
-                props.alertar(new Alerta(true, texto, "success"));
-
-
-            } else {
-
-                // Alerta en caso de que se haya producido un error
-                props.alertar(new Alerta(true, t('col-no-eli'), "danger"))
-
-            }
-        }).catch(e => console.error(`Se ha producido un error: "`));
-
-
-    }
-
+    const handleRemove = () => { props.eliminar(); handleClose(); }
 
 
     return (
         <>
 
-            <button className='btn btn-danger boton-coleccion' onClick={handleMostrar}>
+            <button className={'btn btn-danger ' + props.botonProps} onClick={handleMostrar}>
                 {t('eliminar')} &nbsp;<FontAwesomeIcon icon={faTrash} />
             </button>
 
@@ -64,9 +37,9 @@ function BotonEliminar(props) {
 
             <Modal show={mostrar} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title> <span style={{ overflowWrap: "anywhere" }}>{t("eliminar")}: {props.coleccion}</span></Modal.Title>
+                    <Modal.Title> <span style={{ overflowWrap: "anywhere" }}>{props.texto.titulo}</span></Modal.Title>
                 </Modal.Header>
-                <Modal.Body>{t("pregunta-eliminar-col")}</Modal.Body>
+                <Modal.Body>{props.texto.body}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         {t('cancelar')}
@@ -85,7 +58,10 @@ function BotonEliminar(props) {
 
 BotonEliminar.defaultProps = {
 
-    mostrar: false
+    alCerrar: () => { },
+    eliminar: () => { },
+    botonProps: '',
+
 }
 
 export default BotonEliminar;

@@ -3,12 +3,15 @@ import React from 'react';
 // Font awosome
 import { faPenToSquare, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { useNavigate, Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
+
 import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
-import BotonEliminar from './BotonEliminarColeccion';
+
+import Alerta from '../../classes/Alerta';
+
+import BotonEliminar from '../BotonEliminar';
 
 
 function BotonesColeccion(props) {
@@ -20,6 +23,29 @@ function BotonesColeccion(props) {
     // Traducción
 
     const { t } = useTranslation();
+
+
+    // Elimina la colección
+    function eliminarColeccion() {
+
+        // Elimna la coleccón
+        fetch('/api/collection/remove-collection/' + coleccion_id, { method: 'DELETE' }).then((res) => {
+            if (res.status === 204) {
+
+                const texto = pasarAMayusFrase(nombre) + " " + t("col-eliminada");
+
+                // Alerta al usuario de que la colección ha sido eliminada correctamente
+                props.alertar(new Alerta(true, texto, "success"));
+
+
+            } else {
+
+                // Alerta en caso de que se haya producido un error
+                props.alertar(new Alerta(true, t('col-no-eli'), "danger"))
+
+            }
+        }).catch(e => console.error(`Se ha producido un error: "`));
+    }
 
     return <div className='botones-coleccion' key={"BotonesColeccion" + coleccion_id}>
 
@@ -35,7 +61,14 @@ function BotonesColeccion(props) {
             {t('editar')} &nbsp;<FontAwesomeIcon icon={faPenToSquare} />
         </button>
 
-        <BotonEliminar coleccion={nombre} id={coleccion_id} alertar={props.alertar} mostrarTitulo={props.mostrarTitulo} />
+        <BotonEliminar
+            coleccion={nombre}
+            alertar={props.alertar}
+            alCerrar={props.mostrarTitulo}
+            eliminar={eliminarColeccion}
+            texto={{ body: t("pregunta-eliminar-col"), titulo: <>{t("eliminar")}: {pasarAMayusFrase(nombre)} </> }}
+            botonProps={'boton-coleccion'} />
+
     </div>
 }
 

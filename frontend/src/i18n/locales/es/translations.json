@@ -69,5 +69,7 @@
     "cancelar": "Cancelar",
     "coleccion-guardada": "se ha guardado correctamente",
     "no-guardar-col": "no se ha guardado correctamente, por favor intentelo más tarde",
-    "no-col-aun": "Todavía no se ha creado ninguna colección o no se puede establecer conexión con la Base de Datos"
+    "no-col-aun": "Todavía no se ha creado ninguna colección o no se puede establecer conexión con la Base de Datos",
+    "libro-no-eli": "No se ha podido eliminar el libro, por favor intentelo de nuevo más tarde",
+    "libro-eliminado": "se ha eliminado correctamente"
 }

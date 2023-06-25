@@ -19,6 +19,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Trans, withTranslation } from "react-i18next";
 
 import Spinner from 'react-bootstrap/Spinner';
+import BotonEliminar from './BotonEliminar';
 
 class Mostrar extends Component {
     constructor(props) {
@@ -34,14 +35,32 @@ class Mostrar extends Component {
 
     eliminar() {
 
+        const { navigate } = this.props;
 
-        const { t } = this.props;
+        fetch('/api/remove-book/' + this.state.data.libro_id, { method: 'DELETE' })
+            .then((res) => {
 
-        if (window.confirm(t("pre-libro"))) {
+                const { t } = this.props;
 
-            fetch('/api/remove-book/' + this.state.data.libro_id, { method: 'DELETE' });
+                let state = {};
 
-        }
+                if (res.status === 204) {
+
+                    const texto = pasarAMayusFrase(this.state.data.titulo) + " " + t("libro-eliminado");
+
+                    // Alerta al usuario de que la colección ha sido eliminada correctamente
+                    state = new Alerta(true, texto, "success");
+
+
+                } else {
+
+                    // Alerta en caso de que se haya producido un error
+                    state = (new Alerta(true, t('libro-no-eli'), "danger"));
+
+                }
+
+                navigate('/', { state: state });
+            }).catch(e => console.log('ERROR: ' + e));
 
     }
 
@@ -123,7 +142,7 @@ class Mostrar extends Component {
             return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} mayusculas={false} />
                 <div className="modal-body row">
 
-
+                    {/* Columna de datos de la base de datos, mas botones de eliminar y editar */}
                     <div className="col-md-5">
                         <MostrarDBData data={this.state.data} />
 
@@ -131,9 +150,17 @@ class Mostrar extends Component {
 
                             <button type="button" onClick={this.editar} className="btn btn-primary">{t('editar')} &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></button>
 
-                            <button type="button" onClick={this.eliminar} className="btn btn-danger">{t("eliminar")} &nbsp; <FontAwesomeIcon icon={faTrash} /> </button>
+                            <BotonEliminar
+                                eliminar={this.eliminar}
+                                texto={{ body: t("pre-libro"), titulo: t('eliminar').toUpperCase() + ": " + pasarAMayusFrase(this.state.data.titulo) }}
+
+                            />
+
+
                         </div>
                     </div>
+
+                    {/* Columna de datos de google */}
                     <div className="col-md-7">
                         {gdata}
 
