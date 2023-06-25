@@ -64,5 +64,14 @@
     "buscar": "buscar",
     "tabla": "taula",
     "descargar": "descaregar",
-    "libro-a-buscar": "Llibre a buscar"
+    "libro-a-buscar": "Llibre a buscar",
+    "eliminar-coleccion": "Eliminar colecció",
+    "cancelar": "Cancel·lar",
+    "coleccion-guardada": "s'ha guardadat correctament",
+    "no-guardar-col": "no s'ha guardadat correctament, per favor intenta-ho més tard",
+    "no-col-aun": "Encara no s'ha creat cap coleccio o no es pot establir conexió amb la Base de Dades",
+    "libro-no-eli": "No s'ha pogut eliminar el llibre, per favor intenta-ho una altra volta més tarde",
+    "libro-eliminado": "s'ha eliminat correctament",
+    "pa-no-en": "Pàgina no encontrada",
+    "no-connect-db-no-libro": "No s'ha pogut establir  conexió amb la Base de Dades o no s'ha agregat cap llibre"
 }
