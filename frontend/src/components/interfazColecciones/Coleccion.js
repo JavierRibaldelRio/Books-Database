@@ -20,6 +20,8 @@ class Coleccion extends Component {
         this.onMouseOver = this.onMouseOver.bind(this);
         this.onMouseOut = this.onMouseOut.bind(this);
 
+        this.mostrarTitulo = this.mostrarTitulo.bind(this);
+
         // Obtine la función alertar del padre
         this.alertar = this.props.alertar.bind(this);
 
@@ -30,14 +32,26 @@ class Coleccion extends Component {
     onMouseOver() {
 
 
-        this.setState({ contenido: <BotonesColeccion coleccion={this.props.coleccion} alertar={this.alertar} /> })
+        this.setState({ contenido: <BotonesColeccion coleccion={this.props.coleccion} alertar={this.alertar} mostrarTitulo={this.mostrarTitulo} /> })
     }
 
     // Al tener el ratón fuera del contenido muesta el nombre normal de la coleccion
     onMouseOut() {
 
-        this.setState({ contenido: <div className='titulo-coleccion'>{this.state.nombre}</div> })
+        this.mostrarTitulo();
+
     }
+
+    // Muestra el nombre de la colección
+    mostrarTitulo() {
+
+        this.setState({ contenido: <div className='titulo-coleccion'>{this.state.nombre}</div> })
+
+    }
+
+
+
+
     render() {
 
         // Obtiene el color y la id de la colección
@@ -47,7 +61,7 @@ class Coleccion extends Component {
         // Crea el estilo de la carpeta
         const estilo = new EstiloColeccion(color);
 
-        return <div key={id} className="  contenedor-fondo-blaqueado" style={estilo} onMouseEnter={this.onMouseOver} onMouseLeave={this.onMouseOut}>
+        return <div key={id} className="  contenedor-fondo-blaqueado" style={estilo} onMouseOut={this.onMouseOut} onMouseOver={this.onMouseOver} >
             <span className='contenido-carpeta-coleccion blanquear-fondo center'>
                 {this.state.contenido}
             </span>

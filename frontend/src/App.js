@@ -20,6 +20,7 @@ import MostrarColecciones from './pages/Mostrar-Colecciones';
 import EditarColeccion from './pages/Editar-Coleccion';
 import VerColeccion from './pages/Ver-Coleccion';
 import Configuracion from './pages/Configuracion';
+import P404 from './pages/404';
 
 function App() {
   return (
@@ -44,10 +45,13 @@ function App() {
           <Route path='/colecciones/crear-coleccion' element={<CrearColeccion />} />
           <Route path='/colecciones/editar' element={<EditarColeccion />} />
           <Route path='/colecciones/:id' element={<VerColeccion />} />
+
+          {/* Página 404 */}
+
+          <Route path='*' element={<P404 />} />
+
         </Routes>
       </main>
-      <br />
-      <a href='/tabla-libros'>TABLA</a>
     </BrowserRouter>
   );
 }

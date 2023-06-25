@@ -12,6 +12,7 @@ import { faSort } from '@fortawesome/free-solid-svg-icons'
 import AlertaCerrable from './AlertaCerrable';
 
 import { withTranslation } from 'react-i18next';
+import Alerta from '../classes/Alerta';
 
 
 
@@ -32,29 +33,23 @@ class MostrarLibros extends Component {
 
     componentDidMount() {
 
-        if (this.props.query === null) {
 
-            console.log('this.props.data :>> ', this.props.query);
+        //Obtiene los libros
+        fetch('/api/fetch_books').then((res) => res.json())
+            .then((data) => this.setState({
+                data: data.map(crearData)
+            }))
+            .catch((err) => console.log('err :>> ', err));
 
-            //Obtiene los libros
-            fetch('/api/fetch_books').then((res) => res.json())
-                .then((data) => this.setState({
-                    data: data.map(crearData)
-                }))
-                .catch((err) => console.log('err :>> ', err));
-
-        }
 
     }
 
     componentDidUpdate(preProv) {
 
-        if (this.props.query !== []) {
-            if (this.props.query !== null && JSON.stringify(this.props.query) !== JSON.stringify(preProv.query)) {
-
-                this.setState({ data: this.props.query.map(crearData) });
-            }
+        if (this.props.query !== null) {
+            this.setState({ data: this.props.query.map(crearData) });
         }
+
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -92,7 +87,6 @@ class MostrarLibros extends Component {
                 if (b[criterio] === undefined) {
                     return 1;
                 }
-                console.log('a :>> ', a);
                 return a[criterio].getTime() - b[criterio].getTime()
             });
         }
@@ -147,7 +141,7 @@ class MostrarLibros extends Component {
 
         else {
 
-            return <AlertaCerrable tipo="danger" texto={this.props.mensajeError} />
+            return <AlertaCerrable alerta={new Alerta(true, this.props.mensajeError, 'danger')} />
         }
     }
 }

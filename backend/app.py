@@ -81,7 +81,7 @@ def add_book():
     libro.save()
 
     # Obtiene la lista de coleciones a las que hay que agregar el libro
-    col = request.form.getlist("colecciones")
+    col = request.json.get("colecciones")
 
     # Obtiene la id del Libro
     libro_id = libro.libro_id
@@ -174,7 +174,7 @@ def remove_book(id):
 
     db.engine.execute("DELETE FROM joincolecciones WHERE(libro_id=?)", id)
 
-    return "Eliminado Correctamente"
+    return Response(status=204)
 
 
 # Modifica los libros
@@ -187,7 +187,7 @@ def edit_book():
     del nuevo["_sa_instance_state"]
 
     # Busca el libro por la id  y lo actualiza
-    libro = Libros.query.filter(Libros.libro_id == request.form.get("libro_id")).update(
+    libro = Libros.query.filter(Libros.libro_id == request.json.get("libro_id")).update(
         nuevo
     )
 
@@ -200,11 +200,12 @@ def edit_book():
     eliminar_de_colecciones(db, lid)
 
     # Obtiene las nuevas colecciones
-    col = request.form.getlist("colecciones")
+    col = request.json.get("colecciones")
+
     # Guarda las nuevas colecciones
     anyadir_libro_a_colecciones(db, lid, col)
 
-    return "Libro Editado"
+    return Response(status=200)
 
 
 # Query
@@ -267,17 +268,17 @@ def download_JSON():
 
 # Crea coleccion
 @app.route("/api/collection/create-collection", methods=["POST"])
-def create_tag():
+def crear_coleccion():
     # Obtiene los datos
     col = Colecciones(
         coleccion_id=None,
-        nombre=request.form.get("nombre").strip().lower(),
-        color=request.form.get("color"),
+        nombre=request.json.get("nombre").strip().lower(),
+        color=request.json.get("color"),
     )
 
     # Guarda los datos
     col.save()
-    return "Colección  creada"
+    return Response(status=200)
 
 
 # Obtiene todas las colecciones
@@ -302,9 +303,9 @@ def eliminar_coleccion(id):
 @app.route("/api/collection/edit-collection", methods=["POST"])
 def editar_coleccion():
     # Obtiene los nuevos datos
-    id = request.form.get("coleccion_id")
-    nombre = request.form.get("nombre")
-    color = request.form.get("color")
+    id = request.json.get("coleccion_id")
+    nombre = request.json.get("nombre").strip().lower()
+    color = request.json.get("color")
 
     # Crea el nuevo objeto y lo hace diccionario
     nueva = Colecciones(coleccion_id=id, color=color, nombre=nombre).__dict__
@@ -317,7 +318,7 @@ def editar_coleccion():
 
     db.session.commit()
 
-    return "Editado :)"
+    return Response(status=200)
 
 
 @app.route("/api/collection/fetch-coleccion/<id>")

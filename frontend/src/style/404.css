@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&display=swap');
+
+.P404 {
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 150px;
+
+    border: 5vmax red;
+
+    border-style: groove;
+
+    gap: 3vh;
+
+    text-align: center;
+
+
+    width: 100%;
+    height: 85vh;
+
+}
+
+.error {
+
+    font-size: 8vmax;
+
+    font-family: 'Roboto Mono', monospace;
+
+    color: red;
+}
+
+.mensaje {
+
+    font-size: 2.5vmax;
+}

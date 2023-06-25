@@ -1,13 +1,17 @@
 import React from 'react';
 
 // Font awosome
-import { faPenToSquare, faTrash, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { useNavigate, Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
+
 import { pasarAMayusFrase } from '../../scripts/pasarAMayus';
+
+import Alerta from '../../classes/Alerta';
+
+import BotonEliminar from '../BotonEliminar';
 
 
 function BotonesColeccion(props) {
@@ -20,26 +24,27 @@ function BotonesColeccion(props) {
 
     const { t } = useTranslation();
 
+
     // Elimina la colección
     function eliminarColeccion() {
 
-        // Pregunta si deseas eliminar la colección
-        if (window.confirm(t("pregunta-eliminar-col"))) {
-            // Elimna la coleccón
-            fetch('/api/collection/remove-collection/' + coleccion_id, { method: 'DELETE' }).then((res) => {
-                if (res.status === 204) {
+        // Elimna la coleccón
+        fetch('/api/collection/remove-collection/' + coleccion_id, { method: 'DELETE' }).then((res) => {
+            if (res.status === 204) {
 
-                    // Alerta al usuario de que la colección ha sido eliminada correctamente
-                    props.alertar({ texto: pasarAMayusFrase(nombre) + " " + t("col-eliminada"), tipo: "success" })
-                } else {
+                const texto = pasarAMayusFrase(nombre) + " " + t("col-eliminada");
 
-                    // Alerta en caso de que se haya producido un error
-                    props.alertar({ texto: t('col-no-eli'), tipo: "danger" })
+                // Alerta al usuario de que la colección ha sido eliminada correctamente
+                props.alertar(new Alerta(true, texto, "success"));
 
-                }
-            }).catch(e => console.error(`Se ha producido un error: "`));
 
-        }
+            } else {
+
+                // Alerta en caso de que se haya producido un error
+                props.alertar(new Alerta(true, t('col-no-eli'), "danger"))
+
+            }
+        }).catch(e => console.error(`Se ha producido un error: "`));
     }
 
     return <div className='botones-coleccion' key={"BotonesColeccion" + coleccion_id}>
@@ -56,9 +61,14 @@ function BotonesColeccion(props) {
             {t('editar')} &nbsp;<FontAwesomeIcon icon={faPenToSquare} />
         </button>
 
-        <button className='btn btn-danger boton-coleccion' onClick={eliminarColeccion}>
-            {t('eliminar')} &nbsp;<FontAwesomeIcon icon={faTrash} />
-        </button>
+        <BotonEliminar
+            coleccion={nombre}
+            alertar={props.alertar}
+            alCerrar={props.mostrarTitulo}
+            eliminar={eliminarColeccion}
+            texto={{ body: t("pregunta-eliminar-col"), titulo: <>{t("eliminar")}: {pasarAMayusFrase(nombre)} </> }}
+            botonProps={'boton-coleccion'} />
+
     </div>
 }
 

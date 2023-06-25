@@ -10,6 +10,7 @@ import '@smastrom/react-rating/style.css'
 import AlertaCerrable from "../AlertaCerrable";
 
 import { Trans, useTranslation } from "react-i18next";
+import Alerta from "../../classes/Alerta";
 
 function MostrarGoogleData(props) {
 
@@ -68,7 +69,7 @@ function MostrarGoogleData(props) {
 
 
     return <>
-        <AlertaCerrable tipo="success" texto={<Trans>info-google</Trans>} />
+        <AlertaCerrable alerta={new Alerta(true, <Trans>info-google</Trans>, 'success')} />
 
 
         <table className='tabla-data table-data-database'>

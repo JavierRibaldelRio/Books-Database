@@ -1,24 +1,31 @@
 // Hace una llamada a la API  y mustra los resultados
 
 import React, { Component } from 'react';
+
 import Titulo from './Titulo';
 import MostrarDBData from './mostrar/DBData';
 import MostrarGoogleData from './mostrar/GoogleData';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import AlertaCerrable from './AlertaCerrable';
 
 // Funciones
 import { pasarAMayusFrase } from '../scripts/pasarAMayus';
-import AlertaCerrable from './AlertaCerrable';
+
+import Alerta from '../classes/Alerta';
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import { Trans, withTranslation } from "react-i18next";
+
+import Spinner from 'react-bootstrap/Spinner';
+import BotonEliminar from './BotonEliminar';
 
 class Mostrar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { data: null, gdata: null }
+        this.state = { data: null, gdata: undefined }
 
         this.eliminar = this.eliminar.bind(this);
 
@@ -28,14 +35,32 @@ class Mostrar extends Component {
 
     eliminar() {
 
+        const { navigate } = this.props;
 
-        const { t } = this.props;
+        fetch('/api/remove-book/' + this.state.data.libro_id, { method: 'DELETE' })
+            .then((res) => {
 
-        if (window.confirm(t("pre-libro"))) {
+                const { t } = this.props;
 
-            fetch('/api/remove-book/' + this.state.data.libro_id, { method: 'DELETE' });
+                let state = {};
 
-        }
+                if (res.status === 204) {
+
+                    const texto = pasarAMayusFrase(this.state.data.titulo) + " " + t("libro-eliminado");
+
+                    // Alerta al usuario de que la colección ha sido eliminada correctamente
+                    state = new Alerta(true, texto, "success");
+
+
+                } else {
+
+                    // Alerta en caso de que se haya producido un error
+                    state = (new Alerta(true, t('libro-no-eli'), "danger"));
+
+                }
+
+                navigate('/', { state: state });
+            }).catch(e => console.log('ERROR: ' + e));
 
     }
 
@@ -82,19 +107,32 @@ class Mostrar extends Component {
 
         const { t } = this.props
 
+        // Si no  hay datos que mostrar de la base de datos o no se ha podido establecer conexión
         if (this.state.data === null) {
 
-            return <AlertaCerrable tipo="danger" texto={t("no-connect-db")} />
+            return <AlertaCerrable alerta={new Alerta(true, t("no-connect-db"), "danger")} />
 
-        } else {
+        }
+
+        else {
 
             let gdata;
 
             if (this.state.gdata === null) {
 
-                gdata = <AlertaCerrable tipo="warning" texto={<Trans>sin-info-google</Trans>} />
+                gdata = <AlertaCerrable alerta={new Alerta(true, <Trans>sin-info-google</Trans>, "warning")} />
 
-            } else {
+            }
+
+            // Spinner de Cargando
+            else if (this.state.gdata === undefined) {
+
+                gdata = <Spinner animation="border" role="status" variant="secondary" >
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            }
+
+            else {
 
                 gdata = <MostrarGoogleData data={this.state.gdata[0]} />
 
@@ -104,7 +142,7 @@ class Mostrar extends Component {
             return <><Titulo text={pasarAMayusFrase(this.state.data.titulo)} mayusculas={false} />
                 <div className="modal-body row">
 
-
+                    {/* Columna de datos de la base de datos, mas botones de eliminar y editar */}
                     <div className="col-md-5">
                         <MostrarDBData data={this.state.data} />
 
@@ -112,9 +150,17 @@ class Mostrar extends Component {
 
                             <button type="button" onClick={this.editar} className="btn btn-primary">{t('editar')} &nbsp; <FontAwesomeIcon icon={faPenToSquare} /></button>
 
-                            <button type="button" onClick={this.eliminar} className="btn btn-danger">{t("eliminar")} &nbsp; <FontAwesomeIcon icon={faTrash} /> </button>
+                            <BotonEliminar
+                                eliminar={this.eliminar}
+                                texto={{ body: t("pre-libro"), titulo: t('eliminar').toUpperCase() + ": " + pasarAMayusFrase(this.state.data.titulo) }}
+
+                            />
+
+
                         </div>
                     </div>
+
+                    {/* Columna de datos de google */}
                     <div className="col-md-7">
                         {gdata}
 

@@ -17,14 +17,14 @@ class GraficoBarras extends Component {
         // Color de la franja de anyos
         this.colorAnyos = "#b3697a";
 
-        this.state = {}
+        this.state = { mostrandoLibrosPorAnyo: true }
         // Funciones
 
-        this.actualizarAnyos = this.actualizarAnyos.bind(this);
-        this.actualizarMeses = this.actualizarMeses.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
     }
 
+    // Obtiene los datos de las gráficas y la crea
     componentDidMount() {
 
         fetch(this.props.ruta).then(res => res.json())
@@ -97,7 +97,7 @@ class GraficoBarras extends Component {
         this.actualizarGrafica(anyos, this.colorAnyos);
     }
 
-    // actualiza la grafica
+    // Obtiene los nuevos datos y actualiza la gráfica
     actualizarGrafica(data, color) {
 
 
@@ -150,24 +150,71 @@ class GraficoBarras extends Component {
     actualizarMeses() { this.actualizarGrafica(this.state.meses, "#69b3a2") }
     actualizarAnyos() { this.actualizarGrafica(this.state.anyos, this.colorAnyos) }
 
-    // Traducción
+
+    // Intercambia los gráficos
+
+    handleClick() {
+
+        // Almacena si el siguiente gráfico a mostrar es libros por año
+
+        const siguienteGraficoLibrosPorAnyo = !this.state.mostrandoLibrosPorAnyo;
+
+        if (siguienteGraficoLibrosPorAnyo) {
+            this.actualizarAnyos();
+
+        }
+
+        else {
+
+            this.actualizarMeses();
+        }
+
+        this.setState({ mostrandoLibrosPorAnyo: siguienteGraficoLibrosPorAnyo })
+
+    }
+
 
 
     render() {
+
+
+        // Traducción
         const { t } = this.props;
+
+        //Botón gráfico
+
+        const boton = {}
+
+        if (this.state.mostrandoLibrosPorAnyo) {
+
+            boton.texto = t("libros-meses");
+
+            boton.estilo = "btn-info";
+
+        }
+
+        else {
+
+            boton.texto = t('libros-anyos');
+
+            boton.estilo = "btn-danger";
+
+        }
 
         return <div id="grafico-barras">
 
             <div id="botones-mostrar" className="botones-control-grafico">
 
-                <button className="btn btn-primary" onClick={this.actualizarMeses}>{t("libros-meses")}</button>
-                <button className="btn btn-primary" onClick={this.actualizarAnyos}> {t("libros-anyos")}</button>
+                <button className={"btn " + boton.estilo} onClick={this.handleClick}>{boton.texto}</button>
 
             </div>
 
             <div id={this.props.name} />
         </div>;
     }
+
+
+
 }
 GraficoBarras.defaultProps = {
 

@@ -24,12 +24,12 @@ class Busqueda extends Component {
     }
 
     // Busca que libros cumplen las nuevas condiciones introducidas en el formulario
-    query(query) {
+    query(q) {
 
         fetch('/api/query',
             {
                 method: 'POST',
-                body: JSON.stringify(query),
+                body: JSON.stringify(q),
                 headers: { 'Content-Type': 'application/json' }
             }).then(response => response.json())
             .then(data => this.setState({ data: data }));
@@ -48,7 +48,7 @@ class Busqueda extends Component {
 
             {/* Muestra los resultados del fetch, si no hay ningún parámetro mostrará todos los libros, si hay un libro que buscamos desde la cabecera que no existe decimos que no hay nada, si no hay nada especificado en el formulario lo muestra todo */}
 
-            <MostrarLibros query={this.state.data || (this.props.libroABuscar !== '') ? [] : null} mensajeError={t("libro-no-caracteristicas")} />
+            <MostrarLibros query={this.state.data} mensajeError={t("libro-no-caracteristicas")} />
 
         </>);
     }
