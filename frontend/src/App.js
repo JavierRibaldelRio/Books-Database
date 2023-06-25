@@ -52,8 +52,6 @@ function App() {
 
         </Routes>
       </main>
-      <br />
-      <a href='/tabla-libros'>TABLA</a>
     </BrowserRouter>
   );
 }
