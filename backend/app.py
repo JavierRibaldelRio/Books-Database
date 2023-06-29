@@ -22,10 +22,15 @@ from scripts.anyadir_libro_a_colecciones import anyadir_libro_a_colecciones
 import datetime
 
 # Configura la app
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
+
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Configua la base de datos
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../database.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+    basedir, "database.db"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
@@ -69,6 +74,19 @@ def get_all_collections():
     res.sort(key=ord)
 
     return res
+
+
+# Redirección al cliente en cualquier circunstancia
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file("index.html")
+
+
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
 
 # Recibe desde un formulario para crear un nuevo libro
@@ -431,3 +449,7 @@ def fetch_media_dias():
         n_libros = u[0]
 
     return {"media": media, "colecciones": n_colecciones, "libros": n_libros}
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=80)
