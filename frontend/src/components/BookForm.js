@@ -107,7 +107,7 @@ class BookForm extends Component {
         const libro = this.state.libro;
 
         // Colección a añadir o eliminar
-        const col = e.target.value;
+        const col = Number(e.target.value);
 
         // Si la colección esta marcada la desmarca
         if (libro.colecciones.includes(col)) {
@@ -117,6 +117,8 @@ class BookForm extends Component {
         else {
             libro.colecciones.push(col);
         }
+
+        libro.colecciones = [...new Set(libro.colecciones)];
 
         this.setState({ libro: libro });
     }

@@ -1,0 +1,14 @@
+name: Book-Database
+description: >-
+ A Book database to manage what have you read. Build in Flask and React. To be deploy in a Raspberry Pi 4
+type: sw.application
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/JavierRibaldelRio/Books-Database'
+
+data:
+  
+  defaultDeviceType: raspberrypi4-64
+version: 1.0.0

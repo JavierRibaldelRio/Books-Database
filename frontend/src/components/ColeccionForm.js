@@ -20,7 +20,7 @@ class ColeccionForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { validate: false, nombre: undefined, hex: this.props.coleccion.color || randomHex() }
+        this.state = { validate: false, nombre: this.props.coleccion.nombre, hex: this.props.coleccion.color || randomHex() }
 
         this.handleSubmit = this.handleSubmit.bind(this);
 
