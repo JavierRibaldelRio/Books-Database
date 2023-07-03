@@ -1,5 +1,5 @@
-# Books-Database
-An app to manage the books that you have read
+# Books Database
+An app to manage the books that you have read. CS5Ox final project.
 [![](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/JavierRibaldelRio/Books-Database)
 
 
@@ -11,46 +11,86 @@ An app to manage the books that you have read
 - NPM & Node.JS installed
 - Pip & Python installed
 
+
+
 ### Installing
 
 #### Frontend
-Say what the step will be
+All this commands must be executed in `/frontend/`
 
-```
-Give the example
-```
+1. Install *npm* packages
 
-And repeat
-
-```
-until finished
+```bash
+frontend/$ npm install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
 
-Explain how to run the automated tests for this system
+Then for development purpose, add this line in `/frontend/package.json` 
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+```json
+{
+...
+    "proxy":"http://127.0.0.1:5000/",
+...
+}
 ```
 
-### And coding style tests
 
-Explain what these tests test and why
 
+2. Run this command
+
+```bash
+frontend/$ npm start
 ```
-Give an example
+
+
+
+#### Backend
+
+All this commands must be executed in `/backend/`
+
+1.  Create python virtual environment
+
+```bash
+/backend/$ sudo python -m venv flaskenv
 ```
+
+
+
+2.  Access to virtual environment
+
+```bash
+/backend/$ source flaskenv/bin/activate
+```
+
+
+
+3. Install *pip* packages
+
+```bash
+(flaskenv)/backend/$ sudo pip install -r requirements.txt
+```
+
+
+
+4. Start the backend server
+
+```bash
+(flaskenv)/backend/$ flask run
+```
+
+
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+- For deployment purpouse be sure to remove proxy line in `/frontend/package.json`
+- Execute this command in `/frontend/`
+```bash
+npm run buid
+```
+
+
 
 ## Built With
 
@@ -64,8 +104,9 @@ Add additional notes about how to deploy this on a live system
 
 * **Javier Ribal del Río** - *Initial work* - [JavierRibaldelRio](https://github.com/JavierRibaldelRio)
 
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 
