@@ -87,7 +87,7 @@ All this commands must be executed in `/backend/`
 - For deployment purpouse be sure to remove proxy line in `/frontend/package.json`
 - Execute this command in `/frontend/`
 ```bash
-npm run buid
+npm run build
 ```
 
 
