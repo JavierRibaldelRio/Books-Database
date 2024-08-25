@@ -25,19 +25,6 @@ frontend/$ npm install
 ```
 
 
-
-Then for development purpose, add this line in `/frontend/package.json` 
-
-```json
-{
-...
-    "proxy":"http://127.0.0.1:5000/",
-...
-}
-```
-
-
-
 2. Run this command
 
 ```bash
