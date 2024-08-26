@@ -1,6 +1,6 @@
 {
-    "anyadir-libro": "ANYADIR LIBRE",
-    "Anyadir-libro": "Anyadir llibre",
+    "anyadir-libro": "AFEGIR LIBRE",
+    "Anyadir-libro": "Afegir llibre",
     "buscar-libro": "Buscar llibres",
     "crear-nueva-zon": "Crear Nova Colecció",
     "crear-coleccion": "Crear Colecció",
@@ -18,7 +18,7 @@
     "titulo": "Títol",
     "idioma": "Idioma",
     "autor": "Autor",
-    "fecha-de-inicio": "Data de Inici",
+    "fecha-de-inicio": "Data d'Inici",
     "fecha-de-finalizacion": "Data de Termini",
     "libro-no-caracteristicas": "No hi ha cap llibre que complisca les catacterístiques",
     "color": "Color",
@@ -72,6 +72,6 @@
     "no-col-aun": "Encara no s'ha creat cap coleccio o no es pot establir conexió amb la Base de Dades",
     "libro-no-eli": "No s'ha pogut eliminar el llibre, per favor intenta-ho una altra volta més tarde",
     "libro-eliminado": "s'ha eliminat correctament",
-    "pa-no-en": "Pàgina no encontrada",
-    "no-connect-db-no-libro": "No s'ha pogut establir  conexió amb la Base de Dades o no s'ha agregat cap llibre"
+    "pa-no-en": "Pàgina no trobada",
+    "no-connect-db-no-libro": "No s'ha pogut establir conexió amb la Base de Dades o no s'ha agregat cap llibre"
 }
