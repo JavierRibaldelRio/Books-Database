@@ -2,43 +2,45 @@
 import os
 
 # Importa la librerias de flask
-
+from flask import Flask, request, Response, send_file
+import datetime
+import sqlite3
 import json
 
-from flask import Flask, request, Response, send_file
 
-# Importa las librerias de sqlAclchemy
-
-from models.models import Libros, db, Colecciones
-
+# scripts
 from scripts.elimina_de_colecciones import eliminar_de_colecciones
-
-columnas = ["titulo", "idioma", "autor", "fecha_inicio", "fecha_finalizacion"]
-
 from scripts.recibirformlibro import recibir_form_libro
-
 from scripts.anyadir_libro_a_colecciones import anyadir_libro_a_colecciones
 
-import datetime
 
-# Configura la app
-app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
-
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-# Configua la base de datos
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-    basedir, "database.db"
-)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db.init_app(app)
-
+columnas = ["titulo", "idioma", "autor", "fecha_inicio", "fecha_finalizacion"]
 # Almacena el formato de la fecha
 FECHA_ISO = "%Y-%m-%d"
 
+# Configura la app
+app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
+basedir = os.path.abspath(os.path.dirname(__file__))
 
+# Configure SQLite
+con = sqlite3.connect("database.db", check_same_thread=False)
+con.row_factory = sqlite3.Row
+
+
+# Makes a query and return the results as a list of  dictionarys
+def query_as_list_dict(query, val=None):
+    cursor = con.cursor()
+    cursor.execute("PRAGMA foreign_keys = ON")
+
+    if val:
+        cursor.execute(query, val)
+    else:
+        cursor.execute(query)
+
+    return [dict(fila) for fila in cursor.fetchall()]
+
+
+# FUNCIONES
 # Ordena por nombre
 def ord(e):
     return e["nombre"]
@@ -46,29 +48,13 @@ def ord(e):
 
 # Obtiene todo el contenido de ka base de datos y lo mete en un dict
 def get_all_books():
-    res = list()
-
-    for u in Libros.query.all():
-        dic = u.__dict__
-
-        del dic["_sa_instance_state"]
-
-        res.append(dic)
-
-    return res
+    return query_as_list_dict("SELECT * FROM libros")
 
 
 # Obtiene todas las coleciones
 def get_all_collections():
-    res = list()
-
     # Obtiene las colecciones y elimina el dato
-    for u in Colecciones.query.all():
-        dic = u.__dict__
-
-        del dic["_sa_instance_state"]
-
-        res.append(dic)
+    res = query_as_list_dict("SELECT * FROM colecciones")
 
     # Ordena las colecciones por orden alfabético
     res.sort(key=ord)
@@ -76,7 +62,7 @@ def get_all_collections():
     return res
 
 
-# Redirección al cliente en cualquier circunstancia
+# # Redirección al cliente en cualquier circunstancia
 
 
 @app.errorhandler(404)
@@ -92,29 +78,39 @@ def index():
 # Recibe desde un formulario para crear un nuevo libro
 @app.route("/api/add-book", methods=["POST"])
 def add_book():
+    cursor = con.cursor()
+
     # Obtiene las variables de el cliente y crea el libro
     libro = recibir_form_libro(request)
+    libro_id, titulo, autor, idioma, f_inicio, f_fin = libro.values()
 
     # Guarda el libro
-    libro.save()
+    cursor.execute(
+        "INSERT INTO libros (titulo, autor, idioma, fecha_inicio, fecha_finalizacion) VALUES(?,?,?,?,?)",
+        (titulo, autor, idioma, f_inicio, f_fin),
+    )
 
     # Obtiene la lista de coleciones a las que hay que agregar el libro
     col = request.json.get("colecciones")
 
     # Obtiene la id del Libro
-    libro_id = libro.libro_id
+    libro_id = cursor.lastrowid
 
     # Añade a la tabla JOIN las relaciones
-    anyadir_libro_a_colecciones(db, libro_id, col)
+    anyadir_libro_a_colecciones(cursor, libro_id, col)
+
+    # Saves the changes
+    con.commit()
 
     return Response(status=200)
 
 
 # Obtiene una lista de los idiomas y de los autores
-
-
 @app.route("/api/fetch-autores-idiomas")
 def fetch_autores_idiomas():
+
+    cursor = con.cursor()
+
     # Crea una respuesta en forma de diccionario
     res = dict()
 
@@ -123,9 +119,11 @@ def fetch_autores_idiomas():
     res["autores"] = []
 
     # Obtiene los datos de la base de los libros
-    for u in Libros.query.all():
-        res.get("autores").append(u.__dict__.get("autor"))
-        res.get("idiomas").append(u.__dict__.get("idioma"))
+    for autor, idioma in cursor.execute(
+        "SELECT autor, idioma autor FROM libros"
+    ).fetchall():
+        res.get("autores").append(autor)
+        res.get("idiomas").append(idioma)
 
     # Elimina duplicados de las listas de libros
     res["idiomas"] = list(set(res["idiomas"]))
@@ -139,7 +137,7 @@ def fetch_autores_idiomas():
 
 
 @app.route("/api/fetch-autores-idiomas-colecciones")
-def fetch_autores():
+def fetch_autores_idiomas_colecciones():
     # Crea una respuesta en forma de diccionario
     res = fetch_autores_idiomas()
 
@@ -163,19 +161,16 @@ def fetch_books():
 @app.route("/api/fetch-book/<id>")
 def fetch_book(id):
     # Obtiene el libro y lo pasa a dict
-    libro = Libros.query.get(id).__dict__
-
-    # Elimina la propiedad interna
-    del libro["_sa_instance_state"]
+    libro = query_as_list_dict("SELECT * FROM libros WHERE libro_id=?", (id,))[0]
 
     # Obtiene el nombre, color e id de las colecciónes del libro
-    colecciones = db.engine.execute(
+    colecciones = query_as_list_dict(
         "SELECT color, nombre, colecciones.coleccion_id FROM  joincolecciones JOIN colecciones ON (joincolecciones.coleccion_id = colecciones.coleccion_id) WHERE (libro_id=?)",
-        id,
+        (id,),
     )
 
     # Lo pasa a lista de diccionarios
-    libro["colecciones"] = [r._asdict() for r in colecciones]
+    libro["colecciones"] = colecciones
 
     # Ordena
     libro["colecciones"].sort(key=ord)
@@ -186,47 +181,50 @@ def fetch_book(id):
 # Elimina los libros del servidor
 @app.route("/api/remove-book/<id>", methods=["DELETE"])
 def remove_book(id):
-    Libros.query.filter(Libros.libro_id == id).delete()
 
-    db.session.commit()
+    # Creates the cursor
+    cursor = con.cursor()
+    cursor.execute("PRAGMA foreign_keys = ON")
 
-    db.engine.execute("DELETE FROM joincolecciones WHERE(libro_id=?)", id)
+    cursor.execute("DELETE FROM joincolecciones WHERE libro_id=?", (id,))
+    cursor.execute("DELETE FROM libros WHERE libro_id=?", (id,))
+
+    con.commit()
 
     return Response(status=204)
 
 
-# Modifica los libros
+# # Modifica los libros
 @app.route("/api/edit-book", methods=["POST"])
 def edit_book():
+
+    cursor = con.cursor()
     # Actualización de contenido
     # Obtiene el nuevo libro y lo pasa a diccionario
-    nuevo = recibir_form_libro(request).__dict__
-    # Elimina una propiedad
-    del nuevo["_sa_instance_state"]
+    libro = recibir_form_libro(request)
 
-    # Busca el libro por la id  y lo actualiza
-    libro = Libros.query.filter(Libros.libro_id == request.json.get("libro_id")).update(
-        nuevo
+    libro_id, titulo, autor, idioma, f_inicio, f_fin = libro.values()
+
+    cursor.execute(
+        "UPDATE libros SET titulo=?, autor=?, idioma=?, fecha_inicio=?, fecha_finalizacion=? WHERE libro_id=?",
+        (titulo, autor, idioma, f_inicio, f_fin, libro_id),
     )
 
-    # Guarda los cambios
-    db.session.commit()
-
-    # Actualización de etiquetas
-    lid = nuevo.get("libro_id")
     # Elmina todas lac colecciones que tenía aderidas
-    eliminar_de_colecciones(db, lid)
+    eliminar_de_colecciones(connection=con, cursor=cursor, id=libro_id)
 
     # Obtiene las nuevas colecciones
     col = request.json.get("colecciones")
 
     # Guarda las nuevas colecciones
-    anyadir_libro_a_colecciones(db, lid, col)
+    anyadir_libro_a_colecciones(libro_id=libro_id, colecciones=col, cursor=cursor)
+
+    con.commit()
 
     return Response(status=200)
 
 
-# Query
+# # Query
 @app.route("/api/query", methods=["POST"])
 def query():
     # Variable que almacena la respuesta
@@ -238,29 +236,20 @@ def query():
     # JSON
     json = request.json
 
-    # obtiene los datos
+    # Obtiene los datos
     titulo = json.get("titulo")
     idioma = json.get("idioma")
     autor = json.get("autor")
 
-    # formatea los datos
+    # Formatea los datos
     s_titulo = "%{}%".format(titulo)
     s_idioma = "%{}%".format(idioma)
     s_autor = "%{}%".format(autor)
 
-    # Ejecuta la Query
-    for u in Libros.query.filter(
-        Libros.titulo.like(s_titulo),
-        Libros.idioma.like(s_idioma),
-        Libros.autor.like(s_autor),
-    ).all():
-        dic = u.__dict__
-
-        del dic["_sa_instance_state"]
-
-        res.append(dic)
-
-    return res
+    return query_as_list_dict(
+        "SELECT * FROM libros WHERE titulo LIKE ? AND idioma LIKE ? AND autor LIKE ?",
+        (s_titulo, s_idioma, s_autor),
+    )
 
 
 # Descarga la base de datos
@@ -281,21 +270,24 @@ def download_JSON():
     )
 
 
-# colecciones
+# # colecciones
 
 
 # Crea coleccion
 @app.route("/api/collection/create-collection", methods=["POST"])
 def crear_coleccion():
+
+    cursor = con.cursor()
+
     # Obtiene los datos
-    col = Colecciones(
-        coleccion_id=None,
-        nombre=request.json.get("nombre").strip().lower(),
-        color=request.json.get("color"),
+    cursor.execute(
+        "INSERT INTO colecciones (nombre, color)  VALUES(?,?)",
+        (request.json.get("nombre").strip().lower(), request.json.get("color")),
     )
 
     # Guarda los datos
-    col.save()
+    con.commit()
+
     return Response(status=200)
 
 
@@ -305,14 +297,21 @@ def fetch_colecciones():
     return get_all_collections()
 
 
+# Remove collection
 @app.route("/api/collection/remove-collection/<id>", methods=["DELETE"])
 def eliminar_coleccion(id):
-    # Elimina la coleccion de la tabald e colecciones
-    Colecciones.query.filter(Colecciones.coleccion_id == id).delete()
-    db.session.commit()
 
-    # Elimina
-    db.engine.execute("DELETE FROM joincolecciones WHERE (coleccion_id=?)", id)
+    cursor = con.cursor()
+    cursor.execute("PRAGMA foreign_keys = ON")
+
+    # Elimina, la agregación d elos libros a la colección
+    cursor.execute("DELETE FROM joincolecciones WHERE coleccion_id=?", (id,))
+
+    # Elimina la coleccion de la tabla de colecciones
+    cursor.execute("DELETE FROM colecciones WHERE coleccion_id=?", (id,))
+
+    # Aplica los cambios en la base de datos
+    con.commit()
 
     return Response(status=204)
 
@@ -320,21 +319,22 @@ def eliminar_coleccion(id):
 # Obtiene todas las colecciones
 @app.route("/api/collection/edit-collection", methods=["POST"])
 def editar_coleccion():
+
+    cursor = con.cursor()
+
     # Obtiene los nuevos datos
     id = request.json.get("coleccion_id")
     nombre = request.json.get("nombre").strip().lower()
     color = request.json.get("color")
 
-    # Crea el nuevo objeto y lo hace diccionario
-    nueva = Colecciones(coleccion_id=id, color=color, nombre=nombre).__dict__
+    # Update
+    cursor.execute(
+        "UPDATE colecciones SET color=?, nombre=? WHERE coleccion_id=?",
+        (color, nombre, id),
+    )
 
-    # Elimina una propiedad
-    del nueva["_sa_instance_state"]
-
-    # Guarda los cambios
-    coleccion = Colecciones.query.filter(Colecciones.coleccion_id == id).update(nueva)
-
-    db.session.commit()
+    # Aplica los cambios
+    con.commit()
 
     return Response(status=200)
 
@@ -344,34 +344,29 @@ def fetch_coleccion(id):
     # Crea el diccionario de la respuesta
     respuesta = dict()
 
-    respuesta["coleccion"] = Colecciones.query.get(id).__dict__
+    respuesta["coleccion"] = query_as_list_dict(
+        "SELECT * FROM colecciones WHERE coleccion_id=?", (id,)
+    )[0]
 
-    del respuesta["coleccion"]["_sa_instance_state"]
+    contenido = query_as_list_dict(
+        "SELECT libros.libro_id, titulo, idioma, autor, fecha_inicio, fecha_finalizacion FROM joincolecciones JOIN libros ON (joincolecciones.libro_id=libros.libro_id) WHERE (joincolecciones.coleccion_id=?)",
+        (id,),
+    )
 
-    respuesta["contenido"] = [
-        r._asdict()
-        for r in db.engine.execute(
-            "SELECT libros.libro_id, titulo, idioma, autor, fecha_inicio, fecha_finalizacion FROM joincolecciones JOIN libros ON (joincolecciones.libro_id=libros.libro_id) WHERE (joincolecciones.coleccion_id=?)",
-            id,
-        )
-    ]
+    respuesta["contenido"] = contenido
+
     # Ordena el contenido
     respuesta["contenido"].sort(key=lambda x: x["libro_id"])
 
     return respuesta
 
 
-# Estadísticas
+# # Estadísticas
 
 
 @app.route("/api/data/fetch-idiomas")
 def fetch_data_idiomas():
-    x = [
-        r._asdict()
-        for r in db.engine.execute(
-            "SELECT idioma, COUNT(idioma) FROM libros GROUP BY idioma",
-        )
-    ]
+    x = query_as_list_dict("SELECT idioma, COUNT(idioma) FROM libros GROUP BY idioma")
 
     s = dict()
 
@@ -383,16 +378,19 @@ def fetch_data_idiomas():
 
 @app.route("/api/data/fetch-meses-anyos")
 def fetch_meses_anyos():
+
+    cursor = con.cursor()
+
     # Obtiene los libros por anyo y por mes
 
     res = {"anyos": {}, "meses": {}}
 
     # LLena el diccionario
 
-    for i in range(12):
-        res["meses"][i] = 0
+    for n_mes in range(12):
+        res["meses"][n_mes] = 0
 
-    for u in db.engine.execute(
+    for u in cursor.execute(
         "SELECT fecha_finalizacion FROM libros WHERE fecha_finalizacion IS NOT NULL AND NOT fecha_finalizacion LIKE ''"
     ):
         # Obtine la fecha de la tuple
@@ -417,11 +415,14 @@ def fetch_meses_anyos():
 
 @app.route("/api/data/fetch-datos-generales")
 def fetch_media_dias():
+
+    cursor = con.cursor()
+
     # Media dias por libro
     # Crea un array con todos los datos
     dias = []
 
-    for u in db.engine.execute(
+    for u in cursor.execute(
         "SELECT fecha_inicio, fecha_finalizacion FROM libros WHERE fecha_finalizacion IS NOT NULL AND NOT fecha_finalizacion LIKE '' AND fecha_inicio IS NOT NULL AND NOT fecha_inicio LIKE ''"
     ):
         # Transforma las fechas
@@ -442,10 +443,10 @@ def fetch_media_dias():
 
     # Colecciones
 
-    for u in db.engine.execute("SELECT COUNT(*) FROM colecciones"):
+    for u in cursor.execute("SELECT COUNT(*) FROM colecciones"):
         n_colecciones = u[0]
 
-    for u in db.engine.execute("SELECT COUNT(*) FROM libros"):
+    for u in cursor.execute("SELECT COUNT(*) FROM libros"):
         n_libros = u[0]
 
     return {"media": media, "colecciones": n_colecciones, "libros": n_libros}

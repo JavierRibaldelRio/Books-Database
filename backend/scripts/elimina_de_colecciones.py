@@ -1,4 +1,5 @@
 # elimna de colecciones
-def eliminar_de_colecciones(db, id):
+def eliminar_de_colecciones(connection, cursor, id):
     print(id)
-    db.engine.execute("DELETE FROM joincolecciones WHERE libro_id=?", id)
+    cursor.execute("DELETE FROM joincolecciones WHERE libro_id=?", (id,))
+    connection.commit()
