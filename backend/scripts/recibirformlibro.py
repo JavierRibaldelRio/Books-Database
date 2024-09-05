@@ -16,6 +16,6 @@ def recibir_form_libro(req):
         "titulo": titulo.strip().lower(),
         "autor": autor.strip().lower(),
         "idioma": idioma.strip().lower(),
-        "fecha_finalizacion": fecha_finalizacion,
         "fecha_inicio": fecha_inicio,
+        "fecha_finalizacion": fecha_finalizacion,
     }
